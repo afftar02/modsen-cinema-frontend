@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import Icon from '../Icon';
 import Button from '../Button';
 import Navigation from '../Navigation';
+import { Link } from 'react-router-dom';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -45,8 +46,12 @@ function Header() {
       </Flex>
       <Flex>
         <StyledContainer>
-          <Button>Sign up</Button>
-          <SignInButton>Sign in</SignInButton>
+          <Link to={'/register'}>
+            <Button>Sign up</Button>
+          </Link>
+          <Link to={'/login'}>
+            <SignInButton>Sign in</SignInButton>
+          </Link>
         </StyledContainer>
         <StyledIcon id="settings" width={48} height={48} />
       </Flex>

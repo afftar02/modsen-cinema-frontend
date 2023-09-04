@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const StyledNav = styled.nav`
@@ -5,8 +6,9 @@ const StyledNav = styled.nav`
   padding-top: 14px;
 `;
 
-const StyledText = styled.span`
+const StyledLink = styled(NavLink)`
   color: #fff;
+  text-decoration: none;
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;
@@ -22,13 +24,18 @@ const StyledText = styled.span`
   &:hover {
     color: #d98639;
   }
+
+  &.active {
+    color: #d98639;
+    text-decoration: underline;
+  }
 `;
 
 function Navigation() {
   return (
     <StyledNav>
-      <StyledText>Home</StyledText>
-      <StyledText>Bookings</StyledText>
+      <StyledLink to={'/'}>Home</StyledLink>
+      <StyledLink to={'/bookings'}>Bookings</StyledLink>
     </StyledNav>
   );
 }

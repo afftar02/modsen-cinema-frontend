@@ -1,12 +1,13 @@
 import { styled } from 'styled-components';
 import Header from '../../components/Header';
 
-const TrailerContainer = styled.div`
+const Flex = styled.div<{ marginTop?: number; marginBottom?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  margin-top: 150px;
+  ${(props) => props.marginTop && `margin-top: ${props.marginTop}px`};
+  ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom}px`};
 `;
 
 const DescriptionContainer = styled.div`
@@ -35,11 +36,38 @@ const TrailerMock = styled.img`
   left: -105px;
 `;
 
+const CurrentMovieTitle = styled.span`
+  color: #fff;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 48px;
+  font-style: italic;
+  font-weight: 300;
+  text-transform: uppercase;
+`;
+
+const CurrentMovieDescription = styled.p`
+  width: 630px;
+  margin: 25px 0 0;
+
+  color: #fff;
+  font-family: 'Inria Sans', sans-serif;
+  font-size: 40px;
+  font-style: italic;
+  font-weight: 300;
+`;
+
+const StyledYear = styled.span`
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+`;
+
 function Main() {
   return (
     <div>
       <Header />
-      <TrailerContainer>
+      <Flex marginTop={150}>
         <DescriptionContainer>
           <TrailerTitle>THE BATMAN</TrailerTitle>
           <TrailerDescription>
@@ -49,7 +77,22 @@ function Main() {
           </TrailerDescription>
         </DescriptionContainer>
         <TrailerMock src="images/trailer-mock.png" alt="trailer" />
-      </TrailerContainer>
+      </Flex>
+      <Flex marginTop={86}>
+        <div>
+          <CurrentMovieTitle>Now in the Cinema</CurrentMovieTitle>
+          <CurrentMovieDescription>
+            Watch great Movies in the best cinema! We care about your comfort.
+            Book tickets right now!
+          </CurrentMovieDescription>
+        </div>
+      </Flex>
+      <Flex marginTop={150}>
+        <img src="images/studios.svg" alt="studios" />
+      </Flex>
+      <Flex marginTop={40} marginBottom={17}>
+        <StyledYear>2023</StyledYear>
+      </Flex>
     </div>
   );
 }
