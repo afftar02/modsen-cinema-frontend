@@ -1,10 +1,17 @@
 import { styled } from 'styled-components';
 import Header from '../../components/Header';
+import Carousel from '../../components/Carousel';
 
-const Flex = styled.div<{ marginTop?: number; marginBottom?: number }>`
+const Flex = styled.div<{
+  marginTop?: number;
+  marginBottom?: number;
+  height?: number;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${(props) => props.height && `height: ${props.height}px`};
 
   ${(props) => props.marginTop && `margin-top: ${props.marginTop}px`};
   ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom}px`};
@@ -78,7 +85,7 @@ function Main() {
         </DescriptionContainer>
         <TrailerMock src="images/trailer-mock.png" alt="trailer" />
       </Flex>
-      <Flex marginTop={86}>
+      <Flex marginTop={86} height={497}>
         <div>
           <CurrentMovieTitle>Now in the Cinema</CurrentMovieTitle>
           <CurrentMovieDescription>
@@ -86,6 +93,7 @@ function Main() {
             Book tickets right now!
           </CurrentMovieDescription>
         </div>
+        <Carousel />
       </Flex>
       <Flex marginTop={150}>
         <img src="images/studios.svg" alt="studios" />

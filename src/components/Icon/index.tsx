@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import sprite from './assets/sprite.svg';
 
 type IconProps = {
@@ -5,6 +6,7 @@ type IconProps = {
   width?: number;
   height?: number;
   viewBox?: string;
+  onClick?: MouseEventHandler<SVGSVGElement>;
 };
 
 function Icon({ id, ...props }: IconProps) {
