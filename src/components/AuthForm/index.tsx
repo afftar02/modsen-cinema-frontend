@@ -29,10 +29,9 @@ const Wrapper = styled.div`
   z-index: 5;
 `;
 
-const Modal = styled.div<{ isSignUp?: boolean }>`
+const Modal = styled.div`
   position: relative;
   width: 840px;
-  height: ${(props) => (props.isSignUp ? '842px' : '593px')};
   box-sizing: border-box;
 
   background-color: #1e1f27;
@@ -132,7 +131,7 @@ function AuthForm({
 }: AuthFormProps) {
   return (
     <Wrapper>
-      <Modal isSignUp={isSignUp}>
+      <Modal>
         <Link to="/">
           <CloseIcon id="close" width={50} height={50} viewBox="0 0 50 50" />
         </Link>
