@@ -46,10 +46,10 @@ function Header() {
       </Flex>
       <Flex>
         <StyledContainer>
-          <Link to={'/register'}>
+          <Link to={'/signup'}>
             <Button>Sign up</Button>
           </Link>
-          <Link to={'/login'}>
+          <Link to={'/signin'}>
             <SignInButton>Sign in</SignInButton>
           </Link>
         </StyledContainer>

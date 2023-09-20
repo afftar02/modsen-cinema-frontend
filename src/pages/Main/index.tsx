@@ -1,5 +1,10 @@
+import { Outlet } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Header from '../../components/Header';
+
+const MainWrapper = styled.div`
+  position: relative;
+`;
 
 const Flex = styled.div<{ marginTop?: number; marginBottom?: number }>`
   display: flex;
@@ -65,7 +70,7 @@ const StyledYear = styled.span`
 
 function Main() {
   return (
-    <div>
+    <MainWrapper>
       <Header />
       <Flex marginTop={150}>
         <DescriptionContainer>
@@ -93,7 +98,8 @@ function Main() {
       <Flex marginTop={40} marginBottom={17}>
         <StyledYear>2023</StyledYear>
       </Flex>
-    </div>
+      <Outlet />
+    </MainWrapper>
   );
 }
 
