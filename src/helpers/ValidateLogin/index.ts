@@ -20,6 +20,9 @@ export const validateLogin = (values: Values) => {
   } else if (values.password.length < 4) {
     errors.password = 'Password must be 4 characters or more';
     values.password = '';
+  } else if (values.password.length > 16) {
+    errors.password = 'Password must be 16 characters or less';
+    values.password = '';
   }
 
   return errors;
