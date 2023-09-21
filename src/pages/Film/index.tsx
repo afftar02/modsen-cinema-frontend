@@ -3,8 +3,9 @@ import { styled } from 'styled-components';
 import Icon from '../../components/Icon';
 import Button from '../../components/Button';
 import Review from '../../components/Review';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Footer from '../../components/Footer';
+import Vibrant from 'node-vibrant/lib/bundle';
 
 const Wrapper = styled.div`
   padding: 0 85px;
@@ -16,12 +17,12 @@ const Container = styled.div`
   margin-top: 46px;
 `;
 
-const BackgroundContainer = styled.div`
-  background: linear-gradient(
-    180deg,
-    #4b2d67 0%,
-    rgba(154, 155, 207, 0.56) 100%
-  );
+const BackgroundContainer = styled.div<{
+  firstBgColor: string;
+  secondBgColor: string;
+}>`
+  background: ${(props) =>
+    `linear-gradient(180deg, ${props.firstBgColor}, ${props.secondBgColor})`};
   box-shadow:
     -50px -50px 100px 0px #1e1f27 inset,
     50px 50px 100px 20px #1e1f27 inset;
@@ -178,13 +179,33 @@ const ReviewsBlock = styled.div`
 
 function Film() {
   const [movieStarted, setMovieStarted] = useState(false);
+  const [backgroundColors, setBackgroundColors] = useState({
+    first: '',
+    second: '',
+  });
+
+  const imageUrl =
+    'https://s3-alpha-sig.figma.com/img/f0cd/eaad/9c1523083ead593c088a9515c7e60053?Expires=1696204800&Signature=hLVUuPaI0bZg9HDH~uGsWyjCYDTqI2iVMuVfGxg27b~jA56acfadlS~pUEdesLtolSgzVIeBec40nENKxRhbl3G4V1DvPealjDQLL9lRREWjkX~6I6sETULKNPl1QRg564LhJO9CkX0bQ4tFqg9CAPCESbSh5fS6rlCLUwSghb~Y2DU97CJbhjKXlkaNXQCbTV-q9sJbF3eu9Jy6FVDuro3CdG~i~3P0g1M9uHv8BPaYhX1ON18gMymZINOinZKkpYrQ8-FQAuNvXCtW73ZPPKMGuyW8oly~WorScGy586IdLZ3y6frn3ojtovoWUz9M5G28EAlW74KmqCT0nDOE2w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
+
+  useEffect(() => {
+    (async () => {
+      const palette = await Vibrant.from(imageUrl).getPalette();
+      setBackgroundColors({
+        first: palette.DarkVibrant?.hex ?? '#000',
+        second: palette.LightVibrant?.hex ?? '#fff',
+      });
+    })();
+  }, []);
 
   return (
     <>
       <Header />
       <Wrapper>
         <Container>
-          <BackgroundContainer />
+          <BackgroundContainer
+            firstBgColor={backgroundColors.first}
+            secondBgColor={backgroundColors.second}
+          />
           <MoveNextContainer>
             <MoveNextText>Move to the next movie</MoveNextText>
             <Icon
@@ -200,7 +221,7 @@ function Film() {
             </MovieTitleContainer>
             <MovieDataContainer>
               <PosterContainer>
-                <Poster src={'/images/black-panther.png'} alt={'poster'} />
+                <Poster src={imageUrl} alt={'poster'} />
               </PosterContainer>
               <MovieDataBlock>
                 <InfoBlock>

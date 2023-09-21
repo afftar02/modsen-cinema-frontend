@@ -1,10 +1,11 @@
 import Icon from '../Icon';
 import { styled } from 'styled-components';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Vibrant from 'node-vibrant/lib/bundle';
 
-const ReviewContainer = styled.div`
+const ReviewContainer = styled.div<{ bgColor: string }>`
   border-radius: 20px;
-  background: #5e5b75;
+  background: ${(props) => props.bgColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,6 +75,7 @@ const ShowMoreText = styled.span`
 
 function Review() {
   const [opened, setOpened] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState('');
 
   const reviewRef = useRef<HTMLDivElement>(null);
 
@@ -84,8 +86,18 @@ function Review() {
     }
   };
 
+  const imageUrl =
+    'https://s3-alpha-sig.figma.com/img/f0cd/eaad/9c1523083ead593c088a9515c7e60053?Expires=1696204800&Signature=hLVUuPaI0bZg9HDH~uGsWyjCYDTqI2iVMuVfGxg27b~jA56acfadlS~pUEdesLtolSgzVIeBec40nENKxRhbl3G4V1DvPealjDQLL9lRREWjkX~6I6sETULKNPl1QRg564LhJO9CkX0bQ4tFqg9CAPCESbSh5fS6rlCLUwSghb~Y2DU97CJbhjKXlkaNXQCbTV-q9sJbF3eu9Jy6FVDuro3CdG~i~3P0g1M9uHv8BPaYhX1ON18gMymZINOinZKkpYrQ8-FQAuNvXCtW73ZPPKMGuyW8oly~WorScGy586IdLZ3y6frn3ojtovoWUz9M5G28EAlW74KmqCT0nDOE2w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
+
+  useEffect(() => {
+    (async () => {
+      const palette = await Vibrant.from(imageUrl).getPalette();
+      setBackgroundColor(palette.DarkMuted?.hex ?? '#000');
+    })();
+  }, []);
+
   return (
-    <ReviewContainer onClick={handleShowClick}>
+    <ReviewContainer bgColor={backgroundColor} onClick={handleShowClick}>
       <ReviewTitle>Review</ReviewTitle>
       <AuthorDescription>from Stanislav Lebedyantsev</AuthorDescription>
       <ReviewTextContainer ref={reviewRef}>
