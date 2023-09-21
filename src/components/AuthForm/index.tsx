@@ -9,6 +9,7 @@ import Button from '../Button';
 import { useFormik } from 'formik';
 import { validateRegistration } from '../../helpers/ValidateRegistration';
 import { validateLogin } from '../../helpers/ValidateLogin';
+import PasswordInput from '../PasswordInput';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -190,13 +191,10 @@ function AuthForm({
             name={'email'}
             isError={!!formik.errors.email}
           />
-          <Input
-            iconId={'password'}
+          <PasswordInput
             placeholder={formik.errors.password ?? 'Enter strong password'}
             onChange={formik.handleChange}
             value={formik.values.password}
-            type={'password'}
-            name={'password'}
             isError={!!formik.errors.password}
           />
           <SubmitButton type={'submit'}>Send</SubmitButton>
