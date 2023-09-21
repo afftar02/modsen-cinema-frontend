@@ -1,7 +1,9 @@
 import { styled } from 'styled-components';
+import { ReactNode } from 'react';
 
 type ButtonProps = {
-  children: React.ReactNode;
+  children: ReactNode;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 };
 
 const StyledButton = styled.button`
@@ -24,8 +26,12 @@ const StyledButton = styled.button`
   }
 `;
 
-function Button({ children, ...props }: ButtonProps) {
-  return <StyledButton {...props}>{children}</StyledButton>;
+function Button({ children, type, ...props }: ButtonProps) {
+  return (
+    <StyledButton type={type} {...props}>
+      {children}
+    </StyledButton>
+  );
 }
 
 export default Button;

@@ -5,6 +5,10 @@ import Input from '../Input';
 import GoogleAuthButton from '../GoogleAuthButton';
 import FacebookAuthButton from '../FacebookAuthButtton';
 import GitHubAuthButton from '../GitHubAuthButton';
+import Button from '../Button';
+import { useFormik } from 'formik';
+import { validateRegistration } from '../../helpers/ValidateRegistration';
+import { validateLogin } from '../../helpers/ValidateLogin';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -76,6 +80,10 @@ const StyledForm = styled.form`
   gap: 50px;
 `;
 
+const SubmitButton = styled(Button)`
+  width: 100%;
+`;
+
 const AuthButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -129,6 +137,20 @@ function AuthForm({
   underlinedHint,
   hintLink,
 }: AuthFormProps) {
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      surname: '',
+      email: '',
+      password: '',
+    },
+    validate: isSignUp ? validateRegistration : validateLogin,
+    validateOnChange: false,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <Wrapper>
       <Modal>
@@ -139,19 +161,45 @@ function AuthForm({
           <span>{title}</span>
           <BrightText> {brightTitle}</BrightText>
         </TextBlock>
-        <StyledForm>
+        <StyledForm onSubmit={formik.handleSubmit}>
           {isSignUp && (
-            <Input iconId={'name'} placeholder={'Enter your name'} />
+            <Input
+              iconId={'name'}
+              placeholder={formik.errors.name ?? 'Enter your name'}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              name={'name'}
+              isError={!!formik.errors.name}
+            />
           )}
           {isSignUp && (
-            <Input iconId={'surname'} placeholder={'Enter your surname'} />
+            <Input
+              iconId={'surname'}
+              placeholder={formik.errors.surname ?? 'Enter your surname'}
+              onChange={formik.handleChange}
+              value={formik.values.surname}
+              name={'surname'}
+              isError={!!formik.errors.surname}
+            />
           )}
-          <Input iconId={'email'} placeholder={'Enter your email'} />
+          <Input
+            iconId={'email'}
+            placeholder={formik.errors.email ?? 'Enter your email'}
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            name={'email'}
+            isError={!!formik.errors.email}
+          />
           <Input
             iconId={'password'}
-            placeholder={'Enter strong password'}
+            placeholder={formik.errors.password ?? 'Enter strong password'}
+            onChange={formik.handleChange}
+            value={formik.values.password}
             type={'password'}
+            name={'password'}
+            isError={!!formik.errors.password}
           />
+          <SubmitButton type={'submit'}>Send</SubmitButton>
         </StyledForm>
         <AuthButtonsContainer>
           <StyledAuthContainer>
