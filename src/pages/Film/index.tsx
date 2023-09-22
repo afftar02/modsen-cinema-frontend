@@ -1,10 +1,10 @@
-import Header from '../../components/Header';
+import Header from 'components/Header';
 import { styled } from 'styled-components';
-import Icon from '../../components/Icon';
-import Button from '../../components/Button';
-import Review from '../../components/Review';
+import Icon from 'components/Icon';
+import Button from 'components/Button';
+import Review from 'components/Review';
 import { useEffect, useState } from 'react';
-import Footer from '../../components/Footer';
+import Footer from 'components/Footer';
 import Vibrant from 'node-vibrant/lib/bundle';
 
 const Wrapper = styled.div`

@@ -1,6 +1,6 @@
-import Input from '../Input';
+import Input from 'components/Input';
 import { ChangeEventHandler, useEffect, useState } from 'react';
-import { checkPasswordComplexity } from '../../helpers/CheckPasswordComplexity';
+import { checkPasswordComplexity } from 'helpers/CheckPasswordComplexity';
 import { styled } from 'styled-components';
 
 type PasswordInputProps = {

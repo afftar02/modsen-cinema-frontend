@@ -1,4 +1,4 @@
-import Icon from '../Icon';
+import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { ChangeEventHandler } from 'react';
 
