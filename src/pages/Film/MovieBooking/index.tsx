@@ -2,7 +2,8 @@ import { styled } from 'styled-components';
 import Button from 'components/Button';
 import Session from 'components/Session';
 import { ForwardedRef, forwardRef, useState } from 'react';
-import HorizontalCarousel from '../../../components/HorizontalCarousel';
+import HorizontalCarousel from 'components/HorizontalCarousel';
+import CinemaHall from 'components/CinemaHall';
 
 const Wrapper = styled.div`
   position: relative;
@@ -91,6 +92,7 @@ function MovieBooking(props: object, ref: ForwardedRef<HTMLDivElement>) {
             />
           ))}
         </SessionsBlock>
+        <CinemaHall />
         <ActionContainer>
           <TicketInfo>
             <SeatsCount>6 Seats</SeatsCount>
