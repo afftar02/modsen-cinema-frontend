@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import { validateRegistration } from 'helpers/ValidateRegistration';
 import { validateLogin } from 'helpers/ValidateLogin';
 import PasswordInput from 'components/PasswordInput';
+import { AuthContextType, useAuth } from 'auth/Auth';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -138,6 +139,8 @@ function AuthForm({
   underlinedHint,
   hintLink,
 }: AuthFormProps) {
+  const { register, login } = useAuth() as AuthContextType;
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -201,7 +204,9 @@ function AuthForm({
             onClick={() => formik.setFieldError('password', undefined)}
             isError={!!formik.errors.password}
           />
-          <SubmitButton type={'submit'}>Send</SubmitButton>
+          <SubmitButton type={'submit'} onClick={isSignUp ? register : login}>
+            Send
+          </SubmitButton>
         </StyledForm>
         <AuthButtonsContainer>
           <StyledAuthContainer>
