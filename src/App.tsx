@@ -2,6 +2,7 @@ import Main from 'pages/Main';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AuthForm from 'components/AuthForm';
 import Film from 'pages/Film';
+import Bookings from 'pages/Bookings';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         />
       </Route>
       <Route path="/film/:id" element={<Film />} />
+      <Route path="/bookings" element={<Bookings />} />
     </Routes>
   );
 }
