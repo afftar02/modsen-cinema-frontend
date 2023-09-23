@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import { validateRegistration } from 'helpers/ValidateRegistration';
 import { validateLogin } from 'helpers/ValidateLogin';
 import PasswordInput from 'components/PasswordInput';
+import { AuthContextType, useAuth } from 'auth/Auth';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -138,6 +139,8 @@ function AuthForm({
   underlinedHint,
   hintLink,
 }: AuthFormProps) {
+  const { register, login } = useAuth() as AuthContextType;
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -169,6 +172,7 @@ function AuthForm({
               placeholder={formik.errors.name ?? 'Enter your name'}
               onChange={formik.handleChange}
               value={formik.values.name}
+              onClick={() => formik.setFieldError('name', undefined)}
               name={'name'}
               isError={!!formik.errors.name}
             />
@@ -179,6 +183,7 @@ function AuthForm({
               placeholder={formik.errors.surname ?? 'Enter your surname'}
               onChange={formik.handleChange}
               value={formik.values.surname}
+              onClick={() => formik.setFieldError('surname', undefined)}
               name={'surname'}
               isError={!!formik.errors.surname}
             />
@@ -188,6 +193,7 @@ function AuthForm({
             placeholder={formik.errors.email ?? 'Enter your email'}
             onChange={formik.handleChange}
             value={formik.values.email}
+            onClick={() => formik.setFieldError('email', undefined)}
             name={'email'}
             isError={!!formik.errors.email}
           />
@@ -195,9 +201,12 @@ function AuthForm({
             placeholder={formik.errors.password ?? 'Enter strong password'}
             onChange={formik.handleChange}
             value={formik.values.password}
+            onClick={() => formik.setFieldError('password', undefined)}
             isError={!!formik.errors.password}
           />
-          <SubmitButton type={'submit'}>Send</SubmitButton>
+          <SubmitButton type={'submit'} onClick={isSignUp ? register : login}>
+            Send
+          </SubmitButton>
         </StyledForm>
         <AuthButtonsContainer>
           <StyledAuthContainer>

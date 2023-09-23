@@ -3,6 +3,9 @@ import Icon from 'components/Icon';
 import Button from 'components/Button';
 import Navigation from 'components/Navigation';
 import { Link } from 'react-router-dom';
+import { AuthContextType, useAuth } from 'auth/Auth';
+import { useState } from 'react';
+import ProfileMenu from '../ProfileMenu';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -15,6 +18,15 @@ const StyledHeader = styled.header`
 const Flex = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const AnimatedFlex = styled(Flex)`
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const StyledContainer = styled.div`
@@ -37,25 +49,47 @@ const SignInButton = styled(Button)`
   margin-left: 30px;
 `;
 
+const ProfileText = styled.span`
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 40px;
+  font-weight: 300;
+  margin-right: 30px;
+`;
+
 function Header() {
+  const [profileOpened, setProfileOpened] = useState(false);
+
+  const { isAuth } = useAuth() as AuthContextType;
+
   return (
-    <StyledHeader>
-      <Flex>
-        <Icon id="logo" width={245} height={55} />
-        <Navigation />
-      </Flex>
-      <Flex>
-        <StyledContainer>
-          <Link to={'/signup'}>
-            <Button>Sign up</Button>
-          </Link>
-          <Link to={'/signin'}>
-            <SignInButton>Sign in</SignInButton>
-          </Link>
-        </StyledContainer>
-        <StyledIcon id="settings" width={48} height={48} />
-      </Flex>
-    </StyledHeader>
+    <>
+      <StyledHeader>
+        <Flex>
+          <Icon id="logo" width={245} height={55} />
+          <Navigation />
+        </Flex>
+        {isAuth ? (
+          <AnimatedFlex onClick={() => setProfileOpened(true)}>
+            <ProfileText>Profile</ProfileText>
+            <Icon id="profile" width={55} height={55} viewBox="0 0 55 55" />
+          </AnimatedFlex>
+        ) : (
+          <Flex>
+            <StyledContainer>
+              <Link to={'/signup'}>
+                <Button>Sign up</Button>
+              </Link>
+              <Link to={'/signin'}>
+                <SignInButton>Sign in</SignInButton>
+              </Link>
+            </StyledContainer>
+            <StyledIcon id="settings" width={48} height={48} />
+          </Flex>
+        )}
+      </StyledHeader>
+      {profileOpened && <ProfileMenu onClose={() => setProfileOpened(false)} />}
+    </>
   );
 }
 

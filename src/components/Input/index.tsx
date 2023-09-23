@@ -1,6 +1,6 @@
 import Icon from 'components/Icon';
 import { styled } from 'styled-components';
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
 
 type InputProps = {
   iconId: string;
@@ -10,6 +10,7 @@ type InputProps = {
   type?: string;
   name?: string;
   isError?: boolean;
+  onClick?: MouseEventHandler<HTMLInputElement>;
 };
 
 const InputContainer = styled.div`
@@ -57,6 +58,7 @@ function Input({
   type,
   name,
   isError,
+  onClick,
 }: InputProps) {
   return (
     <InputContainer>
@@ -68,6 +70,7 @@ function Input({
         value={value}
         name={name}
         isError={isError}
+        onClick={onClick}
       />
     </InputContainer>
   );

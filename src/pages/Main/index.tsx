@@ -4,6 +4,7 @@ import Header from 'components/Header';
 
 const MainWrapper = styled.div`
   position: relative;
+  padding-bottom: 18px;
 `;
 
 const Flex = styled.div<{ marginTop?: number; marginBottom?: number }>`
@@ -95,7 +96,7 @@ function Main() {
       <Flex marginTop={150}>
         <img src="images/studios.svg" alt="studios" />
       </Flex>
-      <Flex marginTop={40} marginBottom={17}>
+      <Flex marginTop={40}>
         <StyledYear>2023</StyledYear>
       </Flex>
       <Outlet />

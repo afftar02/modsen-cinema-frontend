@@ -5,8 +5,8 @@ import FooterInput from 'components/FooterInput';
 const FooterWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 60px;
+  padding-top: 40px;
+  padding-bottom: 60px;
 `;
 
 const ColumnsContainer = styled.div`
