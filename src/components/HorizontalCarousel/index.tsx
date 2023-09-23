@@ -17,7 +17,7 @@ const SliderContainer = styled.div`
 const Slider = styled.div`
   width: 764px;
   height: 130px;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   align-items: flex-start;
   gap: 40px;

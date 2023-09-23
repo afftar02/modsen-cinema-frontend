@@ -40,7 +40,7 @@ const StyledSeat = styled.div<{ isReserved: boolean; isSelected: boolean }>`
   `};
 `;
 
-function Seat({ reserved }: SeatProps) {
+function Seat({ reserved, ...props }: SeatProps) {
   const [selected, setSelected] = useState(false);
 
   const handleClick = () => {
@@ -54,6 +54,7 @@ function Seat({ reserved }: SeatProps) {
       isReserved={reserved}
       isSelected={selected}
       onClick={handleClick}
+      {...props}
     />
   );
 }

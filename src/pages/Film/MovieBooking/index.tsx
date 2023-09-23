@@ -72,10 +72,10 @@ const TicketPrice = styled.span`
   font-weight: 700;
 `;
 
-const sessions = [{ id: 1 }, { id: 2 }, { id: 3 }];
+const sessions = [{ id: 0 }, { id: 1 }, { id: 2 }];
 
 function MovieBooking(props: object, ref: ForwardedRef<HTMLDivElement>) {
-  const [selectedSessionId, setSelectedSessionId] = useState(-1);
+  const [selectedSessionId, setSelectedSessionId] = useState(0);
 
   return (
     <Wrapper ref={ref}>
@@ -98,7 +98,7 @@ function MovieBooking(props: object, ref: ForwardedRef<HTMLDivElement>) {
             <SeatsCount>6 Seats</SeatsCount>
             <TicketPrice>45 $</TicketPrice>
           </TicketInfo>
-          <StyledButton>Book Now</StyledButton>
+          <StyledButton onClick={() => alert('Booked!')}>Book Now</StyledButton>
         </ActionContainer>
       </Container>
       <Divider />
