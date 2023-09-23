@@ -1,11 +1,12 @@
-import Header from '../../components/Header';
+import Header from 'components/Header';
 import { styled } from 'styled-components';
-import Icon from '../../components/Icon';
-import Button from '../../components/Button';
-import Review from '../../components/Review';
-import { useEffect, useState } from 'react';
-import Footer from '../../components/Footer';
+import Icon from 'components/Icon';
+import Button from 'components/Button';
+import Review from 'components/Review';
+import { useEffect, useRef, useState } from 'react';
+import Footer from 'components/Footer';
 import Vibrant from 'node-vibrant/lib/bundle';
+import MovieBooking from './MovieBooking';
 
 const Wrapper = styled.div`
   padding: 0 85px;
@@ -178,11 +179,14 @@ const ReviewsBlock = styled.div`
 `;
 
 function Film() {
-  const [movieStarted, setMovieStarted] = useState(false);
+  const [movieStarted, setMovieStarted] = useState(true);
+  const [bookingOpened, setBookingOpened] = useState(false);
   const [backgroundColors, setBackgroundColors] = useState({
     first: '',
     second: '',
   });
+
+  const bookingRef = useRef<HTMLDivElement>(null);
 
   const imageUrl =
     'https://s3-alpha-sig.figma.com/img/f0cd/eaad/9c1523083ead593c088a9515c7e60053?Expires=1696204800&Signature=hLVUuPaI0bZg9HDH~uGsWyjCYDTqI2iVMuVfGxg27b~jA56acfadlS~pUEdesLtolSgzVIeBec40nENKxRhbl3G4V1DvPealjDQLL9lRREWjkX~6I6sETULKNPl1QRg564LhJO9CkX0bQ4tFqg9CAPCESbSh5fS6rlCLUwSghb~Y2DU97CJbhjKXlkaNXQCbTV-q9sJbF3eu9Jy6FVDuro3CdG~i~3P0g1M9uHv8BPaYhX1ON18gMymZINOinZKkpYrQ8-FQAuNvXCtW73ZPPKMGuyW8oly~WorScGy586IdLZ3y6frn3ojtovoWUz9M5G28EAlW74KmqCT0nDOE2w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
@@ -196,6 +200,12 @@ function Film() {
       });
     })();
   }, []);
+
+  useEffect(() => {
+    if (bookingOpened) {
+      bookingRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [bookingOpened]);
 
   return (
     <>
@@ -249,7 +259,7 @@ function Film() {
                 </InfoBlock>
                 <BookingBlock>
                   {movieStarted ? (
-                    <Button onClick={() => setMovieStarted(!movieStarted)}>
+                    <Button onClick={() => setBookingOpened(true)}>
                       Book Now!
                     </Button>
                   ) : (
@@ -281,6 +291,7 @@ function Film() {
               </DescriptionText>
             </div>
           </MovieInfo>
+          {bookingOpened && <MovieBooking ref={bookingRef} />}
           <TrailerBlock>
             <TrailerText>Watch trailer online!</TrailerText>
             <TrailerMock src="/images/trailer-mock.png" alt="trailer" />

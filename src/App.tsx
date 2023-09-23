@@ -1,7 +1,7 @@
-import Main from './pages/Main';
+import Main from 'pages/Main';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import AuthForm from './components/AuthForm';
-import Film from './pages/Film';
+import AuthForm from 'components/AuthForm';
+import Film from 'pages/Film';
 
 function App() {
   return (

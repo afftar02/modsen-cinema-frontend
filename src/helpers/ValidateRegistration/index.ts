@@ -1,5 +1,5 @@
 import * as Formik from 'formik';
-import { validateLogin } from '../ValidateLogin';
+import { validateLogin } from 'helpers/ValidateLogin';
 
 interface Values {
   name: string;

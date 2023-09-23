@@ -1,15 +1,15 @@
-import Icon from '../Icon';
+import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import Input from '../Input';
-import GoogleAuthButton from '../GoogleAuthButton';
-import FacebookAuthButton from '../FacebookAuthButtton';
-import GitHubAuthButton from '../GitHubAuthButton';
-import Button from '../Button';
+import Input from 'components/Input';
+import GoogleAuthButton from 'components/GoogleAuthButton';
+import FacebookAuthButton from 'components/FacebookAuthButtton';
+import GitHubAuthButton from 'components/GitHubAuthButton';
+import Button from 'components/Button';
 import { useFormik } from 'formik';
-import { validateRegistration } from '../../helpers/ValidateRegistration';
-import { validateLogin } from '../../helpers/ValidateLogin';
-import PasswordInput from '../PasswordInput';
+import { validateRegistration } from 'helpers/ValidateRegistration';
+import { validateLogin } from 'helpers/ValidateLogin';
+import PasswordInput from 'components/PasswordInput';
 
 type AuthFormProps = {
   isSignUp?: boolean;

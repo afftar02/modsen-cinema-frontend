@@ -1,6 +1,6 @@
-import Icon from '../Icon';
+import Icon from 'components/Icon';
 import { styled } from 'styled-components';
-import FooterInput from '../FooterInput';
+import FooterInput from 'components/FooterInput';
 
 const FooterWrapper = styled.div`
   display: flex;

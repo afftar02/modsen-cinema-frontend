@@ -1,4 +1,4 @@
-import Icon from '../Icon';
+import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import Vibrant from 'node-vibrant/lib/bundle';
@@ -37,11 +37,14 @@ const AuthorDescription = styled.span`
   text-transform: capitalize;
 `;
 
-const ReviewTextContainer = styled.div`
+const ReviewTextContainer = styled.div<{ isOpened: boolean }>`
   width: 326px;
   height: 217px;
   overflow: hidden;
   transition: height 0.3s ease-in-out;
+  display: -webkit-box;
+  -webkit-line-clamp: ${(props) => (props.isOpened ? 'unset' : 9)};
+  -webkit-box-orient: vertical;
 `;
 
 const ReviewText = styled.p`
@@ -50,6 +53,13 @@ const ReviewText = styled.p`
   font-size: 16px;
   font-style: italic;
   font-weight: 300;
+
+  &:before {
+    content: '"';
+  }
+  &:after {
+    content: '"';
+  }
 `;
 
 const ShowMoreContainer = styled.div`
@@ -100,7 +110,7 @@ function Review() {
     <ReviewContainer bgColor={backgroundColor} onClick={handleShowClick}>
       <ReviewTitle>Review</ReviewTitle>
       <AuthorDescription>from Stanislav Lebedyantsev</AuthorDescription>
-      <ReviewTextContainer ref={reviewRef}>
+      <ReviewTextContainer ref={reviewRef} isOpened={opened}>
         <ReviewText>
           I was a person that saw all the hype and claims of masterpiece as
           overreacting and overblown excitement for another Joker based film. I

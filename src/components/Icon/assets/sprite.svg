@@ -100,4 +100,10 @@
     <symbol id="send">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3498 17.5L11.9544 15.2148L10.5852 16.3628L10.0291 13.9189L15.9588 8.72567L8.84895 12.8097L5.50012 10.3935L18.5001 6.5L15.3498 17.5Z" fill="white"/>
     </symbol>
+    <symbol id="arrows-left" fill="none">
+        <path d="M22.0136 2.14131L1.72514 17.2353L22.1574 32.141M52.5541 2.00009L32.2656 17.0941L52.6978 31.9998" stroke="#BDBDBD" stroke-width="2.83077" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="arrows-right" fill="none">
+        <path d="M31.9682 32L52.3287 17L31.9682 2M1.42737 32L21.7879 17L1.42737 2" stroke="#BDBDBD" stroke-width="2.83077" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
 </svg>
