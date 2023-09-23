@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import Header from '../../components/Header';
-import Carousel from '../../components/Carousel';
+import VerticalCarousel from '../../components/VerticalCarousel';
 
 const Flex = styled.div<{
   marginTop?: number;
@@ -93,7 +93,7 @@ function Main() {
             Book tickets right now!
           </CurrentMovieDescription>
         </div>
-        <Carousel />
+        <VerticalCarousel />
       </Flex>
       <Flex marginTop={150}>
         <img src="images/studios.svg" alt="studios" />
