@@ -4,6 +4,8 @@ import Button from 'components/Button';
 import Navigation from 'components/Navigation';
 import { Link } from 'react-router-dom';
 import { AuthContextType, useAuth } from 'auth/Auth';
+import { useState } from 'react';
+import ProfileMenu from '../ProfileMenu';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -56,33 +58,38 @@ const ProfileText = styled.span`
 `;
 
 function Header() {
+  const [profileOpened, setProfileOpened] = useState(false);
+
   const { isAuth } = useAuth() as AuthContextType;
 
   return (
-    <StyledHeader>
-      <Flex>
-        <Icon id="logo" width={245} height={55} />
-        <Navigation />
-      </Flex>
-      {isAuth ? (
-        <AnimatedFlex>
-          <ProfileText>Profile</ProfileText>
-          <Icon id="profile" width={55} height={55} viewBox="0 0 55 55" />
-        </AnimatedFlex>
-      ) : (
+    <>
+      <StyledHeader>
         <Flex>
-          <StyledContainer>
-            <Link to={'/signup'}>
-              <Button>Sign up</Button>
-            </Link>
-            <Link to={'/signin'}>
-              <SignInButton>Sign in</SignInButton>
-            </Link>
-          </StyledContainer>
-          <StyledIcon id="settings" width={48} height={48} />
+          <Icon id="logo" width={245} height={55} />
+          <Navigation />
         </Flex>
-      )}
-    </StyledHeader>
+        {isAuth ? (
+          <AnimatedFlex onClick={() => setProfileOpened(true)}>
+            <ProfileText>Profile</ProfileText>
+            <Icon id="profile" width={55} height={55} viewBox="0 0 55 55" />
+          </AnimatedFlex>
+        ) : (
+          <Flex>
+            <StyledContainer>
+              <Link to={'/signup'}>
+                <Button>Sign up</Button>
+              </Link>
+              <Link to={'/signin'}>
+                <SignInButton>Sign in</SignInButton>
+              </Link>
+            </StyledContainer>
+            <StyledIcon id="settings" width={48} height={48} />
+          </Flex>
+        )}
+      </StyledHeader>
+      {profileOpened && <ProfileMenu onClose={() => setProfileOpened(false)} />}
+    </>
   );
 }
 

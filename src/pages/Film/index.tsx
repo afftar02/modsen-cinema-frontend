@@ -8,6 +8,10 @@ import Footer from 'components/Footer';
 import Vibrant from 'node-vibrant/lib/bundle';
 import MovieBooking from './MovieBooking';
 
+const PageContainer = styled.div`
+  position: relative;
+`;
+
 const Wrapper = styled.div`
   padding: 0 85px;
 `;
@@ -208,7 +212,7 @@ function Film() {
   }, [bookingOpened]);
 
   return (
-    <>
+    <PageContainer>
       <Header />
       <Wrapper>
         <Container>
@@ -304,7 +308,7 @@ function Film() {
         </Container>
       </Wrapper>
       <Footer />
-    </>
+    </PageContainer>
   );
 }
 
