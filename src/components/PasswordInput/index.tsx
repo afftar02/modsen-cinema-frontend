@@ -1,5 +1,10 @@
 import Input from 'components/Input';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import {
+  ChangeEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from 'react';
 import { checkPasswordComplexity } from 'helpers/CheckPasswordComplexity';
 import { styled } from 'styled-components';
 
@@ -8,6 +13,7 @@ type PasswordInputProps = {
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
   isError?: boolean;
+  onClick?: MouseEventHandler<HTMLInputElement>;
 };
 
 const StrengthBar = styled.div`
@@ -60,6 +66,7 @@ function PasswordInput({
   onChange,
   value,
   isError,
+  onClick,
 }: PasswordInputProps) {
   const [complexity, setComplexity] = useState('None');
 
@@ -77,6 +84,7 @@ function PasswordInput({
         type={'password'}
         name={'password'}
         isError={isError}
+        onClick={onClick}
       />
       <StrengthBar data-complexity={complexity} />
       <ComplexityLabelContainer>
