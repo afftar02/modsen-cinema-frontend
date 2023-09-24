@@ -5,6 +5,7 @@ import Button from 'components/Button';
 import { useFormik } from 'formik';
 import PasswordInput from 'components/PasswordInput';
 import { validateEditProfile } from 'helpers/ValidateEditProfile';
+import FileInput from 'components/FileInput';
 
 type AuthFormProps = {
   onClose: () => void;
@@ -61,7 +62,7 @@ const TextBlock = styled.div`
 `;
 
 const StyledForm = styled.form`
-  margin-top: 33px;
+  margin-top: 20px;
   margin-bottom: 58px;
   display: flex;
   flex-direction: column;
@@ -75,6 +76,7 @@ const SubmitButton = styled(Button)`
 function EditProfileModal({ title, onClose }: AuthFormProps) {
   const formik = useFormik({
     initialValues: {
+      avatar: '',
       name: '',
       surname: '',
       gender: '',
@@ -102,6 +104,10 @@ function EditProfileModal({ title, onClose }: AuthFormProps) {
           <span>{title}</span>
         </TextBlock>
         <StyledForm onSubmit={formik.handleSubmit}>
+          <FileInput
+            value={formik.values.avatar}
+            onChange={formik.handleChange}
+          />
           <Input
             placeholder={formik.errors.name ?? 'Enter new name'}
             onChange={formik.handleChange}
