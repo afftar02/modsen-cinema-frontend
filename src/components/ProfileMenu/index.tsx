@@ -1,7 +1,8 @@
-import { useCallback } from 'react';
-import Icon from '../Icon';
+import { useCallback, useState } from 'react';
+import Icon from 'components/Icon';
 import { styled } from 'styled-components';
-import { AuthContextType, useAuth } from '../../auth/Auth';
+import { AuthContextType, useAuth } from 'auth/Auth';
+import EditProfileModal from 'components/EditProfileModal';
 
 type ProfileMenuProps = {
   onClose: () => void;
@@ -117,6 +118,8 @@ const ActionText = styled.span`
 `;
 
 function ProfileMenu({ onClose }: ProfileMenuProps) {
+  const [editProfileOpened, setEditProfileOpened] = useState(false);
+
   const { logout } = useAuth() as AuthContextType;
 
   const handleLogout = useCallback(() => {
@@ -125,35 +128,45 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
   }, [logout, onClose]);
 
   return (
-    <Wrapper>
-      <BackArrowIcon
-        id={'arrow-right'}
-        width={60}
-        height={38}
-        viewBox="0 0 69 38"
-        onClick={onClose}
-      />
-      <ProfileTitle>User profile</ProfileTitle>
-      <ProfileInfoContainer>
-        <AvatarIcon
-          id="avatar"
-          width={250}
-          height={250}
-          viewBox="0 0 250 250"
+    <>
+      {editProfileOpened && (
+        <EditProfileModal
+          title={'Please, enter new profile information:'}
+          onClose={() => setEditProfileOpened(false)}
         />
-        <UserDetailsBlock>
-          <UserNameText>Name Surname</UserNameText>
-          <UserIdText>USER ID: 1798435</UserIdText>
-          <GenderText>FEMALE</GenderText>
-        </UserDetailsBlock>
-        <ActionBlock>
-          <ActionText>Edit profile</ActionText>
-          <ActionText>Settings</ActionText>
-          <ActionText onClick={handleLogout}>Log out</ActionText>
-        </ActionBlock>
-      </ProfileInfoContainer>
-      <Icon id="footer-logo" width={123} height={30} viewBox="0 0 123 30" />
-    </Wrapper>
+      )}
+      <Wrapper>
+        <BackArrowIcon
+          id={'arrow-right'}
+          width={60}
+          height={38}
+          viewBox="0 0 69 38"
+          onClick={onClose}
+        />
+        <ProfileTitle>User profile</ProfileTitle>
+        <ProfileInfoContainer>
+          <AvatarIcon
+            id="avatar"
+            width={250}
+            height={250}
+            viewBox="0 0 250 250"
+          />
+          <UserDetailsBlock>
+            <UserNameText>Name Surname</UserNameText>
+            <UserIdText>USER ID: 1798435</UserIdText>
+            <GenderText>FEMALE</GenderText>
+          </UserDetailsBlock>
+          <ActionBlock>
+            <ActionText onClick={() => setEditProfileOpened(true)}>
+              Edit profile
+            </ActionText>
+            <ActionText>Settings</ActionText>
+            <ActionText onClick={handleLogout}>Log out</ActionText>
+          </ActionBlock>
+        </ProfileInfoContainer>
+        <Icon id="footer-logo" width={123} height={30} viewBox="0 0 123 30" />
+      </Wrapper>
+    </>
   );
 }
 

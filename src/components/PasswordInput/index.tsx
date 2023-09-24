@@ -14,6 +14,7 @@ type PasswordInputProps = {
   value: string;
   isError?: boolean;
   onClick?: MouseEventHandler<HTMLInputElement>;
+  withIcon?: boolean;
 };
 
 const StrengthBar = styled.div`
@@ -67,6 +68,7 @@ function PasswordInput({
   value,
   isError,
   onClick,
+  withIcon = true,
 }: PasswordInputProps) {
   const [complexity, setComplexity] = useState('None');
 
@@ -77,7 +79,7 @@ function PasswordInput({
   return (
     <div>
       <Input
-        iconId={'password'}
+        iconId={withIcon ? 'password' : ''}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
