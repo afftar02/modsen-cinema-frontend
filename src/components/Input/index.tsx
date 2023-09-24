@@ -3,10 +3,10 @@ import { styled } from 'styled-components';
 import { ChangeEventHandler, MouseEventHandler } from 'react';
 
 type InputProps = {
-  iconId: string;
   placeholder: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
+  iconId?: string;
   type?: string;
   name?: string;
   isError?: boolean;
@@ -19,7 +19,6 @@ const InputContainer = styled.div`
 `;
 
 const StyledInput = styled.input<{ isError?: boolean }>`
-  margin-left: 30px;
   color: #fff;
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
@@ -50,6 +49,10 @@ const StyledInput = styled.input<{ isError?: boolean }>`
   `};
 `;
 
+const StyledIcon = styled(Icon)`
+  margin-right: 30px;
+`;
+
 function Input({
   iconId,
   placeholder,
@@ -62,7 +65,9 @@ function Input({
 }: InputProps) {
   return (
     <InputContainer>
-      <Icon id={iconId} width={64} height={64} viewBox="0 0 64 64" />
+      {iconId && (
+        <StyledIcon id={iconId} width={64} height={64} viewBox="0 0 64 64" />
+      )}
       <StyledInput
         placeholder={placeholder}
         type={type}

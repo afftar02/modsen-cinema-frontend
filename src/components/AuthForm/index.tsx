@@ -152,6 +152,7 @@ function AuthForm({
     validateOnChange: false,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      isSignUp ? register() : login();
     },
   });
 
@@ -204,9 +205,7 @@ function AuthForm({
             onClick={() => formik.setFieldError('password', undefined)}
             isError={!!formik.errors.password}
           />
-          <SubmitButton type={'submit'} onClick={isSignUp ? register : login}>
-            Send
-          </SubmitButton>
+          <SubmitButton type={'submit'}>Send</SubmitButton>
         </StyledForm>
         <AuthButtonsContainer>
           <StyledAuthContainer>
