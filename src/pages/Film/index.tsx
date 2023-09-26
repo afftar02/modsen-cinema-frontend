@@ -1,12 +1,13 @@
 import Header from 'components/Header';
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
-import Button from 'components/Button';
 import Review from 'components/Review';
 import { useEffect, useRef, useState } from 'react';
 import Footer from 'components/Footer';
 import Vibrant from 'node-vibrant/lib/bundle';
 import MovieBooking from './MovieBooking';
+import VideoPreview from 'components/VideoPreview';
+import MovieInfo from './MovieInfo';
 
 const PageContainer = styled.div`
   position: relative;
@@ -39,10 +40,6 @@ const BackgroundContainer = styled.div<{
   height: 100%;
 `;
 
-const MovieInfo = styled.div`
-  position: relative;
-`;
-
 const MoveNextContainer = styled.div`
   display: flex;
   align-items: center;
@@ -68,96 +65,6 @@ const MoveNextText = styled.span`
   margin-right: 30px;
 `;
 
-const MovieTitleContainer = styled.div`
-  width: 630px;
-  height: 130px;
-`;
-
-const MovieTitleText = styled.span`
-  color: #fff;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 48px;
-  font-weight: 400;
-  text-transform: uppercase;
-`;
-
-const MovieDataContainer = styled.div`
-  display: flex;
-  margin: 34px 0;
-`;
-
-const PosterContainer = styled.div`
-  width: 410px;
-  height: 600px;
-  flex-shrink: 0;
-`;
-
-const Poster = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
-const MovieDataBlock = styled.div`
-  margin-left: 70px;
-`;
-
-const InfoBlock = styled.div`
-  margin-top: 20px;
-  width: 680px;
-`;
-
-const InfoLabel = styled.span`
-  color: #fff;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-`;
-
-const InfoText = styled.span`
-  color: #fff;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 32px;
-  font-weight: 300;
-`;
-
-const BookingBlock = styled.div`
-  margin-top: 30px;
-  display: flex;
-  gap: 50px;
-  align-items: center;
-`;
-
-const ComingSoonButton = styled(Button)`
-  background: #4f4f4f;
-  cursor: auto;
-`;
-
-const RatingBlock = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 18px;
-`;
-
-const RatingText = styled.span`
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  font-size: 48px;
-  font-weight: 700;
-`;
-
-const DescriptionText = styled.p`
-  color: #fff;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 32px;
-  font-weight: 300;
-  text-transform: capitalize;
-`;
-
-const TrailerMock = styled.img`
-  cursor: pointer;
-  margin-top: 67px;
-`;
-
 const TrailerBlock = styled.div`
   display: flex;
   align-items: center;
@@ -173,6 +80,10 @@ const TrailerText = styled.span`
   font-weight: 500;
 `;
 
+const StyledPreview = styled(VideoPreview)`
+  margin-top: 67px;
+`;
+
 const ReviewsBlock = styled.div`
   position: relative;
   display: flex;
@@ -183,7 +94,6 @@ const ReviewsBlock = styled.div`
 `;
 
 function Film() {
-  const [movieStarted, setMovieStarted] = useState(true);
   const [bookingOpened, setBookingOpened] = useState(false);
   const [backgroundColors, setBackgroundColors] = useState({
     first: '',
@@ -229,76 +139,21 @@ function Film() {
               viewBox="0 0 69 38"
             />
           </MoveNextContainer>
-          <MovieInfo>
-            <MovieTitleContainer>
-              <MovieTitleText>Black Panther: Wakanda Forever</MovieTitleText>
-            </MovieTitleContainer>
-            <MovieDataContainer>
-              <PosterContainer>
-                <Poster src={imageUrl} alt={'poster'} />
-              </PosterContainer>
-              <MovieDataBlock>
-                <InfoBlock>
-                  <InfoLabel>Release year: </InfoLabel>
-                  <InfoText>2022</InfoText>
-                </InfoBlock>
-                <InfoBlock>
-                  <InfoLabel>Country: </InfoLabel>
-                  <InfoText>USA</InfoText>
-                </InfoBlock>
-                <InfoBlock>
-                  <InfoLabel>Genre: </InfoLabel>
-                  <InfoText>New / Action / Adventure / Fantasy</InfoText>
-                </InfoBlock>
-                <InfoBlock>
-                  <InfoLabel>Author: </InfoLabel>
-                  <InfoText>Ryan Googler</InfoText>
-                </InfoBlock>
-                <InfoBlock>
-                  <InfoLabel>Actors: </InfoLabel>
-                  <InfoText>
-                    Arthur Fleck, Sophie Dumond, Penny Fleck, Lupita Nyongo,
-                    Letitia Wright
-                  </InfoText>
-                </InfoBlock>
-                <BookingBlock>
-                  {movieStarted ? (
-                    <Button onClick={() => setBookingOpened(true)}>
-                      Book Now!
-                    </Button>
-                  ) : (
-                    <ComingSoonButton
-                      onClick={() => setMovieStarted(!movieStarted)}
-                    >
-                      Coming soon
-                    </ComingSoonButton>
-                  )}
-                  <RatingBlock>
-                    <RatingText>8,1</RatingText>
-                    <Icon
-                      id={'star'}
-                      width={39}
-                      height={38}
-                      viewBox="0 0 39 38"
-                    />
-                  </RatingBlock>
-                </BookingBlock>
-              </MovieDataBlock>
-            </MovieDataContainer>
-            <div>
-              <DescriptionText>
-                Queen Ramonda, Shuri, MBaku, Okoye and the Dora Milaje fight to
-                protect their nation from intervening world powers in the wake
-                of King TChallas death. As the Wakandans strive to embrace their
-                next chapter, the heroes must band together with Nakia and
-                Everett Ross to forge a new path for their beloved kingdom.
-              </DescriptionText>
-            </div>
-          </MovieInfo>
+          <MovieInfo
+            onOpenBooking={() => setBookingOpened(true)}
+            posterUrl={imageUrl}
+          />
           {bookingOpened && <MovieBooking ref={bookingRef} />}
           <TrailerBlock>
             <TrailerText>Watch trailer online!</TrailerText>
-            <TrailerMock src="/images/trailer-mock.png" alt="trailer" />
+            <StyledPreview
+              previewUrl={
+                'https://s3-alpha-sig.figma.com/img/e73d/a448/7b1a870666847d044c701bcd275121cc?Expires=1696204800&Signature=ZFuRAwH4r-rcBOelM~MyxSkAxPBHp6Xz40LCvAMW7TXPxrBYfWXOQA9lIscy3wu06OcH~fOgQD6kWKAyk3SI0mhN7DWLdprhUfNsApaEPN0686zVvGBewQRqKz2Mtj6ZP-y5I1xASJJ7yBgGrLFOmydA86t7lWktu~lC9etqSnhsao7hmhLns21hIGwME7Nrliu8l3NLY29ap2khsU5cesx7e5YB598465kBJti0-qS12Dje2nivlOOz7Lt0pNAHivpYgSGvsljKJr7eQShnNAgAX5HRkcB-4e646k3EG3vboRMDbYkr-5cYxJG6QmEdEb0WbrCjyZaIGNHWBvqzMA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+              }
+              videoUrl={
+                'https://www.film.ru/sites/default/files/trailers/16916130/The-Batman-trailer-3-rus.mp4'
+              }
+            />
           </TrailerBlock>
           <ReviewsBlock>
             <Review />
