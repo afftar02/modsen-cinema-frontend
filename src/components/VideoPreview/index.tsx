@@ -9,18 +9,18 @@ type VideoPreviewProps = {
   isHiding?: boolean;
 };
 
-const Preview = styled.div<{ previewUrl: string; isHiding?: boolean }>`
+const Preview = styled.div<{ $previewUrl: string; $isHiding?: boolean }>`
   background:
-    url(${(props) => props.previewUrl}),
+    url(${(props) => props.$previewUrl}),
     lightgray 50% / cover no-repeat;
   background-size: cover;
   box-shadow: ${(props) =>
-    props.isHiding
+    props.$isHiding
       ? '250px 10px 250px 0px #1e1f27 inset'
       : '15px 15px 50px 0px #000'};
 
   position: relative;
-  ${(props) => props.isHiding && 'left: -105px;'}
+  ${(props) => props.$isHiding && 'left: -105px;'}
   width: 850px;
   height: 480px;
   display: flex;
@@ -56,6 +56,7 @@ const CloseIcon = styled(Icon)`
   right: 50px;
   cursor: pointer;
   opacity: 1;
+  z-index: 5;
   transition: opacity 0.2s ease-in-out;
 
   &:hover {
@@ -85,9 +86,9 @@ function VideoPreview({
           <VideoPlayer src={videoUrl} />
         </ModalWrapper>
       )}
-      <Preview previewUrl={previewUrl} isHiding={isHiding} {...props}>
+      <Preview $previewUrl={previewUrl} $isHiding={isHiding} {...props}>
         <PlayIcon
-          id={'play'}
+          id={'play-preview'}
           width={70}
           height={70}
           viewBox="0 0 70 70"
