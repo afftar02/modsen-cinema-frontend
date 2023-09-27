@@ -5,6 +5,7 @@ import { AuthContextType, useAuth } from 'auth/Auth';
 import EditProfileModal from 'components/EditProfileModal';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import SettingsModal from 'components/SettingsModal';
 
 type ProfileMenuProps = {
   onClose: () => void;
@@ -121,6 +122,7 @@ const ActionText = styled.span`
 
 function ProfileMenu({ onClose }: ProfileMenuProps) {
   const [editProfileOpened, setEditProfileOpened] = useState(false);
+  const [settingsOpened, setSettingsOpened] = useState(false);
 
   const { logout } = useAuth() as AuthContextType;
 
@@ -132,10 +134,10 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
   return (
     <>
       {editProfileOpened && (
-        <EditProfileModal
-          title={'Please, enter new profile information:'}
-          onClose={() => setEditProfileOpened(false)}
-        />
+        <EditProfileModal onClose={() => setEditProfileOpened(false)} />
+      )}
+      {settingsOpened && (
+        <SettingsModal onClose={() => setSettingsOpened(false)} />
       )}
       <Wrapper>
         <BackArrowIcon
@@ -163,7 +165,9 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
               <ActionText onClick={() => setEditProfileOpened(true)}>
                 Edit profile
               </ActionText>
-              <ActionText>Settings</ActionText>
+              <ActionText onClick={() => setSettingsOpened(true)}>
+                Settings
+              </ActionText>
               <ActionText onClick={handleLogout}>Log out</ActionText>
             </ActionBlock>
           </ProfileInfoContainer>

@@ -8,6 +8,7 @@ import { useState } from 'react';
 import ProfileMenu from 'components/ProfileMenu';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import SettingsModal from 'components/SettingsModal';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -61,6 +62,7 @@ const ProfileText = styled.span`
 
 function Header() {
   const [profileOpened, setProfileOpened] = useState(false);
+  const [settingsOpened, setSettingsOpened] = useState(false);
 
   const { isAuth } = useAuth() as AuthContextType;
 
@@ -87,12 +89,20 @@ function Header() {
                   <SignInButton>Sign in</SignInButton>
                 </Link>
               </StyledContainer>
-              <StyledIcon id="settings" width={48} height={48} />
+              <StyledIcon
+                id="settings"
+                width={48}
+                height={48}
+                onClick={() => setSettingsOpened(true)}
+              />
             </Flex>
           )}
         </ErrorBoundary>
       </StyledHeader>
       {profileOpened && <ProfileMenu onClose={() => setProfileOpened(false)} />}
+      {settingsOpened && (
+        <SettingsModal onClose={() => setSettingsOpened(false)} />
+      )}
     </>
   );
 }

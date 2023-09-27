@@ -11,7 +11,6 @@ import ErrorFallback from 'components/ErrorFallback';
 
 type AuthFormProps = {
   onClose: () => void;
-  title?: string;
 };
 
 const Wrapper = styled.div`
@@ -78,7 +77,7 @@ const SubmitButton = styled(Button)`
   width: 100%;
 `;
 
-function EditProfileModal({ title, onClose }: AuthFormProps) {
+function EditProfileModal({ onClose }: AuthFormProps) {
   const formik = useFormik({
     initialValues: {
       avatar: '',
@@ -107,7 +106,7 @@ function EditProfileModal({ title, onClose }: AuthFormProps) {
         />
         <ErrorBoundary fallback={<ErrorFallback />}>
           <TextBlock>
-            <span>{title}</span>
+            <span>Please, enter new profile information:</span>
           </TextBlock>
           <StyledForm onSubmit={formik.handleSubmit}>
             <FileInput
