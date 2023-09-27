@@ -3,6 +3,8 @@ import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import EditProfileModal from 'components/EditProfileModal';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
 
 type ProfileMenuProps = {
   onClose: () => void;
@@ -143,28 +145,30 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
           viewBox="0 0 69 38"
           onClick={onClose}
         />
-        <ProfileTitle>User profile</ProfileTitle>
-        <ProfileInfoContainer>
-          <AvatarIcon
-            id="avatar"
-            width={250}
-            height={250}
-            viewBox="0 0 250 250"
-          />
-          <UserDetailsBlock>
-            <UserNameText>Name Surname</UserNameText>
-            <UserIdText>USER ID: 1798435</UserIdText>
-            <GenderText>FEMALE</GenderText>
-          </UserDetailsBlock>
-          <ActionBlock>
-            <ActionText onClick={() => setEditProfileOpened(true)}>
-              Edit profile
-            </ActionText>
-            <ActionText>Settings</ActionText>
-            <ActionText onClick={handleLogout}>Log out</ActionText>
-          </ActionBlock>
-        </ProfileInfoContainer>
-        <Icon id="footer-logo" width={123} height={30} viewBox="0 0 123 30" />
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <ProfileTitle>User profile</ProfileTitle>
+          <ProfileInfoContainer>
+            <AvatarIcon
+              id="avatar"
+              width={250}
+              height={250}
+              viewBox="0 0 250 250"
+            />
+            <UserDetailsBlock>
+              <UserNameText>Name Surname</UserNameText>
+              <UserIdText>USER ID: 1798435</UserIdText>
+              <GenderText>FEMALE</GenderText>
+            </UserDetailsBlock>
+            <ActionBlock>
+              <ActionText onClick={() => setEditProfileOpened(true)}>
+                Edit profile
+              </ActionText>
+              <ActionText>Settings</ActionText>
+              <ActionText onClick={handleLogout}>Log out</ActionText>
+            </ActionBlock>
+          </ProfileInfoContainer>
+          <Icon id="footer-logo" width={123} height={30} viewBox="0 0 123 30" />
+        </ErrorBoundary>
       </Wrapper>
     </>
   );

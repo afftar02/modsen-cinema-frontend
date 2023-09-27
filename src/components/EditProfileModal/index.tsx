@@ -6,6 +6,8 @@ import { useFormik } from 'formik';
 import PasswordInput from 'components/PasswordInput';
 import { validateEditProfile } from 'helpers/ValidateEditProfile';
 import FileInput from 'components/FileInput';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
 
 type AuthFormProps = {
   onClose: () => void;
@@ -29,6 +31,9 @@ const Wrapper = styled.div`
 const Modal = styled.div`
   position: relative;
   width: 840px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
 
   background-color: #1e1f27;
@@ -100,48 +105,50 @@ function EditProfileModal({ title, onClose }: AuthFormProps) {
           viewBox="0 0 50 50"
           onClick={onClose}
         />
-        <TextBlock>
-          <span>{title}</span>
-        </TextBlock>
-        <StyledForm onSubmit={formik.handleSubmit}>
-          <FileInput
-            value={formik.values.avatar}
-            onChange={formik.handleChange}
-          />
-          <Input
-            placeholder={formik.errors.name ?? 'Enter new name'}
-            onChange={formik.handleChange}
-            value={formik.values.name}
-            onClick={() => formik.setFieldError('name', undefined)}
-            name={'name'}
-            isError={!!formik.errors.name}
-          />
-          <Input
-            placeholder={formik.errors.surname ?? 'Enter new surname'}
-            onChange={formik.handleChange}
-            value={formik.values.surname}
-            onClick={() => formik.setFieldError('surname', undefined)}
-            name={'surname'}
-            isError={!!formik.errors.surname}
-          />
-          <Input
-            placeholder={formik.errors.gender ?? 'Enter new gender'}
-            onChange={formik.handleChange}
-            value={formik.values.gender}
-            onClick={() => formik.setFieldError('gender', undefined)}
-            name={'gender'}
-            isError={!!formik.errors.gender}
-          />
-          <PasswordInput
-            withIcon={false}
-            placeholder={formik.errors.password ?? 'Enter new password'}
-            onChange={formik.handleChange}
-            value={formik.values.password}
-            onClick={() => formik.setFieldError('password', undefined)}
-            isError={!!formik.errors.password}
-          />
-          <SubmitButton type={'submit'}>Save</SubmitButton>
-        </StyledForm>
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <TextBlock>
+            <span>{title}</span>
+          </TextBlock>
+          <StyledForm onSubmit={formik.handleSubmit}>
+            <FileInput
+              value={formik.values.avatar}
+              onChange={formik.handleChange}
+            />
+            <Input
+              placeholder={formik.errors.name ?? 'Enter new name'}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              onClick={() => formik.setFieldError('name', undefined)}
+              name={'name'}
+              isError={!!formik.errors.name}
+            />
+            <Input
+              placeholder={formik.errors.surname ?? 'Enter new surname'}
+              onChange={formik.handleChange}
+              value={formik.values.surname}
+              onClick={() => formik.setFieldError('surname', undefined)}
+              name={'surname'}
+              isError={!!formik.errors.surname}
+            />
+            <Input
+              placeholder={formik.errors.gender ?? 'Enter new gender'}
+              onChange={formik.handleChange}
+              value={formik.values.gender}
+              onClick={() => formik.setFieldError('gender', undefined)}
+              name={'gender'}
+              isError={!!formik.errors.gender}
+            />
+            <PasswordInput
+              withIcon={false}
+              placeholder={formik.errors.password ?? 'Enter new password'}
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              onClick={() => formik.setFieldError('password', undefined)}
+              isError={!!formik.errors.password}
+            />
+            <SubmitButton type={'submit'}>Save</SubmitButton>
+          </StyledForm>
+        </ErrorBoundary>
       </Modal>
     </Wrapper>
   );

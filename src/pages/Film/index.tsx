@@ -8,9 +8,14 @@ import Vibrant from 'node-vibrant/lib/bundle';
 import MovieBooking from './MovieBooking';
 import VideoPreview from 'components/VideoPreview';
 import MovieInfo from './MovieInfo';
+import ErrorFallback from 'components/ErrorFallback';
+import ErrorBoundary from 'components/ErrorBoundary';
 
 const PageContainer = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 `;
 
 const Wrapper = styled.div`
@@ -124,44 +129,46 @@ function Film() {
   return (
     <PageContainer>
       <Header />
-      <Wrapper>
-        <Container>
-          <BackgroundContainer
-            $firstBgColor={backgroundColors.first}
-            $secondBgColor={backgroundColors.second}
-          />
-          <MoveNextContainer>
-            <MoveNextText>Move to the next movie</MoveNextText>
-            <Icon
-              id={'arrow-right'}
-              width={69}
-              height={38}
-              viewBox="0 0 69 38"
+      <ErrorBoundary fallback={<ErrorFallback />}>
+        <Wrapper>
+          <Container>
+            <BackgroundContainer
+              $firstBgColor={backgroundColors.first}
+              $secondBgColor={backgroundColors.second}
             />
-          </MoveNextContainer>
-          <MovieInfo
-            onOpenBooking={() => setBookingOpened(true)}
-            posterUrl={imageUrl}
-          />
-          {bookingOpened && <MovieBooking ref={bookingRef} />}
-          <TrailerBlock>
-            <TrailerText>Watch trailer online!</TrailerText>
-            <StyledPreview
-              previewUrl={
-                'https://s3-alpha-sig.figma.com/img/e73d/a448/7b1a870666847d044c701bcd275121cc?Expires=1696204800&Signature=ZFuRAwH4r-rcBOelM~MyxSkAxPBHp6Xz40LCvAMW7TXPxrBYfWXOQA9lIscy3wu06OcH~fOgQD6kWKAyk3SI0mhN7DWLdprhUfNsApaEPN0686zVvGBewQRqKz2Mtj6ZP-y5I1xASJJ7yBgGrLFOmydA86t7lWktu~lC9etqSnhsao7hmhLns21hIGwME7Nrliu8l3NLY29ap2khsU5cesx7e5YB598465kBJti0-qS12Dje2nivlOOz7Lt0pNAHivpYgSGvsljKJr7eQShnNAgAX5HRkcB-4e646k3EG3vboRMDbYkr-5cYxJG6QmEdEb0WbrCjyZaIGNHWBvqzMA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-              }
-              videoUrl={
-                'https://www.film.ru/sites/default/files/trailers/16916130/The-Batman-trailer-3-rus.mp4'
-              }
+            <MoveNextContainer>
+              <MoveNextText>Move to the next movie</MoveNextText>
+              <Icon
+                id={'arrow-right'}
+                width={69}
+                height={38}
+                viewBox="0 0 69 38"
+              />
+            </MoveNextContainer>
+            <MovieInfo
+              onOpenBooking={() => setBookingOpened(true)}
+              posterUrl={imageUrl}
             />
-          </TrailerBlock>
-          <ReviewsBlock>
-            <Review />
-            <Review />
-            <Review />
-          </ReviewsBlock>
-        </Container>
-      </Wrapper>
+            {bookingOpened && <MovieBooking ref={bookingRef} />}
+            <TrailerBlock>
+              <TrailerText>Watch trailer online!</TrailerText>
+              <StyledPreview
+                previewUrl={
+                  'https://s3-alpha-sig.figma.com/img/e73d/a448/7b1a870666847d044c701bcd275121cc?Expires=1696204800&Signature=ZFuRAwH4r-rcBOelM~MyxSkAxPBHp6Xz40LCvAMW7TXPxrBYfWXOQA9lIscy3wu06OcH~fOgQD6kWKAyk3SI0mhN7DWLdprhUfNsApaEPN0686zVvGBewQRqKz2Mtj6ZP-y5I1xASJJ7yBgGrLFOmydA86t7lWktu~lC9etqSnhsao7hmhLns21hIGwME7Nrliu8l3NLY29ap2khsU5cesx7e5YB598465kBJti0-qS12Dje2nivlOOz7Lt0pNAHivpYgSGvsljKJr7eQShnNAgAX5HRkcB-4e646k3EG3vboRMDbYkr-5cYxJG6QmEdEb0WbrCjyZaIGNHWBvqzMA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                }
+                videoUrl={
+                  'https://www.film.ru/sites/default/files/trailers/16916130/The-Batman-trailer-3-rus.mp4'
+                }
+              />
+            </TrailerBlock>
+            <ReviewsBlock>
+              <Review />
+              <Review />
+              <Review />
+            </ReviewsBlock>
+          </Container>
+        </Wrapper>
+      </ErrorBoundary>
       <Footer />
     </PageContainer>
   );
