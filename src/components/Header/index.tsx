@@ -5,7 +5,9 @@ import Navigation from 'components/Navigation';
 import { Link } from 'react-router-dom';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import { useState } from 'react';
-import ProfileMenu from '../ProfileMenu';
+import ProfileMenu from 'components/ProfileMenu';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -65,28 +67,30 @@ function Header() {
   return (
     <>
       <StyledHeader>
-        <Flex>
-          <Icon id="logo" width={245} height={55} />
-          <Navigation />
-        </Flex>
-        {isAuth ? (
-          <AnimatedFlex onClick={() => setProfileOpened(true)}>
-            <ProfileText>Profile</ProfileText>
-            <Icon id="profile" width={55} height={55} viewBox="0 0 55 55" />
-          </AnimatedFlex>
-        ) : (
+        <ErrorBoundary fallback={<ErrorFallback />}>
           <Flex>
-            <StyledContainer>
-              <Link to={'/signup'}>
-                <Button>Sign up</Button>
-              </Link>
-              <Link to={'/signin'}>
-                <SignInButton>Sign in</SignInButton>
-              </Link>
-            </StyledContainer>
-            <StyledIcon id="settings" width={48} height={48} />
+            <Icon id="logo" width={245} height={55} />
+            <Navigation />
           </Flex>
-        )}
+          {isAuth ? (
+            <AnimatedFlex onClick={() => setProfileOpened(true)}>
+              <ProfileText>Profile</ProfileText>
+              <Icon id="profile" width={55} height={55} viewBox="0 0 55 55" />
+            </AnimatedFlex>
+          ) : (
+            <Flex>
+              <StyledContainer>
+                <Link to={'/signup'}>
+                  <Button>Sign up</Button>
+                </Link>
+                <Link to={'/signin'}>
+                  <SignInButton>Sign in</SignInButton>
+                </Link>
+              </StyledContainer>
+              <StyledIcon id="settings" width={48} height={48} />
+            </Flex>
+          )}
+        </ErrorBoundary>
       </StyledHeader>
       {profileOpened && <ProfileMenu onClose={() => setProfileOpened(false)} />}
     </>

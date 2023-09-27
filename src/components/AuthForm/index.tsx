@@ -11,6 +11,8 @@ import { validateRegistration } from 'helpers/ValidateRegistration';
 import { validateLogin } from 'helpers/ValidateLogin';
 import PasswordInput from 'components/PasswordInput';
 import { AuthContextType, useAuth } from 'auth/Auth';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -38,10 +40,12 @@ const Wrapper = styled.div`
 const Modal = styled.div`
   position: relative;
   width: 840px;
+  min-height: 500px;
   box-sizing: border-box;
-
   background-color: #1e1f27;
   padding: 40px 107px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const CloseIcon = styled(Icon)`
@@ -162,66 +166,68 @@ function AuthForm({
         <Link to="/">
           <CloseIcon id="close" width={50} height={50} viewBox="0 0 50 50" />
         </Link>
-        <TextBlock>
-          <span>{title}</span>
-          <BrightText> {brightTitle}</BrightText>
-        </TextBlock>
-        <StyledForm onSubmit={formik.handleSubmit}>
-          {isSignUp && (
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <TextBlock>
+            <span>{title}</span>
+            <BrightText> {brightTitle}</BrightText>
+          </TextBlock>
+          <StyledForm onSubmit={formik.handleSubmit}>
+            {isSignUp && (
+              <Input
+                iconId={'name'}
+                placeholder={formik.errors.name ?? 'Enter your name'}
+                onChange={formik.handleChange}
+                value={formik.values.name}
+                onClick={() => formik.setFieldError('name', undefined)}
+                name={'name'}
+                isError={!!formik.errors.name}
+              />
+            )}
+            {isSignUp && (
+              <Input
+                iconId={'surname'}
+                placeholder={formik.errors.surname ?? 'Enter your surname'}
+                onChange={formik.handleChange}
+                value={formik.values.surname}
+                onClick={() => formik.setFieldError('surname', undefined)}
+                name={'surname'}
+                isError={!!formik.errors.surname}
+              />
+            )}
             <Input
-              iconId={'name'}
-              placeholder={formik.errors.name ?? 'Enter your name'}
+              iconId={'email'}
+              placeholder={formik.errors.email ?? 'Enter your email'}
               onChange={formik.handleChange}
-              value={formik.values.name}
-              onClick={() => formik.setFieldError('name', undefined)}
-              name={'name'}
-              isError={!!formik.errors.name}
+              value={formik.values.email}
+              onClick={() => formik.setFieldError('email', undefined)}
+              name={'email'}
+              isError={!!formik.errors.email}
             />
-          )}
-          {isSignUp && (
-            <Input
-              iconId={'surname'}
-              placeholder={formik.errors.surname ?? 'Enter your surname'}
+            <PasswordInput
+              placeholder={formik.errors.password ?? 'Enter strong password'}
               onChange={formik.handleChange}
-              value={formik.values.surname}
-              onClick={() => formik.setFieldError('surname', undefined)}
-              name={'surname'}
-              isError={!!formik.errors.surname}
+              value={formik.values.password}
+              onClick={() => formik.setFieldError('password', undefined)}
+              isError={!!formik.errors.password}
             />
-          )}
-          <Input
-            iconId={'email'}
-            placeholder={formik.errors.email ?? 'Enter your email'}
-            onChange={formik.handleChange}
-            value={formik.values.email}
-            onClick={() => formik.setFieldError('email', undefined)}
-            name={'email'}
-            isError={!!formik.errors.email}
-          />
-          <PasswordInput
-            placeholder={formik.errors.password ?? 'Enter strong password'}
-            onChange={formik.handleChange}
-            value={formik.values.password}
-            onClick={() => formik.setFieldError('password', undefined)}
-            isError={!!formik.errors.password}
-          />
-          <SubmitButton type={'submit'}>Send</SubmitButton>
-        </StyledForm>
-        <AuthButtonsContainer>
-          <StyledAuthContainer>
-            <GoogleAuthButton />
-            <FacebookAuthButton />
-          </StyledAuthContainer>
-          <GitHubAuthButton />
-        </AuthButtonsContainer>
-        <TextContainer>
-          <StyledText>{hint}</StyledText>
-          {hintLink && (
-            <Link to={hintLink}>
-              <UnderlinedText>{underlinedHint}</UnderlinedText>
-            </Link>
-          )}
-        </TextContainer>
+            <SubmitButton type={'submit'}>Send</SubmitButton>
+          </StyledForm>
+          <AuthButtonsContainer>
+            <StyledAuthContainer>
+              <GoogleAuthButton />
+              <FacebookAuthButton />
+            </StyledAuthContainer>
+            <GitHubAuthButton />
+          </AuthButtonsContainer>
+          <TextContainer>
+            <StyledText>{hint}</StyledText>
+            {hintLink && (
+              <Link to={hintLink}>
+                <UnderlinedText>{underlinedHint}</UnderlinedText>
+              </Link>
+            )}
+          </TextContainer>
+        </ErrorBoundary>
       </Modal>
     </Wrapper>
   );
