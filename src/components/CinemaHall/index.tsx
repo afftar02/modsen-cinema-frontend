@@ -66,16 +66,16 @@ const SelectedSeat = styled.div`
   background: #d98639;
 `;
 
-const SeatsContainer = styled.div<{ width: number; height: number }>`
+const SeatsContainer = styled.div<{ $width: number; $height: number }>`
   position: relative;
-  height: ${(props) => `${props.height}px`};
-  width: ${(props) => `${props.width}px`};
+  height: ${(props) => `${props.$height}px`};
+  width: ${(props) => `${props.$width}px`};
 `;
 
-const StyledSeat = styled(Seat)<{ left: number; top: number }>`
+const StyledSeat = styled(Seat)<{ $left: number; $top: number }>`
   position: absolute;
-  left: ${(props) => `${props.left}px`};
-  top: ${(props) => `${props.top}px`};
+  left: ${(props) => `${props.$left}px`};
+  top: ${(props) => `${props.$top}px`};
 `;
 
 const seats = [
@@ -333,13 +333,13 @@ function CinemaHall() {
       <ScreenContainer>
         <Screen>Screen</Screen>
       </ScreenContainer>
-      <SeatsContainer width={calculateWidth()} height={calculateHeight()}>
+      <SeatsContainer $width={calculateWidth()} $height={calculateHeight()}>
         {seats.map((seat) => (
           <StyledSeat
             key={seat.id}
             reserved={seat.ticketId !== null}
-            top={calculateSeatTopPosition(seat.row)}
-            left={calculateSeatLeftPosition(seat.number, seat.row)}
+            $top={calculateSeatTopPosition(seat.row)}
+            $left={calculateSeatLeftPosition(seat.number, seat.row)}
           />
         ))}
       </SeatsContainer>

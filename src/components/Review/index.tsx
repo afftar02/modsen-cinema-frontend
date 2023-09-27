@@ -3,9 +3,9 @@ import { styled } from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import Vibrant from 'node-vibrant/lib/bundle';
 
-const ReviewContainer = styled.div<{ bgColor: string }>`
+const ReviewContainer = styled.div<{ $bgColor: string }>`
   border-radius: 20px;
-  background: ${(props) => props.bgColor};
+  background: ${(props) => props.$bgColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,13 +37,13 @@ const AuthorDescription = styled.span`
   text-transform: capitalize;
 `;
 
-const ReviewTextContainer = styled.div<{ isOpened: boolean }>`
+const ReviewTextContainer = styled.div<{ $isOpened: boolean }>`
   width: 326px;
   height: 217px;
   overflow: hidden;
   transition: height 0.3s ease-in-out;
   display: -webkit-box;
-  -webkit-line-clamp: ${(props) => (props.isOpened ? 'unset' : 9)};
+  -webkit-line-clamp: ${(props) => (props.$isOpened ? 'unset' : 9)};
   -webkit-box-orient: vertical;
 `;
 
@@ -107,10 +107,10 @@ function Review() {
   }, []);
 
   return (
-    <ReviewContainer bgColor={backgroundColor} onClick={handleShowClick}>
+    <ReviewContainer $bgColor={backgroundColor} onClick={handleShowClick}>
       <ReviewTitle>Review</ReviewTitle>
       <AuthorDescription>from Stanislav Lebedyantsev</AuthorDescription>
-      <ReviewTextContainer ref={reviewRef} isOpened={opened}>
+      <ReviewTextContainer ref={reviewRef} $isOpened={opened}>
         <ReviewText>
           I was a person that saw all the hype and claims of masterpiece as
           overreacting and overblown excitement for another Joker based film. I

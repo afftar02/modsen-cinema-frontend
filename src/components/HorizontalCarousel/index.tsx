@@ -45,7 +45,7 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const Slide = styled.div<{ isActive: boolean; isNearActive: boolean }>`
+const Slide = styled.div<{ $isActive: boolean; $isNearActive: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,7 +75,7 @@ const Slide = styled.div<{ isActive: boolean; isNearActive: boolean }>`
   }
 
   ${(props) =>
-    props.isActive &&
+    props.$isActive &&
     `
     height: 128px;
     width: 130px;
@@ -86,7 +86,7 @@ const Slide = styled.div<{ isActive: boolean; isNearActive: boolean }>`
       opacity: 1;
     }
    `};
-  ${(props) => props.isNearActive && `width: 114px; height: 112px;`};
+  ${(props) => props.$isNearActive && `width: 114px; height: 112px;`};
 `;
 
 const Divider = styled.div`
@@ -122,16 +122,12 @@ const data = [
     date: 17,
   },
   {
-    id: 5,
+    id: 7,
     date: 18,
   },
   {
-    id: 6,
+    id: 8,
     date: 19,
-  },
-  {
-    id: 6,
-    date: 20,
   },
 ];
 
@@ -195,8 +191,8 @@ function Carousel() {
             <Slide
               key={item.id}
               onClick={() => handleItemClick(index)}
-              isActive={index === currentIndex}
-              isNearActive={
+              $isActive={index === currentIndex}
+              $isNearActive={
                 index === currentIndex - 1 || index === currentIndex + 1
               }
               ref={(elem) => bindRef(elem, index)}

@@ -18,7 +18,7 @@ const InputContainer = styled.div`
   align-items: center;
 `;
 
-const StyledInput = styled.input<{ isError?: boolean }>`
+const StyledInput = styled.input<{ $isError?: boolean }>`
   color: #fff;
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
@@ -39,7 +39,7 @@ const StyledInput = styled.input<{ isError?: boolean }>`
   }
 
   ${(props) =>
-    props.isError &&
+    props.$isError &&
     `
     &::placeholder {
       color: red;
@@ -74,8 +74,8 @@ function Input({
         onChange={onChange}
         value={value}
         name={name}
-        isError={isError}
         onClick={onClick}
+        $isError={isError}
       />
     </InputContainer>
   );

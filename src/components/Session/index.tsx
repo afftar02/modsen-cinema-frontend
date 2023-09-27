@@ -6,12 +6,12 @@ type SessionProps = {
   onClick?: MouseEventHandler<HTMLDivElement>;
 };
 
-const SessionContainer = styled.div<{ selected: boolean }>`
+const SessionContainer = styled.div<{ $selected: boolean }>`
   padding: 16px 20px;
   flex-shrink: 0;
   border-radius: 20px;
   border: 4.039px solid transparent;
-  ${(props) => props.selected && 'border: 4.039px solid #d98639;'};
+  ${(props) => props.$selected && 'border: 4.039px solid #d98639;'};
   background: rgba(90, 90, 92, 0.8);
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@ const SeatsText = styled.span`
 
 function Session({ onClick, selected = false }: SessionProps) {
   return (
-    <SessionContainer selected={selected} onClick={onClick}>
+    <SessionContainer $selected={selected} onClick={onClick}>
       <SessionTime>2:30 PM - 4:25 PM</SessionTime>
       <CinemaFormat>Cinema: 1D</CinemaFormat>
       <SeatsContainer>
