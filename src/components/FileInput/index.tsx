@@ -12,7 +12,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const FileUploadLabel = styled.label<{ isUploaded: boolean }>`
+const FileUploadLabel = styled.label<{ $isUploaded: boolean }>`
   width: fit-content;
   border: 1px solid #fff;
   display: inline-block;
@@ -23,7 +23,7 @@ const FileUploadLabel = styled.label<{ isUploaded: boolean }>`
   font-size: 24px;
   font-weight: 300;
   ${(props) =>
-    props.isUploaded &&
+    props.$isUploaded &&
     `
     background-color: #fff;
     color: #000;
@@ -57,7 +57,7 @@ function FileInput({ value, onChange }: FileInputProps) {
 
   return (
     <FileInputContainer>
-      <FileUploadLabel htmlFor="avatar-file" isUploaded={!!value}>
+      <FileUploadLabel htmlFor="avatar-file" $isUploaded={!!value}>
         {value ? `Uploaded file:` : 'Upload a profile photo'}
       </FileUploadLabel>
       <UploadedFileName>{cutFileName(value)}</UploadedFileName>

@@ -24,11 +24,11 @@ const Container = styled.div`
 `;
 
 const BackgroundContainer = styled.div<{
-  firstBgColor: string;
-  secondBgColor: string;
+  $firstBgColor: string;
+  $secondBgColor: string;
 }>`
   background: ${(props) =>
-    `linear-gradient(180deg, ${props.firstBgColor}, ${props.secondBgColor})`};
+    `linear-gradient(180deg, ${props.$firstBgColor}, ${props.$secondBgColor})`};
   box-shadow:
     -50px -50px 100px 0px #1e1f27 inset,
     50px 50px 100px 20px #1e1f27 inset;
@@ -127,8 +127,8 @@ function Film() {
       <Wrapper>
         <Container>
           <BackgroundContainer
-            firstBgColor={backgroundColors.first}
-            secondBgColor={backgroundColors.second}
+            $firstBgColor={backgroundColors.first}
+            $secondBgColor={backgroundColors.second}
           />
           <MoveNextContainer>
             <MoveNextText>Move to the next movie</MoveNextText>

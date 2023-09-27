@@ -5,7 +5,7 @@ type SeatProps = {
   reserved: boolean;
 };
 
-const StyledSeat = styled.div<{ isReserved: boolean; isSelected: boolean }>`
+const StyledSeat = styled.div<{ $isReserved: boolean; $isSelected: boolean }>`
   width: 45px;
   height: 45px;
   border-radius: 10px;
@@ -15,7 +15,7 @@ const StyledSeat = styled.div<{ isReserved: boolean; isSelected: boolean }>`
   transition: all 0.2s ease-in-out;
 
   ${(props) =>
-    props.isReserved
+    props.$isReserved
       ? `
     background: #C4C4C4;
     border: none;
@@ -28,7 +28,7 @@ const StyledSeat = styled.div<{ isReserved: boolean; isSelected: boolean }>`
   `};
 
   ${(props) =>
-    props.isSelected &&
+    props.$isSelected &&
     `
     background: #D98639;
     border: none;
@@ -51,8 +51,8 @@ function Seat({ reserved, ...props }: SeatProps) {
 
   return (
     <StyledSeat
-      isReserved={reserved}
-      isSelected={selected}
+      $isReserved={reserved}
+      $isSelected={selected}
       onClick={handleClick}
       {...props}
     />

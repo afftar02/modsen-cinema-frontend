@@ -8,13 +8,12 @@ const MainWrapper = styled.div`
   padding-bottom: 18px;
 `;
 
-const Flex = styled.div<{ marginTop?: number; marginBottom?: number }>`
+const Flex = styled.div<{ $marginTop?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  ${(props) => props.marginTop && `margin-top: ${props.marginTop}px`};
-  ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom}px`};
+  ${(props) => props.$marginTop && `margin-top: ${props.$marginTop}px`};
 `;
 
 const DescriptionContainer = styled.div`
@@ -67,7 +66,7 @@ function Main() {
   return (
     <MainWrapper>
       <Header />
-      <Flex marginTop={150}>
+      <Flex $marginTop={150}>
         <DescriptionContainer>
           <TrailerTitle>THE BATMAN</TrailerTitle>
           <TrailerDescription>
@@ -86,7 +85,7 @@ function Main() {
           isHiding
         />
       </Flex>
-      <Flex marginTop={86}>
+      <Flex $marginTop={86}>
         <div>
           <CurrentMovieTitle>Now in the Cinema</CurrentMovieTitle>
           <CurrentMovieDescription>
@@ -95,10 +94,10 @@ function Main() {
           </CurrentMovieDescription>
         </div>
       </Flex>
-      <Flex marginTop={150}>
+      <Flex $marginTop={150}>
         <img src="images/studios.svg" alt="studios" />
       </Flex>
-      <Flex marginTop={40}>
+      <Flex $marginTop={40}>
         <StyledYear>2023</StyledYear>
       </Flex>
       <Outlet />
