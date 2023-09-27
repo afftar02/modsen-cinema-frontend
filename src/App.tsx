@@ -4,6 +4,7 @@ import AuthForm from 'components/AuthForm';
 import Film from 'pages/Film';
 import Bookings from 'pages/Bookings';
 import Auth from 'auth/Auth';
+import AuthorizedRoute from 'utils/AuthorizedRoute';
 
 function App() {
   return (
@@ -39,8 +40,22 @@ function App() {
             }
           />
         </Route>
-        <Route path="/film/:id" element={<Film />} />
-        <Route path="/bookings" element={<Bookings />} />
+        <Route
+          path="/film/:id"
+          element={
+            <AuthorizedRoute>
+              <Film />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="/bookings"
+          element={
+            <AuthorizedRoute>
+              <Bookings />
+            </AuthorizedRoute>
+          }
+        />
       </Routes>
     </Auth>
   );
