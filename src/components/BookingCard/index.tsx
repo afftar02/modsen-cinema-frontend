@@ -144,7 +144,7 @@ function BookingCard({ isOver = false }: BookingCardProps) {
       <StyledLink to={'/film/5'}>
         <StyledImage
           src={
-            'https://s3-alpha-sig.figma.com/img/e5cc/8136/0873c95c1344b596f117082814368ada?Expires=1696204800&Signature=ee6H4MIbxTj7FuTzTQzCkRG4lA-QCOEg0x7LcunO98obbNVT~iN3Pb8FUP2zFRZmbjeld0ADi69Sd7dbNyYwcnedM~5EtH5-~3DYkJ7Rx0WkbRCLZQRXuC2Un-BIgM0cPwakhVl2n3YsJ6Az2qGHpVGg7it9fj~iVMgH1541-XjxcKLKpqyUCbNeq-pJTcRsYJHbs34iudErujDqkumdt754lX542oerYochVecDcTJkwxH85HepxZ3TmDN3Z2Qk8TSUrZXanHanM1r1gzLy~-IoXmCDw~gDIkEgTRvOCE7VNaOM3y0w~cae0HkYPjxrMGBFh9i3wOSsxUGZUiE~Tg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+            'https://s3-alpha-sig.figma.com/img/e5cc/8136/0873c95c1344b596f117082814368ada?Expires=1698019200&Signature=EpJa3G7fEGF26GpsYcpiZV4KbCq-DWnb771YFlaGRRwLj50BmrzcotnY7yJSiWxo5-a4YR4N12xVr6FgkPGy8iFNJatIoDn0msa8iUoSs73-vQZtdvzV52z84ukpH9A9aQFIVzGSWZlifzzZBn23~dHXqeOXw7CCQp1YWc-E0zrRXYVVA9KEta4etGXlMIlZRyeeC6lTA11KbWjWgJ1H9f8m50sSQzCc1rvVFkNC7~uqOx12VmpCzv55dVdorSJDsQzJ4vy0YD8wi4H8aJBm1IuiUm05vIRNu36ooaPHfob~qxAwnITjRRPOTOH8H0xWhqA67qaoeNnmtiABUDSZ4w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
           }
           alt={'poster'}
         />

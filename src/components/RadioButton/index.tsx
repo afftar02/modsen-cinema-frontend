@@ -66,7 +66,7 @@ function RadioButton({
         value={value}
         type={'radio'}
         checked={checked}
-        onClick={onClick}
+        onChange={onClick}
       />
       <SettingsItemLabel htmlFor={id} onClick={onClick}>
         {text}

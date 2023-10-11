@@ -13,6 +13,7 @@ import PasswordInput from 'components/PasswordInput';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import ModalPortal from 'components/ModalPortal';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -22,20 +23,6 @@ type AuthFormProps = {
   underlinedHint?: string;
   hintLink?: string;
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-
-  background-color: rgba(30, 31, 39, 0.7);
-  z-index: 5;
-`;
 
 const Modal = styled.div`
   position: relative;
@@ -161,7 +148,7 @@ function AuthForm({
   });
 
   return (
-    <Wrapper>
+    <ModalPortal>
       <Modal>
         <Link to="/">
           <CloseIcon id="close" width={50} height={50} viewBox="0 0 50 50" />
@@ -229,7 +216,7 @@ function AuthForm({
           </TextContainer>
         </ErrorBoundary>
       </Modal>
-    </Wrapper>
+    </ModalPortal>
   );
 }
 

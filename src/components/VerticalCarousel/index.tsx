@@ -1,9 +1,11 @@
 import { styled } from 'styled-components';
 import Icon from '../Icon';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
+  align-items: center;
   height: 100%;
 `;
 
@@ -107,7 +109,7 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const Slide = styled.div<{ isActive?: boolean }>`
+const Slide = styled.div<{ $isActive?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +118,7 @@ const Slide = styled.div<{ isActive?: boolean }>`
   cursor: pointer;
 
   ${(props) =>
-    props.isActive
+    props.$isActive
       ? `
       height: 182px;
       width: 137px;
@@ -137,6 +139,11 @@ const Image = styled.img`
   height: 100%;
   border-radius: 10px;
   transition: 0.5s;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  height: fit-content;
 `;
 
 const data = [
@@ -257,19 +264,21 @@ function VerticalCarousel() {
 
   return (
     <Wrapper>
-      <CurrentContainer ref={currentItemRef}>
-        <CurrentImage src={data[currentIndex].img} alt="poster" width={262} />
-        <InfoContainer>
-          <Title>{data[currentIndex].title}</Title>
-          <TagsContainer>
-            {data[currentIndex].tags.map((tag, index) => (
-              <Tag key={index}>
-                <span>{tag}</span>
-              </Tag>
-            ))}
-          </TagsContainer>
-        </InfoContainer>
-      </CurrentContainer>
+      <StyledLink to={'/film/5'}>
+        <CurrentContainer ref={currentItemRef}>
+          <CurrentImage src={data[currentIndex].img} alt="poster" width={262} />
+          <InfoContainer>
+            <Title>{data[currentIndex].title}</Title>
+            <TagsContainer>
+              {data[currentIndex].tags.map((tag, index) => (
+                <Tag key={index}>
+                  <span>{tag}</span>
+                </Tag>
+              ))}
+            </TagsContainer>
+          </InfoContainer>
+        </CurrentContainer>
+      </StyledLink>
       <SliderContainer>
         <ImageSlider
           ref={sliderRef}
@@ -280,7 +289,7 @@ function VerticalCarousel() {
             <Slide
               key={item.id}
               onClick={() => handleItemClick(index)}
-              isActive={index === currentIndex}
+              $isActive={index === currentIndex}
               ref={(elem) => bindRef(elem, index)}
             >
               <Image src={item.img} alt="slide" />

@@ -7,24 +7,11 @@ import RadioButton from 'components/RadioButton';
 import { useState } from 'react';
 import { LANGUAGES } from 'constants/Languages';
 import { THEMES } from 'constants/Themes';
+import ModalPortal from 'components/ModalPortal';
 
 type SettingsModalProps = {
   onClose: () => void;
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-
-  background-color: rgba(30, 31, 39, 0.7);
-  z-index: 30;
-`;
 
 const Modal = styled.div`
   position: relative;
@@ -99,7 +86,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
   const [selectedTheme, setSelectedTheme] = useState(THEMES[0].value);
 
   return (
-    <Wrapper>
+    <ModalPortal>
       <Modal>
         <CloseIcon
           id="close"
@@ -149,7 +136,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
           <ApplyButton onClick={onClose}>Apply</ApplyButton>
         </ErrorBoundary>
       </Modal>
-    </Wrapper>
+    </ModalPortal>
   );
 }
 

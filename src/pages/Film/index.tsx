@@ -103,12 +103,13 @@ function Film() {
   const [backgroundColors, setBackgroundColors] = useState({
     first: '',
     second: '',
+    review: '',
   });
 
   const bookingRef = useRef<HTMLDivElement>(null);
 
   const imageUrl =
-    'https://s3-alpha-sig.figma.com/img/f0cd/eaad/9c1523083ead593c088a9515c7e60053?Expires=1696204800&Signature=hLVUuPaI0bZg9HDH~uGsWyjCYDTqI2iVMuVfGxg27b~jA56acfadlS~pUEdesLtolSgzVIeBec40nENKxRhbl3G4V1DvPealjDQLL9lRREWjkX~6I6sETULKNPl1QRg564LhJO9CkX0bQ4tFqg9CAPCESbSh5fS6rlCLUwSghb~Y2DU97CJbhjKXlkaNXQCbTV-q9sJbF3eu9Jy6FVDuro3CdG~i~3P0g1M9uHv8BPaYhX1ON18gMymZINOinZKkpYrQ8-FQAuNvXCtW73ZPPKMGuyW8oly~WorScGy586IdLZ3y6frn3ojtovoWUz9M5G28EAlW74KmqCT0nDOE2w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
+    'https://s3-alpha-sig.figma.com/img/e5cc/8136/0873c95c1344b596f117082814368ada?Expires=1698019200&Signature=EpJa3G7fEGF26GpsYcpiZV4KbCq-DWnb771YFlaGRRwLj50BmrzcotnY7yJSiWxo5-a4YR4N12xVr6FgkPGy8iFNJatIoDn0msa8iUoSs73-vQZtdvzV52z84ukpH9A9aQFIVzGSWZlifzzZBn23~dHXqeOXw7CCQp1YWc-E0zrRXYVVA9KEta4etGXlMIlZRyeeC6lTA11KbWjWgJ1H9f8m50sSQzCc1rvVFkNC7~uqOx12VmpCzv55dVdorSJDsQzJ4vy0YD8wi4H8aJBm1IuiUm05vIRNu36ooaPHfob~qxAwnITjRRPOTOH8H0xWhqA67qaoeNnmtiABUDSZ4w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
 
   useEffect(() => {
     (async () => {
@@ -116,6 +117,7 @@ function Film() {
       setBackgroundColors({
         first: palette.DarkVibrant?.hex ?? '#000',
         second: palette.LightVibrant?.hex ?? '#fff',
+        review: palette.DarkMuted?.hex ?? '#000',
       });
     })();
   }, []);
@@ -162,9 +164,9 @@ function Film() {
               />
             </TrailerBlock>
             <ReviewsBlock>
-              <Review />
-              <Review />
-              <Review />
+              <Review bgColor={backgroundColors.review} />
+              <Review bgColor={backgroundColors.review} />
+              <Review bgColor={backgroundColors.review} />
             </ReviewsBlock>
           </Container>
         </Wrapper>
