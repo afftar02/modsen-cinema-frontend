@@ -142,37 +142,37 @@ const Image = styled.img`
 const data = [
   {
     id: 1,
-    img: 'https://s3-alpha-sig.figma.com/img/821b/2048/713c16663293d937cb3d04031a4a08f3?Expires=1696204800&Signature=Izdgd7EwWVtHwI~0tQNtnlnuI4nJAUpIz47qAgSIEZVJVT~Ya78c6qHQ2nOWqS~WbTal6Y2MeKvAykI5ULfg3quIn9wyUqh8pqMl8Zq03PhCL2tLq3hrALxcAoS4ebkAjea13KiQe32bkLC9RBc-sp7qVCM7QDa9C6o6gUElUzKz~~slJEvnwovmiMqkLTDMu46Iabm5PWf479CcIjDExh6GUFoWlkRHaBqvMVR9h5svkB76PHyY06AnltQ2snyXnGrEh6yNhqdiiuLX5Ok~JqM0pF8Lls2fwSm1KqhCDZXd15Aa3dZuSsiwbFCvil~GZzyZDVCZhna61Ai-srtByA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    img: 'https://s3-alpha-sig.figma.com/img/821b/2048/713c16663293d937cb3d04031a4a08f3?Expires=1698019200&Signature=QJxAxfZma943j8zPBSHo1hOLAZ~s8FCq0IEmMHz82fXGC2Qcd9nkZWDC8PNAGOTH3QUXZMYL6vmEq4FiJpqDMgaOGEHDwwpmTkTyc7W70lJGYutK40Rincruf3q6P4HO7DGxeHqjt3GvqdaBAlCPoyoPx3xfvVLhs4qyupSuzf69K1vG~aX5m1DXYlxlZSqteEKgMWw3ev2NraIXS6NEX3tUBy2Hlv93pARAxFrync~NOZxS6sRwHMHxXD1gDtLp-5WlIS1Uhy91ueOZ5-vNawEk5NOErGiTCLzKn4jJ7qMPHlKFz23Pcx9J~BqlYdSbrjrqhbXBwPy6zvTL-gT1ow__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
     title: 'Sonic 2',
     tags: ['5+', 'HD', 'Action'],
   },
   {
     id: 2,
-    img: 'https://s3-alpha-sig.figma.com/img/c076/b75c/cf94c3c0a7cb4ea44425607d001a745f?Expires=1696204800&Signature=FZHK0nZ-JCtvz9Ahj3LMRYNHxCcikF2qZsbsbyuyvvBzbMPyqtEvba~SLo65cufgGgv6Zmpj8nR28WQrIPJDo6oDOoeKC7hAMQPVkFzbYVm6EEpjLSTFPxtq65-aq7C73~2fFwmSjnCFYxA4PZSOF~Yx~SUa3rbYg-avz~Z5eR6pHG6V7jwap92q3yJqoB8dpMJSA~~LrS6SI9HI3bAAjyspbqq0K70QsG7~g6GLdqcs8H6wn-607cvUBfGio1o-HuFG8SUEeM9dWlPHABlJ6F95Ij~i36bBECy8Y3oQh66CEwjxjXSf5nAfkeuPRH3xQaRcaRI43SsbOiWVR4oJ0Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    img: 'https://s3-alpha-sig.figma.com/img/c076/b75c/cf94c3c0a7cb4ea44425607d001a745f?Expires=1698019200&Signature=J8RBxbLjZfhyRSsPCYMut3i0aMn-UIsbWeVB2KWDIgekXpodPbOOgKo8YsyWwBoZ5c3K-FLQfKJnvzhV84MNKxplfoZLUxGE03SA3NGUBZlvGZ30Ln02AN8ydxJhW37SHkcvegX5dRLOXHH---VQE~DxKuGkIEa2zlVYndhkjWOO7D5AKy6N6b2eH382Ad1iPEoGAudGBRSfwA4fJDRX3UAmIAcMN20u6EJzVCC1uGSzqoyecA5y7DVUKoN2iBXGNnt~0qw9WH3oyMVebIE6FOCF2ETx-3au~wlpSflW~nYT9NEgFJbwIKjDhqin848Q0Cb0SXe6k2yXDVvTVH6rsg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
     title: 'Black Panther 3',
     tags: ['13+', 'IMAX', 'Action'],
   },
   {
     id: 3,
-    img: 'https://s3-alpha-sig.figma.com/img/f0cd/eaad/9c1523083ead593c088a9515c7e60053?Expires=1696204800&Signature=hLVUuPaI0bZg9HDH~uGsWyjCYDTqI2iVMuVfGxg27b~jA56acfadlS~pUEdesLtolSgzVIeBec40nENKxRhbl3G4V1DvPealjDQLL9lRREWjkX~6I6sETULKNPl1QRg564LhJO9CkX0bQ4tFqg9CAPCESbSh5fS6rlCLUwSghb~Y2DU97CJbhjKXlkaNXQCbTV-q9sJbF3eu9Jy6FVDuro3CdG~i~3P0g1M9uHv8BPaYhX1ON18gMymZINOinZKkpYrQ8-FQAuNvXCtW73ZPPKMGuyW8oly~WorScGy586IdLZ3y6frn3ojtovoWUz9M5G28EAlW74KmqCT0nDOE2w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    img: 'https://s3-alpha-sig.figma.com/img/f0cd/eaad/9c1523083ead593c088a9515c7e60053?Expires=1698019200&Signature=X3bP6YnDmvCn5SHY81PSwHe4mAHvvdnILUdrj7A34getzLWGr7N9Kqb8-s3in6EBaBvxnDYTYQODDpFDsOgz9AV5NTtjQ-wTVOt1UTitnOVde-E1hBbomUVLYDjmG7Ryq~RzUPGyiig3AZapiWwriG2tXKvPva3EqxEH24i1TgQGIJeI191-C80EMwbY~KXSJwyab~lrRRsJgNM2Lrq2gp0m2CysdS1GXnkiMdxIHjhsUlbRmMf3Q5~X9trRZVJOTUQe5VqFM8byNMU7VP2x0d4yljgqWqx~ldG9EDqqM1yhTkdRq52ULU0fx8R4vbpkWW0SfqaGSxp1NSpIPgvGUA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
     title: 'Morbius',
     tags: ['16+', '4K', 'Horror'],
   },
   {
     id: 4,
-    img: 'https://s3-alpha-sig.figma.com/img/821b/2048/713c16663293d937cb3d04031a4a08f3?Expires=1696204800&Signature=Izdgd7EwWVtHwI~0tQNtnlnuI4nJAUpIz47qAgSIEZVJVT~Ya78c6qHQ2nOWqS~WbTal6Y2MeKvAykI5ULfg3quIn9wyUqh8pqMl8Zq03PhCL2tLq3hrALxcAoS4ebkAjea13KiQe32bkLC9RBc-sp7qVCM7QDa9C6o6gUElUzKz~~slJEvnwovmiMqkLTDMu46Iabm5PWf479CcIjDExh6GUFoWlkRHaBqvMVR9h5svkB76PHyY06AnltQ2snyXnGrEh6yNhqdiiuLX5Ok~JqM0pF8Lls2fwSm1KqhCDZXd15Aa3dZuSsiwbFCvil~GZzyZDVCZhna61Ai-srtByA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    img: 'https://s3-alpha-sig.figma.com/img/821b/2048/713c16663293d937cb3d04031a4a08f3?Expires=1698019200&Signature=QJxAxfZma943j8zPBSHo1hOLAZ~s8FCq0IEmMHz82fXGC2Qcd9nkZWDC8PNAGOTH3QUXZMYL6vmEq4FiJpqDMgaOGEHDwwpmTkTyc7W70lJGYutK40Rincruf3q6P4HO7DGxeHqjt3GvqdaBAlCPoyoPx3xfvVLhs4qyupSuzf69K1vG~aX5m1DXYlxlZSqteEKgMWw3ev2NraIXS6NEX3tUBy2Hlv93pARAxFrync~NOZxS6sRwHMHxXD1gDtLp-5WlIS1Uhy91ueOZ5-vNawEk5NOErGiTCLzKn4jJ7qMPHlKFz23Pcx9J~BqlYdSbrjrqhbXBwPy6zvTL-gT1ow__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
     title: 'Sonic 2',
     tags: ['5+', 'HD', 'Action'],
   },
   {
     id: 5,
-    img: 'https://s3-alpha-sig.figma.com/img/c076/b75c/cf94c3c0a7cb4ea44425607d001a745f?Expires=1696204800&Signature=FZHK0nZ-JCtvz9Ahj3LMRYNHxCcikF2qZsbsbyuyvvBzbMPyqtEvba~SLo65cufgGgv6Zmpj8nR28WQrIPJDo6oDOoeKC7hAMQPVkFzbYVm6EEpjLSTFPxtq65-aq7C73~2fFwmSjnCFYxA4PZSOF~Yx~SUa3rbYg-avz~Z5eR6pHG6V7jwap92q3yJqoB8dpMJSA~~LrS6SI9HI3bAAjyspbqq0K70QsG7~g6GLdqcs8H6wn-607cvUBfGio1o-HuFG8SUEeM9dWlPHABlJ6F95Ij~i36bBECy8Y3oQh66CEwjxjXSf5nAfkeuPRH3xQaRcaRI43SsbOiWVR4oJ0Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    img: 'https://s3-alpha-sig.figma.com/img/c076/b75c/cf94c3c0a7cb4ea44425607d001a745f?Expires=1698019200&Signature=J8RBxbLjZfhyRSsPCYMut3i0aMn-UIsbWeVB2KWDIgekXpodPbOOgKo8YsyWwBoZ5c3K-FLQfKJnvzhV84MNKxplfoZLUxGE03SA3NGUBZlvGZ30Ln02AN8ydxJhW37SHkcvegX5dRLOXHH---VQE~DxKuGkIEa2zlVYndhkjWOO7D5AKy6N6b2eH382Ad1iPEoGAudGBRSfwA4fJDRX3UAmIAcMN20u6EJzVCC1uGSzqoyecA5y7DVUKoN2iBXGNnt~0qw9WH3oyMVebIE6FOCF2ETx-3au~wlpSflW~nYT9NEgFJbwIKjDhqin848Q0Cb0SXe6k2yXDVvTVH6rsg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
     title: 'Black Panther 3',
     tags: ['13+', 'IMAX', 'Action'],
   },
   {
     id: 6,
-    img: 'https://s3-alpha-sig.figma.com/img/f0cd/eaad/9c1523083ead593c088a9515c7e60053?Expires=1696204800&Signature=hLVUuPaI0bZg9HDH~uGsWyjCYDTqI2iVMuVfGxg27b~jA56acfadlS~pUEdesLtolSgzVIeBec40nENKxRhbl3G4V1DvPealjDQLL9lRREWjkX~6I6sETULKNPl1QRg564LhJO9CkX0bQ4tFqg9CAPCESbSh5fS6rlCLUwSghb~Y2DU97CJbhjKXlkaNXQCbTV-q9sJbF3eu9Jy6FVDuro3CdG~i~3P0g1M9uHv8BPaYhX1ON18gMymZINOinZKkpYrQ8-FQAuNvXCtW73ZPPKMGuyW8oly~WorScGy586IdLZ3y6frn3ojtovoWUz9M5G28EAlW74KmqCT0nDOE2w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    img: 'https://s3-alpha-sig.figma.com/img/f0cd/eaad/9c1523083ead593c088a9515c7e60053?Expires=1698019200&Signature=X3bP6YnDmvCn5SHY81PSwHe4mAHvvdnILUdrj7A34getzLWGr7N9Kqb8-s3in6EBaBvxnDYTYQODDpFDsOgz9AV5NTtjQ-wTVOt1UTitnOVde-E1hBbomUVLYDjmG7Ryq~RzUPGyiig3AZapiWwriG2tXKvPva3EqxEH24i1TgQGIJeI191-C80EMwbY~KXSJwyab~lrRRsJgNM2Lrq2gp0m2CysdS1GXnkiMdxIHjhsUlbRmMf3Q5~X9trRZVJOTUQe5VqFM8byNMU7VP2x0d4yljgqWqx~ldG9EDqqM1yhTkdRq52ULU0fx8R4vbpkWW0SfqaGSxp1NSpIPgvGUA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
     title: 'Morbius',
     tags: ['16+', '4K', 'Horror'],
   },
