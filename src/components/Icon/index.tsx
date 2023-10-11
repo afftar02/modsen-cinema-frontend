@@ -1,5 +1,5 @@
-import sprite from './assets/sprite.svg';
 import { MouseEventHandler } from 'react';
+import sprite from './assets/sprite.svg';
 
 type IconProps = {
   id: string;

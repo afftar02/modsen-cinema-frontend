@@ -233,4 +233,12 @@
             <path d="M4.89163 13.2687L9.16582 17.5427L18.7085 8" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
     </symbol>
+    <symbol id="arrow-up">
+        <path d="M21 13L11 1L0.999999 13M21 31L11 19L1 31" stroke="#FEFEFE" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="arrow-down">
+        <path d="M0.999999 19L11 31L21 19M1 0.999999L11 13L21 1" stroke="#FEFEFE" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
 </svg>

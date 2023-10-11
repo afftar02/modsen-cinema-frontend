@@ -4,6 +4,7 @@ import Header from 'components/Header';
 import VideoPreview from 'components/VideoPreview';
 import ErrorFallback from 'components/ErrorFallback';
 import ErrorBoundary from 'components/ErrorBoundary';
+import VerticalCarousel from '../../components/VerticalCarousel';
 
 const MainWrapper = styled.div`
   position: relative;
@@ -13,11 +14,12 @@ const MainWrapper = styled.div`
   min-height: 100vh;
 `;
 
-const Flex = styled.div<{ $marginTop?: number }>`
+const Flex = styled.div<{ $marginTop?: number; $height?: number; }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
+  ${(props) => props.$height && `height: ${props.$height}px`};
   ${(props) => props.$marginTop && `margin-top: ${props.$marginTop}px`};
 `;
 
@@ -91,7 +93,7 @@ function Main() {
             isHiding
           />
         </Flex>
-        <Flex $marginTop={86}>
+        <Flex $marginTop={86} $height={497}>
           <div>
             <CurrentMovieTitle>Now in the Cinema</CurrentMovieTitle>
             <CurrentMovieDescription>
@@ -99,6 +101,7 @@ function Main() {
               Book tickets right now!
             </CurrentMovieDescription>
           </div>
+          <VerticalCarousel />
         </Flex>
         <Flex $marginTop={150}>
           <img src="images/studios.svg" alt="studios" />
