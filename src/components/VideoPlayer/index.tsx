@@ -258,6 +258,7 @@ function VideoPlayer({ src }: VideoPlayerProps) {
     },
     [
       handleChangeSpeed,
+      handleMouseMove,
       skipTime,
       speed,
       togglePlay,
