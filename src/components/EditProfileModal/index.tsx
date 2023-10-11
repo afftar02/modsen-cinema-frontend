@@ -8,24 +8,11 @@ import { validateEditProfile } from 'helpers/ValidateEditProfile';
 import FileInput from 'components/FileInput';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import ModalPortal from 'components/ModalPortal';
 
 type AuthFormProps = {
   onClose: () => void;
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-
-  background-color: rgba(30, 31, 39, 0.7);
-  z-index: 30;
-`;
 
 const Modal = styled.div`
   position: relative;
@@ -95,7 +82,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
   });
 
   return (
-    <Wrapper>
+    <ModalPortal>
       <Modal>
         <CloseIcon
           id="close"
@@ -149,7 +136,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
           </StyledForm>
         </ErrorBoundary>
       </Modal>
-    </Wrapper>
+    </ModalPortal>
   );
 }
 

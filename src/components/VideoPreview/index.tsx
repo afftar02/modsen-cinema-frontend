@@ -1,7 +1,8 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
 import { useState } from 'react';
-import VideoPlayer from '../VideoPlayer';
+import VideoPlayer from 'components/VideoPlayer';
+import ModalPortal from 'components/ModalPortal';
 
 type VideoPreviewProps = {
   previewUrl: string;
@@ -37,19 +38,6 @@ const PlayIcon = styled(Icon)`
   }
 `;
 
-const ModalWrapper = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 30;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(30, 31, 39, 0.7);
-`;
-
 const CloseIcon = styled(Icon)`
   position: absolute;
   top: 40px;
@@ -75,7 +63,7 @@ function VideoPreview({
   return (
     <>
       {playerOpened && (
-        <ModalWrapper>
+        <ModalPortal isFixed>
           <CloseIcon
             id="close"
             width={50}
@@ -84,7 +72,7 @@ function VideoPreview({
             onClick={() => setPlayerOpened(false)}
           />
           <VideoPlayer src={videoUrl} />
-        </ModalWrapper>
+        </ModalPortal>
       )}
       <Preview $previewUrl={previewUrl} $isHiding={isHiding} {...props}>
         <PlayIcon
