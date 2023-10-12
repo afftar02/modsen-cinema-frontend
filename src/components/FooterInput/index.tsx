@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
-import { useState } from 'react';
+import { KeyboardEvent, useEffect, useState } from 'react';
+import { init, send } from '@emailjs/browser';
+import * as process from 'process';
 
 const InputWrapper = styled.div`
   position: relative;
@@ -47,20 +49,51 @@ const StyledIcon = styled(Icon)`
 function FooterInput() {
   const [value, setValue] = useState('');
 
+  const handleSubmit = async () => {
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      alert('Invalid email address!');
+      return;
+    }
+
+    try {
+      await send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID ?? '',
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID ?? '',
+        {
+          email: value,
+        }
+      );
+      setValue('');
+      alert('Subscription successfully completed!');
+    } catch (err) {
+      alert('Subscription error!');
+    }
+  };
+
+  const handleEnter = (event: KeyboardEvent) => {
+    if (event.code === 'Enter') {
+      handleSubmit();
+    }
+  };
+
+  useEffect(() => {
+    init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY ?? '');
+  }, []);
+
   return (
     <InputWrapper>
       <StyledInput
-        type="email"
         placeholder="Enter email"
         value={value}
         onChange={(event) => setValue(event.target.value)}
+        onKeyDown={handleEnter}
       />
       <StyledIcon
         id={'send'}
         width={24}
         height={24}
         viewBox="0 0 24 24"
-        onClick={() => alert(value)}
+        onClick={handleSubmit}
       />
     </InputWrapper>
   );
