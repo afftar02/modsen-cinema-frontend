@@ -297,7 +297,7 @@ function VideoPlayer({ src }: VideoPlayerProps) {
   }, [handleKeyPressed]);
 
   return (
-    <PlayerContainer onMouseMove={handleMouseMove}>
+    <PlayerContainer onMouseMove={handleMouseMove} onDoubleClick={togglePlay}>
       <ErrorBoundary fallback={<ErrorFallback />}>
         <StyledVideo
           ref={videoRef}
