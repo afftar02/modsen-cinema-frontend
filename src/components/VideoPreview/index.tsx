@@ -3,6 +3,7 @@ import Icon from 'components/Icon';
 import { useState } from 'react';
 import VideoPlayer from 'components/VideoPlayer';
 import ModalPortal from 'components/ModalPortal';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type VideoPreviewProps = {
   previewUrl: string;
@@ -10,7 +11,10 @@ type VideoPreviewProps = {
   isHiding?: boolean;
 };
 
-const Preview = styled.div<{ $previewUrl: string; $isHiding?: boolean }>`
+const Preview = styled(motion.div)<{
+  $previewUrl: string;
+  $isHiding?: boolean;
+}>`
   background:
     url(${(props) => props.$previewUrl}),
     lightgray 50% / cover no-repeat;
@@ -62,19 +66,31 @@ function VideoPreview({
 
   return (
     <>
-      {playerOpened && (
-        <ModalPortal isFixed>
-          <CloseIcon
-            id="close"
-            width={50}
-            height={50}
-            viewBox="0 0 50 50"
-            onClick={() => setPlayerOpened(false)}
-          />
-          <VideoPlayer src={videoUrl} />
-        </ModalPortal>
-      )}
-      <Preview $previewUrl={previewUrl} $isHiding={isHiding} {...props}>
+      <AnimatePresence>
+        {playerOpened && (
+          <ModalPortal isFixed>
+            <CloseIcon
+              id="close"
+              width={50}
+              height={50}
+              viewBox="0 0 50 50"
+              onClick={() => setPlayerOpened(false)}
+            />
+            <VideoPlayer src={videoUrl} />
+          </ModalPortal>
+        )}
+      </AnimatePresence>
+      <Preview
+        $previewUrl={previewUrl}
+        $isHiding={isHiding}
+        {...props}
+        initial={{ opacity: 0, translateY: '100px' }}
+        whileInView={{ opacity: 1, translateY: 0 }}
+        transition={{
+          duration: 0.5,
+        }}
+        viewport={{ once: true }}
+      >
         <PlayIcon
           id={'play-preview'}
           width={70}

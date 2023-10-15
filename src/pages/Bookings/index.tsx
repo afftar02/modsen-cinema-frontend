@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import BookingCard from 'components/BookingCard';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import SectionTitle from './SectionTitle';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -18,14 +19,6 @@ const BookingsWrapper = styled.div`
   flex-direction: column;
   gap: 70px;
   padding: 98px 0 170px 178px;
-`;
-
-const SectionTitle = styled.span`
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  font-size: 48px;
-  font-weight: 300;
-  text-transform: uppercase;
 `;
 
 const BookingsContainer = styled.div`

@@ -8,6 +8,7 @@ import CinemaHall from 'components/CinemaHall';
 const Wrapper = styled.div`
   position: relative;
   margin-top: 80px;
+  animation: 0.5s ease-in-out fade-up;
 `;
 
 const Divider = styled.div`

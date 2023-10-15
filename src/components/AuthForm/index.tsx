@@ -14,6 +14,7 @@ import { AuthContextType, useAuth } from 'auth/Auth';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
+import { motion } from 'framer-motion';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -24,7 +25,7 @@ type AuthFormProps = {
   hintLink?: string;
 };
 
-const Modal = styled.div`
+const Modal = styled(motion.div)`
   position: relative;
   width: 840px;
   min-height: 500px;
@@ -149,7 +150,14 @@ function AuthForm({
 
   return (
     <ModalPortal>
-      <Modal>
+      <Modal
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.5, opacity: 0 }}
+        transition={{
+          duration: 0.3,
+        }}
+      >
         <Link to="/">
           <CloseIcon id="close" width={50} height={50} viewBox="0 0 50 50" />
         </Link>

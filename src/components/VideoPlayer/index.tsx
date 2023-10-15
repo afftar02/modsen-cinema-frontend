@@ -6,12 +6,13 @@ import { secToMin } from 'helpers/ConvertSecToMin';
 import { timeToSec } from 'helpers/ConvertTimeToSec';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import { motion } from 'framer-motion';
 
 type VideoPlayerProps = {
   src: string;
 };
 
-const PlayerContainer = styled.div`
+const PlayerContainer = styled(motion.div)`
   position: relative;
 `;
 
@@ -136,6 +137,7 @@ const RightControlsContainer = styled.div`
 
 const StyledVideo = styled.video`
   background-color: #000;
+  transition: all 0.5s ease-in-out;
 `;
 
 const initialTime = {
@@ -297,7 +299,16 @@ function VideoPlayer({ src }: VideoPlayerProps) {
   }, [handleKeyPressed]);
 
   return (
-    <PlayerContainer onMouseMove={handleMouseMove} onDoubleClick={togglePlay}>
+    <PlayerContainer
+      onMouseMove={handleMouseMove}
+      onDoubleClick={togglePlay}
+      initial={{ scale: 0.5, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.5, opacity: 0 }}
+      transition={{
+        duration: 0.3,
+      }}
+    >
       <ErrorBoundary fallback={<ErrorFallback />}>
         <StyledVideo
           ref={videoRef}

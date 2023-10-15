@@ -9,6 +9,7 @@ import ProfileMenu from 'components/ProfileMenu';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import SettingsModal from 'components/SettingsModal';
+import { AnimatePresence } from 'framer-motion';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -99,10 +100,16 @@ function Header() {
           )}
         </ErrorBoundary>
       </StyledHeader>
-      {profileOpened && <ProfileMenu onClose={() => setProfileOpened(false)} />}
-      {settingsOpened && (
-        <SettingsModal onClose={() => setSettingsOpened(false)} />
-      )}
+      <AnimatePresence>
+        {profileOpened && (
+          <ProfileMenu onClose={() => setProfileOpened(false)} />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {settingsOpened && (
+          <SettingsModal onClose={() => setSettingsOpened(false)} />
+        )}
+      </AnimatePresence>
     </>
   );
 }

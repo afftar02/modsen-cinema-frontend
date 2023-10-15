@@ -1,12 +1,13 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 type BookingCardProps = {
   isOver?: boolean;
 };
 
-const CardContainer = styled.div`
+const CardContainer = styled(motion.div)`
   display: flex;
   width: 600px;
   height: 200px;
@@ -140,7 +141,14 @@ const StyledLink = styled(Link)`
 
 function BookingCard({ isOver = false }: BookingCardProps) {
   return (
-    <CardContainer>
+    <CardContainer
+      initial={{ scale: 0.5 }}
+      whileInView={{ scale: 1 }}
+      transition={{
+        duration: 0.5,
+      }}
+      viewport={{ once: true }}
+    >
       <StyledLink to={'/film/5'}>
         <StyledImage
           src={

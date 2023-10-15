@@ -1,12 +1,13 @@
 import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 type ReviewProps = {
   bgColor: string;
 };
 
-const ReviewContainer = styled.div<{ $bgColor: string }>`
+const ReviewContainer = styled(motion.div)<{ $bgColor: string }>`
   border-radius: 20px;
   background: ${(props) => props.$bgColor};
   display: flex;
@@ -99,7 +100,17 @@ function Review({ bgColor }: ReviewProps) {
   };
 
   return (
-    <ReviewContainer $bgColor={bgColor} onClick={handleShowClick}>
+    <ReviewContainer
+      $bgColor={bgColor}
+      onClick={handleShowClick}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{
+        duration: 0.5,
+        delay: 0.1,
+      }}
+      viewport={{ once: true }}
+    >
       <ReviewTitle>Review</ReviewTitle>
       <AuthorDescription>from Stanislav Lebedyantsev</AuthorDescription>
       <ReviewTextContainer ref={reviewRef} $isOpened={opened}>

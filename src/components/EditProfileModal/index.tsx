@@ -9,19 +9,19 @@ import FileInput from 'components/FileInput';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
+import { motion } from 'framer-motion';
 
 type AuthFormProps = {
   onClose: () => void;
 };
 
-const Modal = styled.div`
+const Modal = styled(motion.div)`
   position: relative;
   width: 840px;
   min-height: 500px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-
   background-color: #1e1f27;
   padding: 40px 107px;
 `;
@@ -83,7 +83,14 @@ function EditProfileModal({ onClose }: AuthFormProps) {
 
   return (
     <ModalPortal>
-      <Modal>
+      <Modal
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.5, opacity: 0 }}
+        transition={{
+          duration: 0.3,
+        }}
+      >
         <CloseIcon
           id="close"
           width={50}

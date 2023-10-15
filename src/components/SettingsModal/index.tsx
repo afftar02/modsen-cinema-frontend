@@ -8,19 +8,19 @@ import { useState } from 'react';
 import { LANGUAGES } from 'constants/Languages';
 import { THEMES } from 'constants/Themes';
 import ModalPortal from 'components/ModalPortal';
+import { motion } from 'framer-motion';
 
 type SettingsModalProps = {
   onClose: () => void;
 };
 
-const Modal = styled.div`
+const Modal = styled(motion.div)`
   position: relative;
   width: 840px;
   min-height: 500px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-
   background-color: #1e1f27;
   padding: 40px 107px;
 `;
@@ -86,8 +86,15 @@ function SettingsModal({ onClose }: SettingsModalProps) {
   const [selectedTheme, setSelectedTheme] = useState(THEMES[0].value);
 
   return (
-    <ModalPortal>
-      <Modal>
+    <ModalPortal isFixed>
+      <Modal
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.5, opacity: 0 }}
+        transition={{
+          duration: 0.3,
+        }}
+      >
         <CloseIcon
           id="close"
           width={50}

@@ -27,3 +27,12 @@ code {
 body::-webkit-scrollbar {
   display: none;
 }
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
