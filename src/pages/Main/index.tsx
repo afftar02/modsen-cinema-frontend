@@ -5,6 +5,7 @@ import VideoPreview from 'components/VideoPreview';
 import ErrorFallback from 'components/ErrorFallback';
 import ErrorBoundary from 'components/ErrorBoundary';
 import VerticalCarousel from '../../components/VerticalCarousel';
+import { motion } from 'framer-motion';
 
 const MainWrapper = styled.div`
   position: relative;
@@ -14,7 +15,7 @@ const MainWrapper = styled.div`
   min-height: 100vh;
 `;
 
-const Flex = styled.div<{ $marginTop?: number; $height?: number; }>`
+const Flex = styled.div<{ $marginTop?: number; $height?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +24,7 @@ const Flex = styled.div<{ $marginTop?: number; $height?: number; }>`
   ${(props) => props.$marginTop && `margin-top: ${props.$marginTop}px`};
 `;
 
-const DescriptionContainer = styled.div`
+const DescriptionContainer = styled(motion.div)`
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 300;
   color: #ffffff;
@@ -62,7 +63,7 @@ const CurrentMovieDescription = styled.p`
   font-weight: 300;
 `;
 
-const StyledYear = styled.span`
+const StyledYear = styled(motion.span)`
   color: #fff;
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
@@ -75,7 +76,15 @@ function Main() {
       <Header />
       <ErrorBoundary fallback={<ErrorFallback />}>
         <Flex $marginTop={150}>
-          <DescriptionContainer>
+          <DescriptionContainer
+            initial={{ opacity: 0, translateY: '100px' }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.3,
+            }}
+            viewport={{ once: true }}
+          >
             <TrailerTitle>THE BATMAN</TrailerTitle>
             <TrailerDescription>
               Batman is called to intervene when the mayor of Gotham City is
@@ -94,20 +103,45 @@ function Main() {
           />
         </Flex>
         <Flex $marginTop={86} $height={497}>
-          <div>
+          <motion.div
+            initial={{ opacity: 0, translateX: '-100px' }}
+            whileInView={{ opacity: 1, translateX: 0 }}
+            transition={{
+              duration: 0.5,
+            }}
+            viewport={{ once: true }}
+          >
             <CurrentMovieTitle>Now in the Cinema</CurrentMovieTitle>
             <CurrentMovieDescription>
               Watch great Movies in the best cinema! We care about your comfort.
               Book tickets right now!
             </CurrentMovieDescription>
-          </div>
+          </motion.div>
           <VerticalCarousel />
         </Flex>
         <Flex $marginTop={150}>
-          <img src="images/studios.svg" alt="studios" />
+          <motion.img
+            src="images/studios.svg"
+            alt="studios"
+            initial={{ opacity: 0, translateY: '100%' }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{
+              duration: 0.5,
+            }}
+            viewport={{ once: true }}
+          />
         </Flex>
         <Flex $marginTop={40}>
-          <StyledYear>2023</StyledYear>
+          <StyledYear
+            initial={{ opacity: 0, translateY: '100%' }}
+            whileInView={{ opacity: 1, translateY: 0 }}
+            transition={{
+              duration: 0.5,
+            }}
+            viewport={{ once: true }}
+          >
+            2023
+          </StyledYear>
         </Flex>
         <Outlet />
       </ErrorBoundary>

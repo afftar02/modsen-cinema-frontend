@@ -6,12 +6,13 @@ import EditProfileModal from 'components/EditProfileModal';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import SettingsModal from 'components/SettingsModal';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type ProfileMenuProps = {
   onClose: () => void;
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   position: absolute;
   width: 600px;
   height: 100%;
@@ -26,16 +27,6 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   padding-top: 70px;
   padding-bottom: 40px;
-  animation: 0.5s ease-in-out show-profile;
-
-  @keyframes show-profile {
-    from {
-      right: -600px;
-    }
-    to {
-      right: 0;
-    }
-  }
 `;
 
 const BackArrowIcon = styled(Icon)`
@@ -133,13 +124,24 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
 
   return (
     <>
-      {editProfileOpened && (
-        <EditProfileModal onClose={() => setEditProfileOpened(false)} />
-      )}
-      {settingsOpened && (
-        <SettingsModal onClose={() => setSettingsOpened(false)} />
-      )}
-      <Wrapper>
+      <AnimatePresence>
+        {editProfileOpened && (
+          <EditProfileModal onClose={() => setEditProfileOpened(false)} />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {settingsOpened && (
+          <SettingsModal onClose={() => setSettingsOpened(false)} />
+        )}
+      </AnimatePresence>
+      <Wrapper
+        initial={{ translateX: '100%' }}
+        animate={{ translateX: 0 }}
+        exit={{ translateX: '100%' }}
+        transition={{
+          duration: 0.3,
+        }}
+      >
         <BackArrowIcon
           id={'arrow-right'}
           width={60}

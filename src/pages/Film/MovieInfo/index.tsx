@@ -2,6 +2,7 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 type MovieInfoProps = {
   posterUrl: string;
@@ -12,7 +13,7 @@ const MovieInfoContainer = styled.div`
   position: relative;
 `;
 
-const MovieTitleContainer = styled.div`
+const MovieTitleContainer = styled(motion.div)`
   width: 630px;
   height: 130px;
 `;
@@ -30,7 +31,7 @@ const MovieDataContainer = styled.div`
   margin: 34px 0;
 `;
 
-const PosterContainer = styled.div`
+const PosterContainer = styled(motion.div)`
   width: 410px;
   height: 600px;
   flex-shrink: 0;
@@ -41,7 +42,7 @@ const Poster = styled.img`
   height: 100%;
 `;
 
-const MovieDataBlock = styled.div`
+const MovieDataBlock = styled(motion.div)`
   margin-left: 70px;
 `;
 
@@ -89,7 +90,7 @@ const RatingText = styled.span`
   font-weight: 700;
 `;
 
-const DescriptionText = styled.p`
+const DescriptionText = styled(motion.p)`
   color: #fff;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 32px;
@@ -102,14 +103,35 @@ function MovieInfo({ onOpenBooking, posterUrl }: MovieInfoProps) {
 
   return (
     <MovieInfoContainer>
-      <MovieTitleContainer>
+      <MovieTitleContainer
+        initial={{ opacity: 0, translateY: '30%' }}
+        whileInView={{ opacity: 1, translateY: 0 }}
+        transition={{
+          duration: 0.5,
+        }}
+        viewport={{ once: true }}
+      >
         <MovieTitleText>Black Panther: Wakanda Forever</MovieTitleText>
       </MovieTitleContainer>
       <MovieDataContainer>
-        <PosterContainer>
+        <PosterContainer
+          initial={{ opacity: 0, translateX: '-50%' }}
+          whileInView={{ opacity: 1, translateX: 0 }}
+          transition={{
+            duration: 0.5,
+          }}
+          viewport={{ once: true }}
+        >
           <Poster src={posterUrl} alt={'poster'} />
         </PosterContainer>
-        <MovieDataBlock>
+        <MovieDataBlock
+          initial={{ opacity: 0, translateX: '50%' }}
+          whileInView={{ opacity: 1, translateX: 0 }}
+          transition={{
+            duration: 0.5,
+          }}
+          viewport={{ once: true }}
+        >
           <InfoBlock>
             <InfoLabel>Release year: </InfoLabel>
             <InfoText>2022</InfoText>
@@ -149,7 +171,14 @@ function MovieInfo({ onOpenBooking, posterUrl }: MovieInfoProps) {
         </MovieDataBlock>
       </MovieDataContainer>
       <div>
-        <DescriptionText>
+        <DescriptionText
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{
+            duration: 0.5,
+          }}
+          viewport={{ once: true }}
+        >
           Queen Ramonda, Shuri, MBaku, Okoye and the Dora Milaje fight to
           protect their nation from intervening world powers in the wake of King
           TChallas death. As the Wakandans strive to embrace their next chapter,

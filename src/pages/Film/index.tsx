@@ -2,7 +2,7 @@ import Header from 'components/Header';
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
 import Review from 'components/Review';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Footer from 'components/Footer';
 import Vibrant from 'node-vibrant/lib/bundle';
 import MovieBooking from './MovieBooking';
@@ -10,6 +10,7 @@ import VideoPreview from 'components/VideoPreview';
 import MovieInfo from './MovieInfo';
 import ErrorFallback from 'components/ErrorFallback';
 import ErrorBoundary from 'components/ErrorBoundary';
+import { motion } from 'framer-motion';
 
 const PageContainer = styled.div`
   position: relative;
@@ -32,8 +33,11 @@ const BackgroundContainer = styled.div<{
   $firstBgColor: string;
   $secondBgColor: string;
 }>`
+  animation: 1s linear 0.3s fade-up;
   background: ${(props) =>
-    `linear-gradient(180deg, ${props.$firstBgColor}, ${props.$secondBgColor})`};
+    props.$firstBgColor || props.$secondBgColor
+      ? `linear-gradient(180deg, ${props.$firstBgColor}, ${props.$secondBgColor})`
+      : 'transparent'};
   box-shadow:
     -50px -50px 100px 0px #1e1f27 inset,
     50px 50px 100px 20px #1e1f27 inset;
@@ -45,7 +49,7 @@ const BackgroundContainer = styled.div<{
   height: 100%;
 `;
 
-const MoveNextContainer = styled.div`
+const MoveNextContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   position: absolute;
@@ -54,6 +58,7 @@ const MoveNextContainer = styled.div`
   z-index: 5;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  animation: 0.5s ease-in-out fade-up;
 
   &:hover {
     transform: translateX(15px);
@@ -78,11 +83,12 @@ const TrailerBlock = styled.div`
   margin-top: 78px;
 `;
 
-const TrailerText = styled.span`
+const TrailerText = styled(motion.span)`
   color: #fff;
   font-family: 'Poppins', sans-serif;
   font-size: 42px;
   font-weight: 500;
+  display: inline-block;
 `;
 
 const StyledPreview = styled(VideoPreview)`
@@ -108,6 +114,15 @@ function Film() {
 
   const bookingRef = useRef<HTMLDivElement>(null);
 
+  const scrollToBooking = useCallback(() => {
+    bookingRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const handleOpenBookingClick = useCallback(() => {
+    setBookingOpened(true);
+    scrollToBooking();
+  }, [scrollToBooking]);
+
   const imageUrl =
     'https://s3-alpha-sig.figma.com/img/e5cc/8136/0873c95c1344b596f117082814368ada?Expires=1698019200&Signature=EpJa3G7fEGF26GpsYcpiZV4KbCq-DWnb771YFlaGRRwLj50BmrzcotnY7yJSiWxo5-a4YR4N12xVr6FgkPGy8iFNJatIoDn0msa8iUoSs73-vQZtdvzV52z84ukpH9A9aQFIVzGSWZlifzzZBn23~dHXqeOXw7CCQp1YWc-E0zrRXYVVA9KEta4etGXlMIlZRyeeC6lTA11KbWjWgJ1H9f8m50sSQzCc1rvVFkNC7~uqOx12VmpCzv55dVdorSJDsQzJ4vy0YD8wi4H8aJBm1IuiUm05vIRNu36ooaPHfob~qxAwnITjRRPOTOH8H0xWhqA67qaoeNnmtiABUDSZ4w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
 
@@ -124,9 +139,9 @@ function Film() {
 
   useEffect(() => {
     if (bookingOpened) {
-      bookingRef.current?.scrollIntoView({ behavior: 'smooth' });
+      scrollToBooking();
     }
-  }, [bookingOpened]);
+  }, [bookingOpened, scrollToBooking]);
 
   return (
     <PageContainer>
@@ -148,12 +163,21 @@ function Film() {
               />
             </MoveNextContainer>
             <MovieInfo
-              onOpenBooking={() => setBookingOpened(true)}
+              onOpenBooking={handleOpenBookingClick}
               posterUrl={imageUrl}
             />
             {bookingOpened && <MovieBooking ref={bookingRef} />}
             <TrailerBlock>
-              <TrailerText>Watch trailer online!</TrailerText>
+              <TrailerText
+                initial={{ opacity: 0, translateY: '100%' }}
+                whileInView={{ opacity: 1, translateY: 0 }}
+                transition={{
+                  duration: 0.5,
+                }}
+                viewport={{ once: true }}
+              >
+                Watch trailer online!
+              </TrailerText>
               <StyledPreview
                 previewUrl={
                   'https://s3-alpha-sig.figma.com/img/e73d/a448/7b1a870666847d044c701bcd275121cc?Expires=1696204800&Signature=ZFuRAwH4r-rcBOelM~MyxSkAxPBHp6Xz40LCvAMW7TXPxrBYfWXOQA9lIscy3wu06OcH~fOgQD6kWKAyk3SI0mhN7DWLdprhUfNsApaEPN0686zVvGBewQRqKz2Mtj6ZP-y5I1xASJJ7yBgGrLFOmydA86t7lWktu~lC9etqSnhsao7hmhLns21hIGwME7Nrliu8l3NLY29ap2khsU5cesx7e5YB598465kBJti0-qS12Dje2nivlOOz7Lt0pNAHivpYgSGvsljKJr7eQShnNAgAX5HRkcB-4e646k3EG3vboRMDbYkr-5cYxJG6QmEdEb0WbrCjyZaIGNHWBvqzMA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
