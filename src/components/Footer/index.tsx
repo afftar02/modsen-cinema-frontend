@@ -1,5 +1,5 @@
 import Icon from 'components/Icon';
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import FooterInput from 'components/FooterInput';
 
 const FooterWrapper = styled.div`
@@ -20,7 +20,7 @@ const Column = styled.div`
 `;
 
 const ColumnTitle = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -36,7 +36,7 @@ const ColumnList = styled.div`
 `;
 
 const ListItemText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -57,7 +57,7 @@ const InputDescriptionText = styled.span`
   width: 386px;
   display: inline-block;
   margin-top: 20px;
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -70,9 +70,17 @@ const SubscribeBlock = styled.div`
 `;
 
 function Footer() {
+  const theme = useTheme();
+
   return (
     <FooterWrapper>
-      <Icon id="footer-logo" width={123} height={30} viewBox="0 0 123 30" />
+      <Icon
+        id="footer-logo"
+        width={123}
+        height={30}
+        viewBox="0 0 123 30"
+        fill={theme.logoColor}
+      />
       <ColumnsContainer>
         <Column>
           <ColumnTitle>First column</ColumnTitle>

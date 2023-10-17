@@ -22,7 +22,7 @@ const SettingsRadioInput = styled.input`
   -webkit-appearance: none;
   appearance: none;
   border-radius: 99px;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.buttonBgColor};
   display: grid;
   place-content: center;
 
@@ -42,7 +42,7 @@ const SettingsRadioInput = styled.input`
 `;
 
 const SettingsItemLabel = styled.label`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 300;

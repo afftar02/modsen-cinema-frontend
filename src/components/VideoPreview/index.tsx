@@ -3,6 +3,7 @@ import Icon from 'components/Icon';
 import { useState } from 'react';
 import VideoPlayer from 'components/VideoPlayer';
 import ModalPortal from 'components/ModalPortal';
+import CloseIcon from 'components/CloseIcon';
 import { AnimatePresence, motion } from 'framer-motion';
 
 type VideoPreviewProps = {
@@ -21,7 +22,7 @@ const Preview = styled(motion.div)<{
   background-size: cover;
   box-shadow: ${(props) =>
     props.$isHiding
-      ? '250px 10px 250px 0px #1e1f27 inset'
+      ? `250px 10px 250px 0px ${props.theme.shadowColor} inset`
       : '15px 15px 50px 0px #000'};
 
   position: relative;
@@ -42,20 +43,6 @@ const PlayIcon = styled(Icon)`
   }
 `;
 
-const CloseIcon = styled(Icon)`
-  position: absolute;
-  top: 40px;
-  right: 50px;
-  cursor: pointer;
-  opacity: 1;
-  z-index: 5;
-  transition: opacity 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
 function VideoPreview({
   previewUrl,
   videoUrl,
@@ -70,11 +57,9 @@ function VideoPreview({
         {playerOpened && (
           <ModalPortal isFixed>
             <CloseIcon
-              id="close"
-              width={50}
-              height={50}
-              viewBox="0 0 50 50"
               onClick={() => setPlayerOpened(false)}
+              lineColor={'#DBDBDB'}
+              bgColor={'#D9D9D9'}
             />
             <VideoPlayer src={videoUrl} />
           </ModalPortal>

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import Icon from 'components/Icon';
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import EditProfileModal from 'components/EditProfileModal';
 import ErrorBoundary from 'components/ErrorBoundary';
@@ -17,7 +17,7 @@ const Wrapper = styled(motion.div)`
   width: 600px;
   height: 100%;
   flex-shrink: 0;
-  background: #1c1c1c;
+  background: ${(props) => props.theme.profileMenuBgColor};
   top: 0;
   right: 0;
   z-index: 15;
@@ -43,7 +43,7 @@ const BackArrowIcon = styled(Icon)`
 `;
 
 const ProfileTitle = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 40px;
   font-weight: 300;
@@ -69,21 +69,21 @@ const UserDetailsBlock = styled.div`
 `;
 
 const UserNameText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 36px;
   font-weight: 600;
 `;
 
 const UserIdText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 26px;
   font-weight: 600;
 `;
 
 const GenderText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 26px;
   font-weight: 600;
@@ -98,7 +98,7 @@ const ActionBlock = styled.div`
 `;
 
 const ActionText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 36px;
   font-weight: 600;
@@ -116,6 +116,8 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
   const [settingsOpened, setSettingsOpened] = useState(false);
 
   const { logout } = useAuth() as AuthContextType;
+
+  const theme = useTheme();
 
   const handleLogout = useCallback(() => {
     logout();
@@ -148,6 +150,7 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
           height={38}
           viewBox="0 0 69 38"
           onClick={onClose}
+          fill={theme.color}
         />
         <ErrorBoundary fallback={<ErrorFallback />}>
           <ProfileTitle>User profile</ProfileTitle>

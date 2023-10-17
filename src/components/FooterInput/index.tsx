@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import Icon from 'components/Icon';
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { init, send } from '@emailjs/browser';
@@ -13,10 +13,10 @@ const StyledInput = styled.input`
   box-sizing: border-box;
   padding: 12px 50px 12px 24px;
   border-radius: 40px;
-  background: rgba(255, 255, 255, 0.15);
+  background: ${(props) => props.theme.footerInputBgColor};
   border: none;
   outline: none;
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -24,7 +24,7 @@ const StyledInput = styled.input`
   letter-spacing: 0.1px;
 
   &::placeholder {
-    color: #fff;
+    color: ${(props) => props.theme.color};
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -48,6 +48,8 @@ const StyledIcon = styled(Icon)`
 
 function FooterInput() {
   const [value, setValue] = useState('');
+
+  const theme = useTheme();
 
   const handleSubmit = async () => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
@@ -93,6 +95,7 @@ function FooterInput() {
         width={24}
         height={24}
         viewBox="0 0 24 24"
+        fill={theme.color}
         onClick={handleSubmit}
       />
     </InputWrapper>

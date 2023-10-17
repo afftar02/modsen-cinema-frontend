@@ -7,7 +7,7 @@ const StyledNav = styled.nav`
 `;
 
 const StyledLink = styled(NavLink)`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
   font-size: 24px;

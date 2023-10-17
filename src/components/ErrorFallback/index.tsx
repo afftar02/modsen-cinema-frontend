@@ -9,7 +9,7 @@ const FallbackContainer = styled.div`
 `;
 
 const FallbackText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Inria Sans', sans-serif;
   font-size: 32px;
   font-weight: 300;
