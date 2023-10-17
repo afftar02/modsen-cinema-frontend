@@ -25,6 +25,7 @@ const Modal = styled(motion.div)`
   flex-direction: column;
   box-sizing: border-box;
   background-color: ${(props) => props.theme.bgColor};
+  transition: background-color 1s ease-in-out;
   padding: 40px 107px;
 `;
 

@@ -49,6 +49,7 @@ const StyledIcon = styled(Icon)`
 const SignInButton = styled(Button)`
   background: ${(props) => props.theme.buttonBgColor};
   color: ${(props) => props.theme.buttonColor};
+  transition: color 1s ease-in-out;
 
   margin-left: 30px;
 `;

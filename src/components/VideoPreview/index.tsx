@@ -32,6 +32,7 @@ const Preview = styled(motion.div)<{
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: box-shadow 1.3s ease-in-out;
 `;
 
 const PlayIcon = styled(Icon)`

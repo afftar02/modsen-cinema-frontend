@@ -8,6 +8,7 @@ type SectionTitleProps = {
 
 const StyledSpan = styled(motion.span)`
   color: ${(props) => props.theme.color};
+  transition: color 1.5s ease-in-out;
   font-family: 'Poppins', sans-serif;
   font-size: 48px;
   font-weight: 300;

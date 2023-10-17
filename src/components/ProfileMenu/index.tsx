@@ -27,6 +27,7 @@ const Wrapper = styled(motion.div)`
   box-sizing: border-box;
   padding-top: 70px;
   padding-bottom: 40px;
+  transition: background 1.3s ease-in-out;
 `;
 
 const BackArrowIcon = styled(Icon)`

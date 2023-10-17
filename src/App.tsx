@@ -6,18 +6,14 @@ import Bookings from 'pages/Bookings';
 import Auth from 'auth/Auth';
 import AuthorizedRoute from 'utils/AuthorizedRoute';
 import { AnimatePresence } from 'framer-motion';
-import { styled, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { selectThemeValue } from 'redux/selectors/theme';
 import { THEMES } from 'constants/Themes';
-
-const Wrapper = styled.div`
-  background-color: ${(props) => props.theme.bgColor};
-`;
+import Wrapper from 'pages/Wrapper';
 
 function App() {
   const location = useLocation();
-
   const currentThemeValue = useSelector(selectThemeValue);
 
   return (
