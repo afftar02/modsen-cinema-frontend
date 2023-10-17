@@ -1,4 +1,3 @@
-import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import Input from 'components/Input';
 import Button from 'components/Button';
@@ -10,6 +9,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
+import CloseIcon from 'components/CloseIcon';
 
 type AuthFormProps = {
   onClose: () => void;
@@ -22,28 +22,15 @@ const Modal = styled(motion.div)`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: #1e1f27;
+  background-color: ${(props) => props.theme.bgColor};
   padding: 40px 107px;
-`;
-
-const CloseIcon = styled(Icon)`
-  position: absolute;
-  top: 40px;
-  right: 50px;
-  cursor: pointer;
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.7;
-  }
 `;
 
 const TextBlock = styled.div`
   width: 430px;
   height: 123px;
 
-  color: #fff;
+  color: ${(props) => props.theme.color};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: 'Inria Sans', sans-serif;
   font-size: 32px;
@@ -91,13 +78,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
           duration: 0.3,
         }}
       >
-        <CloseIcon
-          id="close"
-          width={50}
-          height={50}
-          viewBox="0 0 50 50"
-          onClick={onClose}
-        />
+        <CloseIcon onClick={onClose} />
         <ErrorBoundary fallback={<ErrorFallback />}>
           <TextBlock>
             <span>Please, enter new profile information:</span>

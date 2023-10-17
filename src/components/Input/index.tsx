@@ -19,7 +19,7 @@ const InputContainer = styled.div`
 `;
 
 const StyledInput = styled.input<{ $isError?: boolean }>`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;
@@ -31,7 +31,7 @@ const StyledInput = styled.input<{ $isError?: boolean }>`
   transition: all 0.1s ease-in-out;
 
   &::placeholder {
-    color: #fff;
+    color: ${(props) => props.theme.color};
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     font-weight: 300;

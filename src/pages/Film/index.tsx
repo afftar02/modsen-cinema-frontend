@@ -160,6 +160,7 @@ function Film() {
                 width={69}
                 height={38}
                 viewBox="0 0 69 38"
+                fill={'#fff'}
               />
             </MoveNextContainer>
             <MovieInfo

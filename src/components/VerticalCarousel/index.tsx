@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import Icon from '../Icon';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -33,7 +33,7 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 32px;
   font-weight: 500;
@@ -196,6 +196,8 @@ function VerticalCarousel() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLDivElement[]>([]);
 
+  const theme = useTheme();
+
   const checkIndex = useCallback((index: number) => {
     if (index < 0) return data.length - 1;
     else if (index >= data.length) return 0;
@@ -302,6 +304,8 @@ function VerticalCarousel() {
             width={22}
             height={32}
             viewBox="0 0 22 32"
+            fill="none"
+            stroke={theme.color}
             onClick={() => handleItemClick(currentIndex - 1)}
           />
           <StyledIcon
@@ -309,6 +313,8 @@ function VerticalCarousel() {
             width={22}
             height={32}
             viewBox="0 0 22 32"
+            fill="none"
+            stroke={theme.color}
             onClick={() => handleItemClick(currentIndex + 1)}
           />
         </ArrowsContainer>

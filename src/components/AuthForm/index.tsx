@@ -1,4 +1,3 @@
-import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
 import Input from 'components/Input';
@@ -15,6 +14,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
+import CloseIcon from 'components/CloseIcon';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -30,30 +30,17 @@ const Modal = styled(motion.div)`
   width: 840px;
   min-height: 500px;
   box-sizing: border-box;
-  background-color: #1e1f27;
+  background-color: ${(props) => props.theme.bgColor};
   padding: 40px 107px;
   display: flex;
   flex-direction: column;
-`;
-
-const CloseIcon = styled(Icon)`
-  position: absolute;
-  top: 40px;
-  right: 50px;
-  cursor: pointer;
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.7;
-  }
 `;
 
 const TextBlock = styled.div`
   width: 430px;
   height: 123px;
 
-  color: #fff;
+  color: ${(props) => props.theme.color};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: 'Inria Sans', sans-serif;
   font-size: 32px;
@@ -99,7 +86,7 @@ const TextContainer = styled.div`
 `;
 
 const StyledText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Inria Sans', sans-serif;
   font-size: 18px;
   font-style: italic;
@@ -107,7 +94,7 @@ const StyledText = styled.span`
 `;
 
 const UnderlinedText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Inria Sans', sans-serif;
   font-size: 18px;
   font-style: italic;
@@ -159,7 +146,7 @@ function AuthForm({
         }}
       >
         <Link to="/">
-          <CloseIcon id="close" width={50} height={50} viewBox="0 0 50 50" />
+          <CloseIcon />
         </Link>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <TextBlock>

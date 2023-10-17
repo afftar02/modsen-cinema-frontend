@@ -1,14 +1,17 @@
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import { styled } from 'styled-components';
-import Icon from 'components/Icon';
 import Button from 'components/Button';
 import RadioButton from 'components/RadioButton';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { LANGUAGES } from 'constants/Languages';
 import { THEMES } from 'constants/Themes';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeTheme } from 'redux/slices/ThemeSlice';
+import { selectThemeValue } from 'redux/selectors/theme';
+import CloseIcon from 'components/CloseIcon';
 
 type SettingsModalProps = {
   onClose: () => void;
@@ -21,28 +24,16 @@ const Modal = styled(motion.div)`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: #1e1f27;
+  background-color: ${(props) => props.theme.bgColor};
+  transition: background-color 1s ease-in-out;
   padding: 40px 107px;
-`;
-
-const CloseIcon = styled(Icon)`
-  position: absolute;
-  top: 40px;
-  right: 50px;
-  cursor: pointer;
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.7;
-  }
 `;
 
 const TextBlock = styled.div`
   width: 430px;
   height: 123px;
 
-  color: #fff;
+  color: ${(props) => props.theme.color};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: 'Inria Sans', sans-serif;
   font-size: 32px;
@@ -67,7 +58,7 @@ const SettingsItemBlock = styled.div`
 `;
 
 const SettingsItemTitle = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;
@@ -82,8 +73,18 @@ const SettingsItemValues = styled.div`
 `;
 
 function SettingsModal({ onClose }: SettingsModalProps) {
+  const currentTheme = useSelector(selectThemeValue);
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0].value);
-  const [selectedTheme, setSelectedTheme] = useState(THEMES[0].value);
+  const [selectedTheme, setSelectedTheme] = useState(currentTheme);
+
+  const dispatch = useDispatch();
+
+  const applySettings = useCallback(() => {
+    if (currentTheme !== selectedTheme) {
+      dispatch(changeTheme(selectedTheme));
+    }
+    onClose();
+  }, [currentTheme, dispatch, onClose, selectedTheme]);
 
   return (
     <ModalPortal isFixed>
@@ -95,13 +96,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
           duration: 0.3,
         }}
       >
-        <CloseIcon
-          id="close"
-          width={50}
-          height={50}
-          viewBox="0 0 50 50"
-          onClick={onClose}
-        />
+        <CloseIcon onClick={onClose} />
         <ErrorBoundary fallback={<ErrorFallback />}>
           <TextBlock>
             <span>Choose settings:</span>
@@ -126,7 +121,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
             <SettingsItemBlock>
               <SettingsItemTitle>Theme:</SettingsItemTitle>
               <SettingsItemValues>
-                {THEMES.map((theme, index) => (
+                {Object.values(THEMES).map((theme, index) => (
                   <RadioButton
                     key={index}
                     id={theme.value}
@@ -140,7 +135,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
               </SettingsItemValues>
             </SettingsItemBlock>
           </SettingsItems>
-          <ApplyButton onClick={onClose}>Apply</ApplyButton>
+          <ApplyButton onClick={applySettings}>Apply</ApplyButton>
         </ErrorBoundary>
       </Modal>
     </ModalPortal>

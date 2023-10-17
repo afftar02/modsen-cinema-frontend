@@ -14,19 +14,19 @@ const StyledInput = styled.input`
 
 const FileUploadLabel = styled.label<{ $isUploaded: boolean }>`
   width: fit-content;
-  border: 1px solid #fff;
+  border: 1px solid ${(props) => props.theme.color};
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;
   ${(props) =>
     props.$isUploaded &&
     `
-    background-color: #fff;
-    color: #000;
+    background-color: ${props.theme.buttonBgColor};
+    color: ${props.theme.buttonColor};
   `}
   transition: all 0.2s ease-in-out;
 
@@ -37,7 +37,7 @@ const FileUploadLabel = styled.label<{ $isUploaded: boolean }>`
 `;
 
 const UploadedFileName = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;

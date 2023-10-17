@@ -13,7 +13,7 @@ const GoogleButton = styled.button`
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
-  border: none;
+  border: 1px solid ${(props) => props.theme.googleButtonBorderColor};
 
   color: rgba(0, 0, 0, 0.55);
   font-family: Inter, sans-serif;

@@ -6,6 +6,8 @@ type IconProps = {
   width?: number;
   height?: number;
   viewBox?: string;
+  fill?: string;
+  stroke?: string;
   onClick?: MouseEventHandler<SVGSVGElement>;
 };
 

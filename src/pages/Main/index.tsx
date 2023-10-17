@@ -27,8 +27,8 @@ const Flex = styled.div<{ $marginTop?: number; $height?: number }>`
 const DescriptionContainer = styled(motion.div)`
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 300;
-  color: #ffffff;
-
+  color: ${(props) => props.theme.color};
+  transition: color 1.5s ease-in-out;
   z-index: 1;
 `;
 
@@ -44,7 +44,8 @@ const TrailerDescription = styled.p`
 `;
 
 const CurrentMovieTitle = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
+  transition: color 1.5s ease-in-out;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 48px;
   font-style: italic;
@@ -56,7 +57,8 @@ const CurrentMovieDescription = styled.p`
   width: 630px;
   margin: 25px 0 0;
 
-  color: #fff;
+  color: ${(props) => props.theme.color};
+  transition: color 1.5s ease-in-out;
   font-family: 'Inria Sans', sans-serif;
   font-size: 40px;
   font-style: italic;
@@ -64,7 +66,8 @@ const CurrentMovieDescription = styled.p`
 `;
 
 const StyledYear = styled(motion.span)`
-  color: #fff;
+  color: ${(props) => props.theme.color};
+  transition: color 1.8s ease-in-out;
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;

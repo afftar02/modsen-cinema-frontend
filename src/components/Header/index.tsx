@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import Icon from 'components/Icon';
 import Button from 'components/Button';
 import Navigation from 'components/Navigation';
@@ -47,14 +47,15 @@ const StyledIcon = styled(Icon)`
 `;
 
 const SignInButton = styled(Button)`
-  background: #ffffff;
-  color: #000000;
+  background: ${(props) => props.theme.buttonBgColor};
+  color: ${(props) => props.theme.buttonColor};
+  transition: color 1s ease-in-out;
 
   margin-left: 30px;
 `;
 
 const ProfileText = styled.span`
-  color: #fff;
+  color: ${(props) => props.theme.color};
   font-family: 'Poppins', sans-serif;
   font-size: 40px;
   font-weight: 300;
@@ -67,18 +68,26 @@ function Header() {
 
   const { isAuth } = useAuth() as AuthContextType;
 
+  const theme = useTheme();
+
   return (
     <>
       <StyledHeader>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <Flex>
-            <Icon id="logo" width={245} height={55} />
+            <Icon id="logo" width={245} height={55} fill={theme.logoColor} />
             <Navigation />
           </Flex>
           {isAuth ? (
             <AnimatedFlex onClick={() => setProfileOpened(true)}>
               <ProfileText>Profile</ProfileText>
-              <Icon id="profile" width={55} height={55} viewBox="0 0 55 55" />
+              <Icon
+                id="profile"
+                width={55}
+                height={55}
+                viewBox="0 0 55 55"
+                fill={theme.color}
+              />
             </AnimatedFlex>
           ) : (
             <Flex>
@@ -94,6 +103,7 @@ function Header() {
                 id="settings"
                 width={48}
                 height={48}
+                fill={theme.color}
                 onClick={() => setSettingsOpened(true)}
               />
             </Flex>

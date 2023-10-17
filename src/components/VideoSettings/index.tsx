@@ -81,6 +81,7 @@ function VideoSettings({ speed, onChangeSpeed }: VideoSettingsProps) {
         width={20}
         viewBox="0 0 48 48"
         onClick={handleSettingsClick}
+        fill={'#fff'}
       />
       {isSettingsOpened && openedSettingsParam === '' && (
         <SettingsContainer>
