@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from 'components/Input';
 import GoogleAuthButton from 'components/GoogleAuthButton';
 import FacebookAuthButton from 'components/FacebookAuthButtton';
@@ -15,6 +15,8 @@ import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
 import CloseIcon from 'components/CloseIcon';
+import { useCallback } from 'react';
+import { AxiosError } from 'axios';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -118,6 +120,7 @@ function AuthForm({
   underlinedHint,
   hintLink,
 }: AuthFormProps) {
+  const navigate = useNavigate();
   const { register, login } = useAuth() as AuthContextType;
 
   const formik = useFormik({
@@ -129,11 +132,34 @@ function AuthForm({
     },
     validate: isSignUp ? validateRegistration : validateLogin,
     validateOnChange: false,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      isSignUp ? register() : login();
+    onSubmit: () => {
+      isSignUp ? handleRegister() : handleLogin();
     },
   });
+
+  const handleRegister = useCallback(async () => {
+    try {
+      await register(formik.values);
+      navigate('/');
+    } catch (err) {
+      const axiosError = err as AxiosError;
+      const { message } = axiosError.response?.data as { message: string };
+
+      alert(message);
+    }
+  }, [formik, navigate, register]);
+
+  const handleLogin = useCallback(async () => {
+    try {
+      await login(formik.values);
+      navigate('/');
+    } catch (err) {
+      formik.values.email = '';
+      formik.values.password = '';
+      formik.setFieldError('email', 'Invalid email or password');
+      formik.setFieldError('password', 'Invalid email or password');
+    }
+  }, [formik, login, navigate]);
 
   return (
     <ModalPortal>

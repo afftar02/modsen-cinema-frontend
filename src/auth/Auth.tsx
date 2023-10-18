@@ -1,15 +1,45 @@
-import { useState, createContext, useContext, ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  useState,
+  createContext,
+  useContext,
+  ReactNode,
+  useEffect,
+} from 'react';
+import { loginUser, registerUser } from 'services/authService';
+import { getCurrentUser } from 'services/userService';
 
 type AuthProps = {
   children: ReactNode;
 };
 
+type RegisterParams = {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+};
+
+type LoginParams = {
+  email: string;
+  password: string;
+};
+
+export type User = {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  gender?: string;
+  avatar?: string;
+};
+
 export type AuthContextType = {
   isAuth: boolean;
-  register: () => void;
-  login: () => void;
+  register: (data: RegisterParams) => Promise<void>;
+  login: (data: LoginParams) => Promise<void>;
   logout: () => void;
+  user: User | null;
+  getUserName: () => string;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -18,26 +48,52 @@ export const useAuth = () => useContext(AuthContext);
 
 function Auth({ children }: AuthProps) {
   const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
 
-  const navigate = useNavigate();
-
-  const login = () => {
+  const login = async (data: LoginParams) => {
+    await loginUser(data);
     setIsAuth(true);
-    navigate('/');
+    const userData = await getCurrentUser();
+    setUser(userData);
   };
 
-  const register = () => {
+  const register = async (data: RegisterParams) => {
+    await registerUser(data);
     setIsAuth(true);
-    navigate('/');
+    const userData = await getCurrentUser();
+    setUser(userData);
   };
 
   const logout = () => {
     setIsAuth(false);
+    setUser(null);
+    localStorage.removeItem('tokens');
   };
 
+  const getUserName = () =>
+    `${user?.name} ${user?.surname}` || user?.email || '';
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem('tokens')) {
+        try {
+          const userData = await getCurrentUser();
+          setUser(userData);
+          setIsAuth(true);
+        } catch (err) {
+          logout();
+        }
+      }
+      setIsAuthChecked(true);
+    })();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ isAuth, register, login, logout }}>
-      {children}
+    <AuthContext.Provider
+      value={{ isAuth, register, login, logout, user, getUserName }}
+    >
+      {isAuthChecked && children}
     </AuthContext.Provider>
   );
 }
