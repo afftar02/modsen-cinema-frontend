@@ -8,10 +8,10 @@ import { LANGUAGES } from 'constants/Languages';
 import { THEMES } from 'constants/Themes';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from 'redux/slices/ThemeSlice';
 import { selectThemeValue } from 'redux/selectors/theme';
 import CloseIcon from 'components/CloseIcon';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 
 type SettingsModalProps = {
   onClose: () => void;
@@ -73,11 +73,11 @@ const SettingsItemValues = styled.div`
 `;
 
 function SettingsModal({ onClose }: SettingsModalProps) {
-  const currentTheme = useSelector(selectThemeValue);
+  const currentTheme = useAppSelector(selectThemeValue);
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0].value);
   const [selectedTheme, setSelectedTheme] = useState(currentTheme);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const applySettings = useCallback(() => {
     if (currentTheme !== selectedTheme) {

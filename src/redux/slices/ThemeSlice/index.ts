@@ -1,5 +1,6 @@
 import * as reduxToolkit from '@reduxjs/toolkit';
-import { THEMES, ThemeValueType } from 'constants/Themes';
+import { THEMES } from 'constants/Themes';
+import { ThemeValueType } from 'types/ThemeValue';
 
 interface ThemeState {
   currentTheme: ThemeValueType;

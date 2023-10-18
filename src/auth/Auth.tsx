@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { loginUser, registerUser } from 'services/authService';
 import { getCurrentUser } from 'services/userService';
+import { UserType } from 'types/User';
 
 type AuthProps = {
   children: ReactNode;
@@ -24,21 +25,12 @@ type LoginParams = {
   password: string;
 };
 
-export type User = {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-  gender?: string;
-  avatar?: string;
-};
-
 export type AuthContextType = {
   isAuth: boolean;
   register: (data: RegisterParams) => Promise<void>;
   login: (data: LoginParams) => Promise<void>;
   logout: () => void;
-  user: User | null;
+  user: UserType | null;
   getUserName: () => string;
 };
 
@@ -48,7 +40,7 @@ export const useAuth = () => useContext(AuthContext);
 
 function Auth({ children }: AuthProps) {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
 
   const login = async (data: LoginParams) => {

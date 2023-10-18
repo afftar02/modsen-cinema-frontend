@@ -1,4 +1,5 @@
 import { request } from 'services/axiosService';
+import { TokensType } from 'types/Tokens';
 
 type RegisterUserParams = {
   name: string;
@@ -12,13 +13,8 @@ type LoginUserParams = {
   password: string;
 };
 
-type TokensData = {
-  access_token: string;
-  refresh_token: string;
-};
-
 export const registerUser = async (values: RegisterUserParams) => {
-  const { data } = await request<TokensData>({
+  const { data } = await request<TokensType>({
     method: 'POST',
     url: '/auth/register',
     data: values,
@@ -33,7 +29,7 @@ export const registerUser = async (values: RegisterUserParams) => {
 };
 
 export const loginUser = async (values: LoginUserParams) => {
-  const { data } = await request<TokensData>({
+  const { data } = await request<TokensType>({
     method: 'POST',
     url: '/auth/login',
     data: values,

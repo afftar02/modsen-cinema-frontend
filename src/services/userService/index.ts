@@ -1,7 +1,7 @@
 import { request } from 'services/axiosService';
-import { User } from 'auth/Auth';
+import { UserType } from 'types/User';
 
 export const getCurrentUser = async () => {
-  const { data } = await request<User>({ url: '/person' });
+  const { data } = await request<UserType>({ url: '/person' });
   return data;
 };

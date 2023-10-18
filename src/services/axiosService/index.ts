@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import { BASE_URL } from 'constants/BaseApiUrl';
 
 type Headers = {
   Authorization?: string;
@@ -16,8 +17,6 @@ const axiosInstance = axios.create();
 
 const getSessionFromStorage = () =>
   JSON.parse(localStorage.getItem('tokens') as string);
-
-const baseUrl = 'https://modsen-cinema.up.railway.app';
 
 // фабрика создания запросов
 export const request = async <ResData>({
@@ -41,7 +40,7 @@ export const request = async <ResData>({
     method,
     data,
     params,
-    url: baseUrl + url,
+    url: BASE_URL + url,
   };
 
   try {
@@ -53,7 +52,7 @@ export const request = async <ResData>({
     if (axiosError.response?.status === 401 && refreshToken) {
       options.headers.Authorization = `Bearer ${refreshToken}`;
       options.method = 'POST';
-      options.url = baseUrl + '/auth/refresh';
+      options.url = BASE_URL + '/auth/refresh';
 
       const refreshResponse = await axiosInstance(options);
       localStorage.setItem(

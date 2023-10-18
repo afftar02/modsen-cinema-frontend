@@ -1,26 +1,6 @@
-export type ThemeValueType = 'Dark' | 'Light';
+import { ThemeVariantsType } from 'types/ThemeVariants';
 
-export type Theme = {
-  value: ThemeValueType;
-  bgColor: string;
-  color: string;
-  buttonBgColor: string;
-  buttonColor: string;
-  logoColor: string;
-  shadowColor: string;
-  closeIconBgColor: string;
-  closeIconColor: string;
-  footerInputBgColor: string;
-  googleButtonBorderColor: string;
-  profileMenuBgColor: string;
-};
-
-export type ThemeVariants = {
-  Dark: Theme;
-  Light: Theme;
-};
-
-export const THEMES: ThemeVariants = {
+export const THEMES: ThemeVariantsType = {
   Dark: {
     value: 'Dark',
     bgColor: '#1e1f27',
