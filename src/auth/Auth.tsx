@@ -32,6 +32,7 @@ export type AuthContextType = {
   logout: () => void;
   user: UserType | null;
   getUserName: () => string;
+  loadUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -46,21 +47,24 @@ function Auth({ children }: AuthProps) {
   const login = async (data: LoginParams) => {
     await loginUser(data);
     setIsAuth(true);
-    const userData = await getCurrentUser();
-    setUser(userData);
+    await loadUser();
   };
 
   const register = async (data: RegisterParams) => {
     await registerUser(data);
     setIsAuth(true);
-    const userData = await getCurrentUser();
-    setUser(userData);
+    await loadUser();
   };
 
   const logout = () => {
     setIsAuth(false);
     setUser(null);
     localStorage.removeItem('tokens');
+  };
+
+  const loadUser = async () => {
+    const userData = await getCurrentUser();
+    setUser(userData);
   };
 
   const getUserName = () =>
@@ -70,8 +74,7 @@ function Auth({ children }: AuthProps) {
     (async () => {
       if (localStorage.getItem('tokens')) {
         try {
-          const userData = await getCurrentUser();
-          setUser(userData);
+          await loadUser();
           setIsAuth(true);
         } catch (err) {
           logout();
@@ -83,7 +86,7 @@ function Auth({ children }: AuthProps) {
 
   return (
     <AuthContext.Provider
-      value={{ isAuth, register, login, logout, user, getUserName }}
+      value={{ isAuth, register, login, logout, user, getUserName, loadUser }}
     >
       {isAuthChecked && children}
     </AuthContext.Provider>

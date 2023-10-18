@@ -3,6 +3,7 @@ import { BASE_URL } from 'constants/BaseApiUrl';
 
 type Headers = {
   Authorization?: string;
+  'Content-Type'?: string;
 };
 
 type RequestParams = {

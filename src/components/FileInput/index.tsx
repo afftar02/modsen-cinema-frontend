@@ -2,8 +2,8 @@ import { styled } from 'styled-components';
 import { ChangeEvent, useCallback } from 'react';
 
 type FileInputProps = {
-  value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
 };
 
 const StyledInput = styled.input`
@@ -49,7 +49,7 @@ const FileInputContainer = styled.div`
   gap: 15px;
 `;
 
-function FileInput({ value, onChange }: FileInputProps) {
+function FileInput({ onChange, value }: FileInputProps) {
   const cutFileName = useCallback((fileName: string) => {
     const cutFromIndex = fileName.lastIndexOf('\\') + 1;
     return fileName.slice(cutFromIndex);
@@ -60,12 +60,11 @@ function FileInput({ value, onChange }: FileInputProps) {
       <FileUploadLabel htmlFor="avatar-file" $isUploaded={!!value}>
         {value ? `Uploaded file:` : 'Upload a profile photo'}
       </FileUploadLabel>
-      <UploadedFileName>{cutFileName(value)}</UploadedFileName>
+      <UploadedFileName>{cutFileName(value ?? '')}</UploadedFileName>
       <StyledInput
         id={'avatar-file'}
         type={'file'}
         onChange={onChange}
-        value={value}
         name={'avatar'}
       />
     </FileInputContainer>

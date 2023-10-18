@@ -10,12 +10,8 @@ interface Values {
 export const validateEditProfile = (values: Values) => {
   const errors: Formik.FormikErrors<Values> = {};
 
-  if (
-    values.gender &&
-    values.gender.toLowerCase() !== 'female' &&
-    values.gender.toLowerCase() !== 'male'
-  ) {
-    errors.gender = 'Invalid gender type';
+  if (values.gender && values.gender !== 'FEMALE' && values.gender !== 'MALE') {
+    errors.gender = 'Invalid gender type, please type MALE or FEMALE';
     values.gender = '';
   }
 
