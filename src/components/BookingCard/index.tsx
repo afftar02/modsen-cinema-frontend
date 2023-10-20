@@ -2,8 +2,13 @@ import { styled } from 'styled-components';
 import Icon from 'components/Icon';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { TicketType } from 'types/Ticket';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { useMemo } from 'react';
 
 type BookingCardProps = {
+  ticket: TicketType;
+  onCancelClick: () => void;
   isOver?: boolean;
 };
 
@@ -139,50 +144,88 @@ const StyledLink = styled(Link)`
   height: 36px;
 `;
 
-function BookingCard({ isOver = false }: BookingCardProps) {
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+function BookingCard({
+  ticket,
+  onCancelClick,
+  isOver = false,
+}: BookingCardProps) {
+  const price = useMemo(() => {
+    if (ticket.seats) {
+      const result =
+        ticket.seats.reduce((sum, seat) => sum + seat.price, 0) *
+        (1 - ticket.discount / 100);
+
+      return result.toFixed(1);
+    }
+  }, [ticket]);
+
+  const dateInfo = useMemo(() => {
+    if (ticket.session) {
+      const date = new Date(ticket.session?.start);
+
+      return `Date: ${monthNames.at(
+        date.getMonth()
+      )} ${date.getDate()}, ${date.getFullYear()}`;
+    }
+  }, [ticket.session]);
+
   return (
     <CardContainer
       initial={{ scale: 0.5 }}
       whileInView={{ scale: 1 }}
+      exit={{ scale: 0.5 }}
       transition={{
         duration: 0.5,
       }}
       viewport={{ once: true }}
     >
-      <StyledLink to={'/film/5'}>
+      <StyledLink to={`/film/${ticket.movie?.id}`}>
         <StyledImage
-          src={
-            'https://s3-alpha-sig.figma.com/img/e5cc/8136/0873c95c1344b596f117082814368ada?Expires=1698019200&Signature=EpJa3G7fEGF26GpsYcpiZV4KbCq-DWnb771YFlaGRRwLj50BmrzcotnY7yJSiWxo5-a4YR4N12xVr6FgkPGy8iFNJatIoDn0msa8iUoSs73-vQZtdvzV52z84ukpH9A9aQFIVzGSWZlifzzZBn23~dHXqeOXw7CCQp1YWc-E0zrRXYVVA9KEta4etGXlMIlZRyeeC6lTA11KbWjWgJ1H9f8m50sSQzCc1rvVFkNC7~uqOx12VmpCzv55dVdorSJDsQzJ4vy0YD8wi4H8aJBm1IuiUm05vIRNu36ooaPHfob~qxAwnITjRRPOTOH8H0xWhqA67qaoeNnmtiABUDSZ4w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-          }
+          src={BASE_UPLOADS_URL + ticket.movie?.poster?.filename}
           alt={'poster'}
         />
       </StyledLink>
       <InfoBlock>
         <div>
           <TitleBlock>
-            <StyledLink to={'/film/5'}>
-              <Title>Avatar 2</Title>
+            <StyledLink to={`/film/${ticket.movie?.id}`}>
+              <Title>{ticket.movie?.title_en}</Title>
             </StyledLink>
             <div>
-              <Rating>8,9</Rating>
+              <Rating>{ticket.movie?.rating}</Rating>
               <Icon id={'star'} width={20} height={20} viewBox="0 0 39 35" />
             </div>
           </TitleBlock>
           <AdditionalInfoBlock>
-            <DateText>Date: February 24, 2022</DateText>
+            <DateText>{dateInfo}</DateText>
             <TicketNumberBlock>
               <Icon id={'ticket'} width={23} height={23} viewBox="0 0 23 23" />
-              <TicketNumber>TC890023</TicketNumber>
+              <TicketNumber>TC{ticket.id}</TicketNumber>
             </TicketNumberBlock>
           </AdditionalInfoBlock>
         </div>
         <Divider />
         <TicketSumContainer>
-          <SeatsNumber>4 seats</SeatsNumber>
-          <Price>48 $</Price>
+          <SeatsNumber>{ticket.seats?.length} seats</SeatsNumber>
+          <Price>{price} $</Price>
         </TicketSumContainer>
         {!isOver && (
-          <CancelButton>
+          <CancelButton onClick={onCancelClick}>
             <span>Cancel</span>
             <CancelIcon
               id={'cancel'}

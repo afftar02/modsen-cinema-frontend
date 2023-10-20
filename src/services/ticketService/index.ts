@@ -23,3 +23,14 @@ export const createTicket = async ({
     },
   });
 };
+
+export const updateTicket = async (
+  id: number,
+  ticketInfo: Partial<TicketDto>
+) => {
+  await request({
+    method: 'PATCH',
+    url: `/ticket/${id}`,
+    data: ticketInfo,
+  });
+};
