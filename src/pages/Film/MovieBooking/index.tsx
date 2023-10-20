@@ -5,6 +5,7 @@ import {
   ForwardedRef,
   forwardRef,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -104,6 +105,7 @@ function MovieBooking(
   const [sessions, setSessions] = useState<Array<SessionType>>([]);
   const [selectedSessionId, setSelectedSessionId] = useState(-1);
   const [seats, setSeats] = useState<Map<number, number>>(new Map());
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [isBooked, setIsBooked] = useState(false);
 
   const dates = useMemo(() => {
@@ -118,18 +120,28 @@ function MovieBooking(
     return dates;
   }, []);
 
+  const loadSessions = useCallback(
+    async (date: Date) => {
+      const loadedSessions = await getSessions(movieId, date);
+      setSessions(loadedSessions);
+    },
+    [movieId]
+  );
+
   const handleDateClick = useCallback(
     async (date: Date) => {
       try {
-        const loadedSessions = await getSessions(movieId, date);
-        setSessions(loadedSessions);
+        setSelectedDate(date);
+
+        await loadSessions(date);
+
         setSelectedSessionId(-1);
         setSeats(new Map());
       } catch (err) {
         alert('Data loading error!');
       }
     },
-    [movieId]
+    [loadSessions]
   );
 
   const handleSessionClick = useCallback((sessionId: number) => {
@@ -159,14 +171,11 @@ function MovieBooking(
   }, [seats]);
 
   const calculateTicketPrice = useCallback(() => {
-    const sessionDate = sessions?.find(
-      (session: SessionType) => session?.id === selectedSessionId
-    )?.start;
     let discount = 0;
     let result = 0;
 
-    if (sessionDate) {
-      discount = ((sessionDate.getDate() - new Date().getDate()) * 5) / 100;
+    if (selectedDate) {
+      discount = ((selectedDate.getDate() - new Date().getDate()) * 5) / 100;
     }
 
     seats.forEach((price) => {
@@ -176,14 +185,48 @@ function MovieBooking(
     result = (1 - discount) * result;
 
     return Number(result.toFixed(1));
-  }, [seats, selectedSessionId, sessions]);
+  }, [seats, selectedDate]);
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem('booking')) {
+        const bookingInfo = JSON.parse(
+          localStorage.getItem('booking') as string
+        );
+        const bookingDate = new Date(bookingInfo.date);
+
+        setSelectedDate(bookingDate);
+        await loadSessions(bookingDate);
+        setSelectedSessionId(Number(bookingInfo.sessionId));
+        setSeats(new Map(bookingInfo.seats));
+      }
+    })();
+  }, [loadSessions]);
+
+  useEffect(
+    () =>
+      localStorage.setItem(
+        'booking',
+        JSON.stringify({
+          movieId: movieId,
+          date: selectedDate,
+          sessionId: selectedSessionId.toString(),
+          seats: Array.from(seats.entries()),
+        })
+      ),
+    [movieId, seats, selectedDate, selectedSessionId]
+  );
 
   return (
     <Wrapper ref={ref}>
       <Divider />
       <Container>
         <BookingTitle>Book Now!</BookingTitle>
-        <HorizontalCarousel data={dates} onClick={handleDateClick} />
+        <HorizontalCarousel
+          data={dates}
+          onClick={handleDateClick}
+          value={selectedDate}
+        />
         <SessionsBlock>
           {sessions.length > 0 ? (
             sessions.map((session) => (
@@ -203,6 +246,7 @@ function MovieBooking(
             sessionId={selectedSessionId}
             onSeatClick={handleSeatClick}
             isBooked={isBooked}
+            chosenSeatIds={Array.from(seats.keys())}
             resetIsBooked={() => setIsBooked(false)}
           />
         )}

@@ -1,9 +1,10 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 
 type HorizontalCarouselProps = {
   data: Date[];
+  value: Date;
   onClick?: (date: Date) => Promise<void>;
 };
 
@@ -104,10 +105,15 @@ const Divider = styled.div`
 const FIRST_SLIDE_OFFSET = 348;
 const LAST_SLIDE_OFFSET = 298;
 
-function Carousel({ data, onClick }: HorizontalCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+function Carousel({ data, value, onClick }: HorizontalCarouselProps) {
   const sliderRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLDivElement[]>([]);
+
+  const currentIndex = useMemo(() => {
+    const index = data.findIndex((item) => item.getDate() === value.getDate());
+
+    return index > 0 ? index : 0;
+  }, [data, value]);
 
   const checkIndex = useCallback(
     (index: number) => {
@@ -130,16 +136,7 @@ function Carousel({ data, onClick }: HorizontalCarouselProps) {
     [currentIndex]
   );
 
-  const updateCurrentIndex = useCallback(
-    (index: number) => {
-      setCurrentIndex(checkIndex(index));
-    },
-    [checkIndex]
-  );
-
   const handleItemClick = (index: number) => {
-    updateCurrentIndex(index);
-    scrollToCurrentItem(checkIndex(index));
     if (onClick) {
       onClick(data[checkIndex(index)]);
     }
@@ -150,6 +147,10 @@ function Carousel({ data, onClick }: HorizontalCarouselProps) {
       itemsRef.current[index] = element;
     }
   };
+
+  useEffect(() => {
+    scrollToCurrentItem(currentIndex);
+  }, [checkIndex, currentIndex, scrollToCurrentItem]);
 
   return (
     <Wrapper>
