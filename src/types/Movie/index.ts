@@ -19,7 +19,7 @@ export type MovieType = {
   reviews?: ReviewType[];
   country?: CountryType;
   actors?: ActorType[];
-  genres: GenreType[];
-  poster: ImageType;
+  genres?: GenreType[];
+  poster?: ImageType;
   trailer?: TrailerType;
 };

@@ -140,6 +140,10 @@ const StyledVideo = styled.video`
   transition: all 0.5s ease-in-out;
 `;
 
+const THUMB_WIDTH = 16;
+const BAR_WIDTH_COEFFICIENT = 442;
+const FULLSCREEN_BAR_COEFFICIENT = 1060;
+
 const initialTime = {
   min: 0,
   sec: 0,
@@ -155,6 +159,14 @@ function VideoPlayer({ src }: VideoPlayerProps) {
   const [duration, setDuration] = useState(initialTime);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cursorMoveTimeoutIdRef = useRef(0);
+
+  const calculateProgress = useCallback(
+    (barWidth: number) =>
+      (timeToSec(currentTime) / timeToSec(duration)) *
+        (barWidth - THUMB_WIDTH) +
+      THUMB_WIDTH / 2,
+    [currentTime, duration]
+  );
 
   const togglePlay = useCallback(() => {
     if (isPlaying) {
@@ -384,8 +396,8 @@ function VideoPlayer({ src }: VideoPlayerProps) {
                 value={timeToSec(currentTime)}
                 $progressWidth={
                   isFullScreen
-                    ? timeToSec(currentTime) * 6.6
-                    : timeToSec(currentTime) * 2.7
+                    ? calculateProgress(FULLSCREEN_BAR_COEFFICIENT)
+                    : calculateProgress(BAR_WIDTH_COEFFICIENT)
                 }
                 onChange={handleProgressBarChange}
               />

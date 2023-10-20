@@ -1,6 +1,15 @@
 import { styled } from 'styled-components';
 import Seat from 'components/Seat';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { SeatType } from 'types/Seat';
+import { getSeats } from 'services/seatService';
+
+type CinemaHallProps = {
+  sessionId: number;
+  onSeatClick: (seatId: number, price: number) => void;
+  isBooked?: boolean;
+  resetIsBooked?: () => void;
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -78,217 +87,25 @@ const StyledSeat = styled(Seat)<{ $left: number; $top: number }>`
   top: ${(props) => `${props.$top}px`};
 `;
 
-const seats = [
-  {
-    id: 1,
-    price: 5,
-    row: 1,
-    number: 1,
-    ticketId: null,
-  },
-  {
-    id: 2,
-    price: 5,
-    row: 1,
-    number: 2,
-    ticketId: 5,
-  },
-  {
-    id: 3,
-    price: 5,
-    row: 1,
-    number: 3,
-    ticketId: null,
-  },
-  {
-    id: 4,
-    price: 5,
-    row: 1,
-    number: 4,
-    ticketId: null,
-  },
-  {
-    id: 5,
-    price: 5,
-    row: 1,
-    number: 5,
-    ticketId: null,
-  },
-  {
-    id: 6,
-    price: 5,
-    row: 1,
-    number: 6,
-    ticketId: null,
-  },
-  {
-    id: 7,
-    price: 5,
-    row: 2,
-    number: 1,
-    ticketId: null,
-  },
-  {
-    id: 8,
-    price: 5,
-    row: 2,
-    number: 2,
-    ticketId: null,
-  },
-  {
-    id: 9,
-    price: 5,
-    row: 2,
-    number: 3,
-    ticketId: 21,
-  },
-  {
-    id: 10,
-    price: 5,
-    row: 2,
-    number: 4,
-    ticketId: null,
-  },
-  {
-    id: 11,
-    price: 5,
-    row: 2,
-    number: 5,
-    ticketId: null,
-  },
-  {
-    id: 12,
-    price: 5,
-    row: 2,
-    number: 6,
-    ticketId: null,
-  },
-  {
-    id: 13,
-    price: 5,
-    row: 2,
-    number: 7,
-    ticketId: 12,
-  },
-  {
-    id: 14,
-    price: 5,
-    row: 2,
-    number: 8,
-    ticketId: null,
-  },
-  {
-    id: 15,
-    price: 5,
-    row: 3,
-    number: 1,
-    ticketId: 11,
-  },
-  {
-    id: 16,
-    price: 5,
-    row: 3,
-    number: 2,
-    ticketId: null,
-  },
-  {
-    id: 17,
-    price: 5,
-    row: 3,
-    number: 3,
-    ticketId: null,
-  },
-  {
-    id: 18,
-    price: 5,
-    row: 3,
-    number: 4,
-    ticketId: null,
-  },
-  {
-    id: 19,
-    price: 5,
-    row: 3,
-    number: 5,
-    ticketId: 14,
-  },
-  {
-    id: 20,
-    price: 5,
-    row: 3,
-    number: 6,
-    ticketId: 17,
-  },
-  {
-    id: 21,
-    price: 5,
-    row: 3,
-    number: 7,
-    ticketId: 22,
-  },
-  {
-    id: 22,
-    price: 5,
-    row: 3,
-    number: 8,
-    ticketId: null,
-  },
-  {
-    id: 23,
-    price: 5,
-    row: 4,
-    number: 1,
-    ticketId: null,
-  },
-  {
-    id: 24,
-    price: 5,
-    row: 4,
-    number: 2,
-    ticketId: null,
-  },
-  {
-    id: 25,
-    price: 5,
-    row: 4,
-    number: 3,
-    ticketId: null,
-  },
-  {
-    id: 26,
-    price: 5,
-    row: 4,
-    number: 4,
-    ticketId: 66,
-  },
-  {
-    id: 27,
-    price: 5,
-    row: 4,
-    number: 5,
-    ticketId: null,
-  },
-  {
-    id: 28,
-    price: 5,
-    row: 4,
-    number: 6,
-    ticketId: null,
-  },
-];
-
 const SEAT_WIDTH = 45,
   SEAT_SPACE = 17,
   CENTER_SPACE = 90;
 
-function CinemaHall() {
+function CinemaHall({
+  sessionId,
+  onSeatClick,
+  isBooked,
+  resetIsBooked,
+}: CinemaHallProps) {
+  const [seats, setSeats] = useState<Array<SeatType>>([]);
+
   const rowsLengths = useMemo(() => {
     const map = new Map();
     for (const seat of seats) {
       map.set(seat.row, map.has(seat.row) ? map.get(seat.row) + 1 : 1);
     }
     return map;
-  }, []);
+  }, [seats]);
 
   const calculateSeatTopPosition = useCallback((row: number) => {
     if (row === 1) return 0;
@@ -328,6 +145,20 @@ function CinemaHall() {
     return rowsLengths.size * SEAT_WIDTH + (rowsLengths.size - 1) * SEAT_SPACE;
   }, [rowsLengths]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const loadedSeats = await getSeats(sessionId);
+        setSeats(loadedSeats);
+        if (resetIsBooked) {
+          resetIsBooked();
+        }
+      } catch (err) {
+        alert('Data loading error!');
+      }
+    })();
+  }, [sessionId, isBooked, resetIsBooked]);
+
   return (
     <Wrapper>
       <ScreenContainer>
@@ -337,9 +168,10 @@ function CinemaHall() {
         {seats.map((seat) => (
           <StyledSeat
             key={seat.id}
-            reserved={seat.ticketId !== null}
+            reserved={seat.ticket !== null}
             $top={calculateSeatTopPosition(seat.row)}
             $left={calculateSeatLeftPosition(seat.number, seat.row)}
+            onClick={() => onSeatClick(seat.id, seat.price)}
           />
         ))}
       </SeatsContainer>

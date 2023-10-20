@@ -2,7 +2,7 @@ import Header from 'components/Header';
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
 import Review from 'components/Review';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Footer from 'components/Footer';
 import Vibrant from 'node-vibrant/lib/bundle';
 import MovieBooking from './MovieBooking';
@@ -11,6 +11,12 @@ import MovieInfo from './MovieInfo';
 import ErrorFallback from 'components/ErrorFallback';
 import ErrorBoundary from 'components/ErrorBoundary';
 import { motion } from 'framer-motion';
+import { MovieType } from 'types/Movie';
+import { getMovie } from 'services/movieService';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useAppSelector } from 'redux/hooks';
+import { selectMovies } from 'redux/selectors/movie';
 
 const PageContainer = styled.div`
   position: relative;
@@ -105,37 +111,57 @@ const ReviewsBlock = styled.div`
 `;
 
 function Film() {
+  const [movie, setMovie] = useState<MovieType>();
   const [bookingOpened, setBookingOpened] = useState(false);
   const [backgroundColors, setBackgroundColors] = useState({
     first: '',
     second: '',
     review: '',
   });
-
   const bookingRef = useRef<HTMLDivElement>(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const movies = useAppSelector(selectMovies);
 
   const scrollToBooking = useCallback(() => {
     bookingRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
+
+  const nextMovieId = useMemo(() => {
+    if (id) {
+      const nextId = movies.at(
+        movies.findIndex((movie) => movie.id === +id) + 1
+      )?.id;
+
+      return nextId ?? movies.at(0)?.id;
+    }
+  }, [id, movies]);
 
   const handleOpenBookingClick = useCallback(() => {
     setBookingOpened(true);
     scrollToBooking();
   }, [scrollToBooking]);
 
-  const imageUrl =
-    'https://s3-alpha-sig.figma.com/img/e5cc/8136/0873c95c1344b596f117082814368ada?Expires=1698019200&Signature=EpJa3G7fEGF26GpsYcpiZV4KbCq-DWnb771YFlaGRRwLj50BmrzcotnY7yJSiWxo5-a4YR4N12xVr6FgkPGy8iFNJatIoDn0msa8iUoSs73-vQZtdvzV52z84ukpH9A9aQFIVzGSWZlifzzZBn23~dHXqeOXw7CCQp1YWc-E0zrRXYVVA9KEta4etGXlMIlZRyeeC6lTA11KbWjWgJ1H9f8m50sSQzCc1rvVFkNC7~uqOx12VmpCzv55dVdorSJDsQzJ4vy0YD8wi4H8aJBm1IuiUm05vIRNu36ooaPHfob~qxAwnITjRRPOTOH8H0xWhqA67qaoeNnmtiABUDSZ4w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4';
-
   useEffect(() => {
-    (async () => {
-      const palette = await Vibrant.from(imageUrl).getPalette();
-      setBackgroundColors({
-        first: palette.DarkVibrant?.hex ?? '#000',
-        second: palette.LightVibrant?.hex ?? '#fff',
-        review: palette.DarkMuted?.hex ?? '#000',
-      });
-    })();
-  }, []);
+    if (id) {
+      (async () => {
+        try {
+          const currentMovie = await getMovie(+id);
+          const palette = await Vibrant.from(
+            BASE_UPLOADS_URL + currentMovie.poster?.filename
+          ).getPalette();
+          setMovie(currentMovie);
+          setBackgroundColors({
+            first: palette.DarkVibrant?.hex ?? '#000',
+            second: palette.LightVibrant?.hex ?? '#fff',
+            review: palette.DarkMuted?.hex ?? '#000',
+          });
+        } catch (err) {
+          navigate('/');
+        }
+      })();
+    }
+  }, [id, navigate]);
 
   useEffect(() => {
     if (bookingOpened) {
@@ -153,21 +179,24 @@ function Film() {
               $firstBgColor={backgroundColors.first}
               $secondBgColor={backgroundColors.second}
             />
-            <MoveNextContainer>
-              <MoveNextText>Move to the next movie</MoveNextText>
-              <Icon
-                id={'arrow-right'}
-                width={69}
-                height={38}
-                viewBox="0 0 69 38"
-                fill={'#fff'}
-              />
-            </MoveNextContainer>
-            <MovieInfo
-              onOpenBooking={handleOpenBookingClick}
-              posterUrl={imageUrl}
-            />
-            {bookingOpened && <MovieBooking ref={bookingRef} />}
+            <Link to={`/film/${nextMovieId}`}>
+              <MoveNextContainer>
+                <MoveNextText>Move to the next movie</MoveNextText>
+                <Icon
+                  id={'arrow-right'}
+                  width={69}
+                  height={38}
+                  viewBox="0 0 69 38"
+                  fill={'#fff'}
+                />
+              </MoveNextContainer>
+            </Link>
+            {movie && (
+              <MovieInfo onOpenBooking={handleOpenBookingClick} movie={movie} />
+            )}
+            {bookingOpened && movie && (
+              <MovieBooking ref={bookingRef} movieId={movie?.id} />
+            )}
             <TrailerBlock>
               <TrailerText
                 initial={{ opacity: 0, translateY: '100%' }}
@@ -180,18 +209,19 @@ function Film() {
                 Watch trailer online!
               </TrailerText>
               <StyledPreview
-                previewUrl={
-                  'https://s3-alpha-sig.figma.com/img/e73d/a448/7b1a870666847d044c701bcd275121cc?Expires=1696204800&Signature=ZFuRAwH4r-rcBOelM~MyxSkAxPBHp6Xz40LCvAMW7TXPxrBYfWXOQA9lIscy3wu06OcH~fOgQD6kWKAyk3SI0mhN7DWLdprhUfNsApaEPN0686zVvGBewQRqKz2Mtj6ZP-y5I1xASJJ7yBgGrLFOmydA86t7lWktu~lC9etqSnhsao7hmhLns21hIGwME7Nrliu8l3NLY29ap2khsU5cesx7e5YB598465kBJti0-qS12Dje2nivlOOz7Lt0pNAHivpYgSGvsljKJr7eQShnNAgAX5HRkcB-4e646k3EG3vboRMDbYkr-5cYxJG6QmEdEb0WbrCjyZaIGNHWBvqzMA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                }
-                videoUrl={
-                  'https://www.film.ru/sites/default/files/trailers/16916130/The-Batman-trailer-3-rus.mp4'
-                }
+                previewUrl={BASE_UPLOADS_URL + movie?.trailer?.preview.filename}
+                videoUrl={BASE_UPLOADS_URL + movie?.trailer?.filename}
               />
             </TrailerBlock>
             <ReviewsBlock>
-              <Review bgColor={backgroundColors.review} />
-              <Review bgColor={backgroundColors.review} />
-              <Review bgColor={backgroundColors.review} />
+              {movie?.reviews?.map((review) => (
+                <Review
+                  bgColor={backgroundColors.review}
+                  key={review.id}
+                  author={review.author}
+                  text={review.description}
+                />
+              ))}
             </ReviewsBlock>
           </Container>
         </Wrapper>

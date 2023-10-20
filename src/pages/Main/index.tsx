@@ -93,8 +93,12 @@ function Main() {
   useEffect(() => {
     if (movies.at(0)) {
       (async () => {
-        const movie = await getMovie(movies[0].id);
-        setLastMovie(movie);
+        try {
+          const movie = await getMovie(movies[0].id);
+          setLastMovie(movie);
+        } catch (err) {
+          alert('Data loading error!');
+        }
       })();
     }
   }, [movies]);

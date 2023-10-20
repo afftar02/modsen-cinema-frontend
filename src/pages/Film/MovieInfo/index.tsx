@@ -1,11 +1,13 @@
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import { styled } from 'styled-components';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { MovieType } from 'types/Movie';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { useMemo } from 'react';
 
 type MovieInfoProps = {
-  posterUrl: string;
+  movie: MovieType;
   onOpenBooking?: () => void;
 };
 
@@ -35,11 +37,16 @@ const PosterContainer = styled(motion.div)`
   width: 410px;
   height: 600px;
   flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
 `;
 
 const Poster = styled.img`
-  width: 100%;
   height: 100%;
+  border-radius: 10px;
 `;
 
 const MovieDataBlock = styled(motion.div)`
@@ -63,6 +70,7 @@ const InfoText = styled.span`
   font-family: 'Nunito Sans', sans-serif;
   font-size: 32px;
   font-weight: 300;
+  text-transform: capitalize;
 `;
 
 const BookingBlock = styled.div`
@@ -98,8 +106,12 @@ const DescriptionText = styled(motion.p)`
   text-transform: capitalize;
 `;
 
-function MovieInfo({ onOpenBooking, posterUrl }: MovieInfoProps) {
-  const [movieStarted, setMovieStarted] = useState(true);
+function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
+  const bookingStartDate = useMemo(() => {
+    const date = new Date(movie.start);
+    date.setDate(movie.start.getDate() - 7);
+    return date;
+  }, [movie]);
 
   return (
     <MovieInfoContainer>
@@ -111,7 +123,7 @@ function MovieInfo({ onOpenBooking, posterUrl }: MovieInfoProps) {
         }}
         viewport={{ once: true }}
       >
-        <MovieTitleText>Black Panther: Wakanda Forever</MovieTitleText>
+        <MovieTitleText>{movie.title_en}</MovieTitleText>
       </MovieTitleContainer>
       <MovieDataContainer>
         <PosterContainer
@@ -122,7 +134,10 @@ function MovieInfo({ onOpenBooking, posterUrl }: MovieInfoProps) {
           }}
           viewport={{ once: true }}
         >
-          <Poster src={posterUrl} alt={'poster'} />
+          <Poster
+            src={BASE_UPLOADS_URL + movie.poster?.filename}
+            alt={'poster'}
+          />
         </PosterContainer>
         <MovieDataBlock
           initial={{ opacity: 0, translateX: '50%' }}
@@ -134,37 +149,39 @@ function MovieInfo({ onOpenBooking, posterUrl }: MovieInfoProps) {
         >
           <InfoBlock>
             <InfoLabel>Release year: </InfoLabel>
-            <InfoText>2022</InfoText>
+            <InfoText>{movie.start.getFullYear()}</InfoText>
           </InfoBlock>
           <InfoBlock>
             <InfoLabel>Country: </InfoLabel>
-            <InfoText>USA</InfoText>
+            <InfoText>{movie.country?.title.toUpperCase()}</InfoText>
           </InfoBlock>
           <InfoBlock>
             <InfoLabel>Genre: </InfoLabel>
-            <InfoText>New / Action / Adventure / Fantasy</InfoText>
+            <InfoText>
+              {movie.genres?.map((genre) => genre.title).join(' / ')}
+            </InfoText>
           </InfoBlock>
           <InfoBlock>
             <InfoLabel>Author: </InfoLabel>
-            <InfoText>Ryan Googler</InfoText>
+            <InfoText>{movie.author}</InfoText>
           </InfoBlock>
           <InfoBlock>
             <InfoLabel>Actors: </InfoLabel>
             <InfoText>
-              Arthur Fleck, Sophie Dumond, Penny Fleck, Lupita Nyongo, Letitia
-              Wright
+              {movie.actors &&
+                movie.actors
+                  .map((actor) => `${actor.name} ${actor.surname}`)
+                  .join(', ')}
             </InfoText>
           </InfoBlock>
           <BookingBlock>
-            {movieStarted ? (
+            {bookingStartDate <= new Date() ? (
               <Button onClick={onOpenBooking}>Book Now!</Button>
             ) : (
-              <ComingSoonButton onClick={() => setMovieStarted(!movieStarted)}>
-                Coming soon
-              </ComingSoonButton>
+              <ComingSoonButton>Coming soon</ComingSoonButton>
             )}
             <RatingBlock>
-              <RatingText>8,1</RatingText>
+              <RatingText>{movie.rating.toLocaleString()}</RatingText>
               <Icon id={'star'} width={39} height={38} viewBox="0 0 39 38" />
             </RatingBlock>
           </BookingBlock>
@@ -179,11 +196,7 @@ function MovieInfo({ onOpenBooking, posterUrl }: MovieInfoProps) {
           }}
           viewport={{ once: true }}
         >
-          Queen Ramonda, Shuri, MBaku, Okoye and the Dora Milaje fight to
-          protect their nation from intervening world powers in the wake of King
-          TChallas death. As the Wakandans strive to embrace their next chapter,
-          the heroes must band together with Nakia and Everett Ross to forge a
-          new path for their beloved kingdom.
+          {movie.description_en}
         </DescriptionText>
       </div>
     </MovieInfoContainer>

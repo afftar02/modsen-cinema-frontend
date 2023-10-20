@@ -1,18 +1,21 @@
 import Icon from 'components/Icon';
 import { styled } from 'styled-components';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 type ReviewProps = {
+  author: string;
+  text: string;
   bgColor: string;
 };
 
 const ReviewContainer = styled(motion.div)<{ $bgColor: string }>`
   border-radius: 20px;
   background: ${(props) => props.$bgColor};
+  min-height: 375px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   box-shadow: 15px 15px 25px rgba(0, 0, 0, 0.5);
   cursor: pointer;
@@ -87,14 +90,24 @@ const ShowMoreText = styled.span`
   text-transform: uppercase;
 `;
 
-function Review({ bgColor }: ReviewProps) {
-  const [opened, setOpened] = useState(false);
+const DEFAULT_HEIGHT = 217;
+const TEXT_OVERFLOW_COEFFICIENT = 1.8;
+const TEXT_COEFFICIENT = 1.6;
 
+function Review({ author, text, bgColor }: ReviewProps) {
+  const [opened, setOpened] = useState(false);
   const reviewRef = useRef<HTMLDivElement>(null);
 
+  const isOverflowed = useMemo(
+    () => text.length / TEXT_OVERFLOW_COEFFICIENT > DEFAULT_HEIGHT,
+    [text]
+  );
+
   const handleShowClick = () => {
-    if (reviewRef.current) {
-      reviewRef.current.style.height = opened ? '217px' : '450px';
+    if (reviewRef.current && isOverflowed) {
+      reviewRef.current.style.height = opened
+        ? `${DEFAULT_HEIGHT}px`
+        : `${text.length / TEXT_COEFFICIENT}px`;
       setOpened(!opened);
     }
   };
@@ -112,26 +125,16 @@ function Review({ bgColor }: ReviewProps) {
       viewport={{ once: true }}
     >
       <ReviewTitle>Review</ReviewTitle>
-      <AuthorDescription>from Stanislav Lebedyantsev</AuthorDescription>
+      <AuthorDescription>from {author}</AuthorDescription>
       <ReviewTextContainer ref={reviewRef} $isOpened={opened}>
-        <ReviewText>
-          I was a person that saw all the hype and claims of masterpiece as
-          overreacting and overblown excitement for another Joker based film. I
-          thought this looked solid at best and even a bit too pretentious in
-          the trailer, but in here to say I was incredibly wrong. This is a
-          massive achievement of cinema thats extremely rare in a day and age of
-          cgi nonsense and reboots. While this Lorem ipsum dolor sit amet,
-          consectetur adipisicing elit. Corporis dignissimos esse, ex nostrum
-          praesentium quaerat. Consectetur consequatur culpa distinctio
-          doloribus earum eum, maiores nisi numquam, quidem suscipit veritatis,
-          voluptas voluptatem. Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Animi enim eveniet, ipsa nisi non totam?
-        </ReviewText>
+        <ReviewText>{text}</ReviewText>
       </ReviewTextContainer>
-      <ShowMoreContainer onClick={handleShowClick}>
-        <ShowMoreText>read more</ShowMoreText>
-        <Icon id={'show'} width={40} height={40} viewBox="0 0 40 40" />
-      </ShowMoreContainer>
+      {isOverflowed && (
+        <ShowMoreContainer onClick={handleShowClick}>
+          <ShowMoreText>read more</ShowMoreText>
+          <Icon id={'show'} width={40} height={40} viewBox="0 0 40 40" />
+        </ShowMoreContainer>
+      )}
     </ReviewContainer>
   );
 }

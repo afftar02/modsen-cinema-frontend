@@ -248,14 +248,14 @@ function VerticalCarousel({ data }: VerticalCarouselProps) {
       <StyledLink to={`/film/${data.at(currentIndex)?.id}`}>
         <CurrentContainer ref={currentItemRef}>
           <CurrentImage
-            src={BASE_UPLOADS_URL + data.at(currentIndex)?.poster.filename}
+            src={BASE_UPLOADS_URL + data.at(currentIndex)?.poster?.filename}
             alt="poster"
             width={262}
           />
           <InfoContainer>
             <Title>{data.at(currentIndex)?.title_en}</Title>
             <TagsContainer>
-              {data.at(currentIndex)?.genres.map((genre) => (
+              {data.at(currentIndex)?.genres?.map((genre) => (
                 <Tag key={genre.id}>
                   <span>{genre.title}</span>
                 </Tag>
@@ -278,7 +278,7 @@ function VerticalCarousel({ data }: VerticalCarouselProps) {
               ref={(elem) => bindRef(elem, index)}
             >
               <Image
-                src={BASE_UPLOADS_URL + item.poster.filename}
+                src={BASE_UPLOADS_URL + item.poster?.filename}
                 alt="slide"
               />
             </Slide>

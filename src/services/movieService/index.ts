@@ -8,5 +8,8 @@ export const getAllMovies = async () => {
 
 export const getMovie = async (id: number) => {
   const { data } = await request<MovieType>({ url: `/movie/${id}` });
+
+  data.start = new Date(data.start);
+
   return data;
 };

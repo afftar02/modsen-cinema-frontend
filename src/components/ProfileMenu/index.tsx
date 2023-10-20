@@ -202,7 +202,13 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
               <ActionText onClick={handleLogout}>Log out</ActionText>
             </ActionBlock>
           </ProfileInfoContainer>
-          <Icon id="footer-logo" width={123} height={30} viewBox="0 0 123 30" />
+          <Icon
+            id="footer-logo"
+            width={123}
+            height={30}
+            viewBox="0 0 123 30"
+            fill={theme.logoColor}
+          />
         </ErrorBoundary>
       </Wrapper>
     </>

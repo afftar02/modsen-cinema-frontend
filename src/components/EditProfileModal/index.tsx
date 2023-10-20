@@ -87,26 +87,31 @@ function EditProfileModal({ onClose }: AuthFormProps) {
   );
 
   const handleProfileEdit = useCallback(async () => {
-    if (avatar) {
-      await uploadAvatar(avatar);
+    try {
+      if (avatar) {
+        await uploadAvatar(avatar);
+      }
+      const editedData: Partial<UserType> = {};
+      if (formik.values.name) {
+        editedData.name = formik.values.name;
+      }
+      if (formik.values.surname) {
+        editedData.surname = formik.values.surname;
+      }
+      if (formik.values.gender) {
+        editedData.gender = formik.values.gender;
+      }
+      if (formik.values.password) {
+        editedData.password = formik.values.password;
+      }
+      if (JSON.stringify(editedData) !== JSON.stringify({})) {
+        await updateUser(editedData);
+      }
+      await loadUser();
+    } catch (err) {
+      alert('Data uploading error!');
+      await loadUser();
     }
-    const editedData: Partial<UserType> = {};
-    if (formik.values.name) {
-      editedData.name = formik.values.name;
-    }
-    if (formik.values.surname) {
-      editedData.surname = formik.values.surname;
-    }
-    if (formik.values.gender) {
-      editedData.gender = formik.values.gender;
-    }
-    if (formik.values.password) {
-      editedData.password = formik.values.password;
-    }
-    if (JSON.stringify(editedData) !== JSON.stringify({})) {
-      await updateUser(editedData);
-    }
-    await loadUser();
   }, [avatar, formik, loadUser]);
 
   return (
