@@ -10,6 +10,11 @@ import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
 import CloseIcon from 'components/CloseIcon';
+import { ChangeEvent, useCallback, useState } from 'react';
+import { uploadAvatar } from 'services/avatarService';
+import { AuthContextType, useAuth } from 'auth/Auth';
+import { updateUser } from 'services/userService';
+import { UserType } from 'types/User';
 
 type AuthFormProps = {
   onClose: () => void;
@@ -52,9 +57,12 @@ const SubmitButton = styled(Button)`
 `;
 
 function EditProfileModal({ onClose }: AuthFormProps) {
+  const [avatar, setAvatar] = useState<File>();
+
+  const { loadUser } = useAuth() as AuthContextType;
+
   const formik = useFormik({
     initialValues: {
-      avatar: '',
       name: '',
       surname: '',
       gender: '',
@@ -62,11 +70,49 @@ function EditProfileModal({ onClose }: AuthFormProps) {
     },
     validate: validateEditProfile,
     validateOnChange: false,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async () => {
+      await handleProfileEdit();
       onClose();
     },
   });
+
+  const handleFileUpload = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files) {
+        const file = event.target.files[0];
+        setAvatar(file);
+      }
+    },
+    []
+  );
+
+  const handleProfileEdit = useCallback(async () => {
+    try {
+      if (avatar) {
+        await uploadAvatar(avatar);
+      }
+      const editedData: Partial<UserType> = {};
+      if (formik.values.name) {
+        editedData.name = formik.values.name;
+      }
+      if (formik.values.surname) {
+        editedData.surname = formik.values.surname;
+      }
+      if (formik.values.gender) {
+        editedData.gender = formik.values.gender;
+      }
+      if (formik.values.password) {
+        editedData.password = formik.values.password;
+      }
+      if (JSON.stringify(editedData) !== JSON.stringify({})) {
+        await updateUser(editedData);
+      }
+      await loadUser();
+    } catch (err) {
+      alert('Data uploading error!');
+      await loadUser();
+    }
+  }, [avatar, formik, loadUser]);
 
   return (
     <ModalPortal>
@@ -84,10 +130,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
             <span>Please, enter new profile information:</span>
           </TextBlock>
           <StyledForm onSubmit={formik.handleSubmit}>
-            <FileInput
-              value={formik.values.avatar}
-              onChange={formik.handleChange}
-            />
+            <FileInput value={avatar?.name} onChange={handleFileUpload} />
             <Input
               placeholder={formik.errors.name ?? 'Enter new name'}
               onChange={formik.handleChange}

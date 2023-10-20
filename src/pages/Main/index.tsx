@@ -4,8 +4,15 @@ import Header from 'components/Header';
 import VideoPreview from 'components/VideoPreview';
 import ErrorFallback from 'components/ErrorFallback';
 import ErrorBoundary from 'components/ErrorBoundary';
-import VerticalCarousel from '../../components/VerticalCarousel';
+import VerticalCarousel from 'components/VerticalCarousel';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { getMovies } from 'redux/thunks/movie';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { selectMovies } from 'redux/selectors/movie';
+import { MovieType } from 'types/Movie';
+import { getMovie } from '../../services/movieService';
+import { BASE_UPLOADS_URL } from '../../constants/BaseApiUrl';
 
 const MainWrapper = styled.div`
   position: relative;
@@ -74,6 +81,28 @@ const StyledYear = styled(motion.span)`
 `;
 
 function Main() {
+  const movies = useAppSelector(selectMovies);
+  const [lastMovie, setLastMovie] = useState<MovieType>();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMovies());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (movies.at(0)) {
+      (async () => {
+        try {
+          const movie = await getMovie(movies[0].id);
+          setLastMovie(movie);
+        } catch (err) {
+          alert('Data loading error!');
+        }
+      })();
+    }
+  }, [movies]);
+
   return (
     <MainWrapper>
       <Header />
@@ -88,20 +117,12 @@ function Main() {
             }}
             viewport={{ once: true }}
           >
-            <TrailerTitle>THE BATMAN</TrailerTitle>
-            <TrailerDescription>
-              Batman is called to intervene when the mayor of Gotham City is
-              murdered. Soon, his investigation leads him to uncover a web of
-              corruption, linked to his own dark past.
-            </TrailerDescription>
+            <TrailerTitle>{lastMovie?.title_en}</TrailerTitle>
+            <TrailerDescription>{lastMovie?.description_en}</TrailerDescription>
           </DescriptionContainer>
           <VideoPreview
-            previewUrl={
-              'https://s3-alpha-sig.figma.com/img/e73d/a448/7b1a870666847d044c701bcd275121cc?Expires=1696204800&Signature=ZFuRAwH4r-rcBOelM~MyxSkAxPBHp6Xz40LCvAMW7TXPxrBYfWXOQA9lIscy3wu06OcH~fOgQD6kWKAyk3SI0mhN7DWLdprhUfNsApaEPN0686zVvGBewQRqKz2Mtj6ZP-y5I1xASJJ7yBgGrLFOmydA86t7lWktu~lC9etqSnhsao7hmhLns21hIGwME7Nrliu8l3NLY29ap2khsU5cesx7e5YB598465kBJti0-qS12Dje2nivlOOz7Lt0pNAHivpYgSGvsljKJr7eQShnNAgAX5HRkcB-4e646k3EG3vboRMDbYkr-5cYxJG6QmEdEb0WbrCjyZaIGNHWBvqzMA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-            }
-            videoUrl={
-              'https://www.film.ru/sites/default/files/trailers/16916130/The-Batman-trailer-3-rus.mp4'
-            }
+            previewUrl={BASE_UPLOADS_URL + lastMovie?.trailer?.preview.filename}
+            videoUrl={BASE_UPLOADS_URL + lastMovie?.trailer?.filename}
             isHiding
           />
         </Flex>
@@ -120,7 +141,7 @@ function Main() {
               Book tickets right now!
             </CurrentMovieDescription>
           </motion.div>
-          <VerticalCarousel />
+          <VerticalCarousel data={movies} />
         </Flex>
         <Flex $marginTop={150}>
           <motion.img

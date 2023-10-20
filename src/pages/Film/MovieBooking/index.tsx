@@ -1,9 +1,22 @@
 import { styled } from 'styled-components';
 import Button from 'components/Button';
 import Session from 'components/Session';
-import { ForwardedRef, forwardRef, useState } from 'react';
+import {
+  ForwardedRef,
+  forwardRef,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import HorizontalCarousel from 'components/HorizontalCarousel';
 import CinemaHall from 'components/CinemaHall';
+import { getSessions } from 'services/sessionService';
+import { SessionType } from 'types/Session';
+import { createTicket } from 'services/ticketService';
+
+type BookingProps = {
+  movieId: number;
+};
 
 const Wrapper = styled.div`
   position: relative;
@@ -73,38 +86,139 @@ const TicketPrice = styled.span`
   font-weight: 700;
 `;
 
-const sessions = [{ id: 0 }, { id: 1 }, { id: 2 }];
+const NoSessionsMessage = styled.span`
+  color: #fff;
+  text-align: center;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 48px;
+  font-weight: 500;
+  margin: 30px 0;
+`;
 
-function MovieBooking(props: object, ref: ForwardedRef<HTMLDivElement>) {
-  const [selectedSessionId, setSelectedSessionId] = useState(0);
+const DATES_NUMBER = 7;
+
+function MovieBooking(
+  { movieId }: BookingProps,
+  ref: ForwardedRef<HTMLDivElement>
+) {
+  const [sessions, setSessions] = useState<Array<SessionType>>([]);
+  const [selectedSessionId, setSelectedSessionId] = useState(-1);
+  const [seats, setSeats] = useState<Map<number, number>>(new Map());
+  const [isBooked, setIsBooked] = useState(false);
+
+  const dates = useMemo(() => {
+    const dates = new Array<Date>();
+    const date = new Date();
+
+    for (let i = 0; i < DATES_NUMBER; i++) {
+      dates.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+
+    return dates;
+  }, []);
+
+  const handleDateClick = useCallback(
+    async (date: Date) => {
+      try {
+        const loadedSessions = await getSessions(movieId, date);
+        setSessions(loadedSessions);
+        setSelectedSessionId(-1);
+        setSeats(new Map());
+      } catch (err) {
+        alert('Data loading error!');
+      }
+    },
+    [movieId]
+  );
+
+  const handleSessionClick = useCallback((sessionId: number) => {
+    setSelectedSessionId(sessionId);
+    setSeats(new Map());
+  }, []);
+
+  const handleSeatClick = useCallback((seatId: number, price: number) => {
+    setSeats((prev) => {
+      if (prev?.has(seatId)) {
+        prev?.delete(seatId);
+      } else {
+        prev?.set(seatId, price);
+      }
+      return new Map(prev);
+    });
+  }, []);
+
+  const handleBookClick = useCallback(async () => {
+    try {
+      await createTicket({ seatIds: [...seats.keys()] });
+      setSeats(new Map());
+      setIsBooked(true);
+    } catch (err) {
+      alert('Booking error!');
+    }
+  }, [seats]);
+
+  const calculateTicketPrice = useCallback(() => {
+    const sessionDate = sessions?.find(
+      (session: SessionType) => session?.id === selectedSessionId
+    )?.start;
+    let discount = 0;
+    let result = 0;
+
+    if (sessionDate) {
+      discount = ((sessionDate.getDate() - new Date().getDate()) * 5) / 100;
+    }
+
+    seats.forEach((price) => {
+      result += price;
+    });
+
+    result = (1 - discount) * result;
+
+    return Number(result.toFixed(1));
+  }, [seats, selectedSessionId, sessions]);
 
   return (
     <Wrapper ref={ref}>
       <Divider />
       <Container>
         <BookingTitle>Book Now!</BookingTitle>
-        <HorizontalCarousel />
+        <HorizontalCarousel data={dates} onClick={handleDateClick} />
         <SessionsBlock>
-          {sessions.map((session) => (
-            <Session
-              key={session.id}
-              onClick={() => setSelectedSessionId(session.id)}
-              selected={selectedSessionId === session.id}
-            />
-          ))}
+          {sessions.length > 0 ? (
+            sessions.map((session) => (
+              <Session
+                key={session.id}
+                onClick={() => handleSessionClick(session.id)}
+                selected={selectedSessionId === session.id}
+                data={session}
+              />
+            ))
+          ) : (
+            <NoSessionsMessage>No sessions available!</NoSessionsMessage>
+          )}
         </SessionsBlock>
-        <CinemaHall />
-        <ActionContainer>
-          <TicketInfo>
-            <SeatsCount>6 Seats</SeatsCount>
-            <TicketPrice>45 $</TicketPrice>
-          </TicketInfo>
-          <StyledButton onClick={() => alert('Booked!')}>Book Now</StyledButton>
-        </ActionContainer>
+        {selectedSessionId >= 0 && (
+          <CinemaHall
+            sessionId={selectedSessionId}
+            onSeatClick={handleSeatClick}
+            isBooked={isBooked}
+            resetIsBooked={() => setIsBooked(false)}
+          />
+        )}
+        {sessions.length > 0 && (
+          <ActionContainer>
+            <TicketInfo>
+              <SeatsCount>{seats?.size} Seats</SeatsCount>
+              <TicketPrice>{calculateTicketPrice()} $</TicketPrice>
+            </TicketInfo>
+            <StyledButton onClick={handleBookClick}>Book Now</StyledButton>
+          </ActionContainer>
+        )}
       </Container>
       <Divider />
     </Wrapper>
   );
 }
 
-export default forwardRef<HTMLDivElement>(MovieBooking);
+export default forwardRef<HTMLDivElement, BookingProps>(MovieBooking);

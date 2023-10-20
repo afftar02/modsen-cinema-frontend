@@ -7,6 +7,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import SettingsModal from 'components/SettingsModal';
 import { AnimatePresence, motion } from 'framer-motion';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 
 type ProfileMenuProps = {
   onClose: () => void;
@@ -112,11 +113,26 @@ const ActionText = styled.span`
   }
 `;
 
+const AvatarContainer = styled.div`
+  margin-top: 80px;
+  width: 250px;
+  height: 250px;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const AvatarImage = styled.img`
+  width: 100%;
+`;
+
 function ProfileMenu({ onClose }: ProfileMenuProps) {
   const [editProfileOpened, setEditProfileOpened] = useState(false);
   const [settingsOpened, setSettingsOpened] = useState(false);
 
-  const { logout } = useAuth() as AuthContextType;
+  const { logout, getUserName, user } = useAuth() as AuthContextType;
 
   const theme = useTheme();
 
@@ -156,16 +172,25 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
         <ErrorBoundary fallback={<ErrorFallback />}>
           <ProfileTitle>User profile</ProfileTitle>
           <ProfileInfoContainer>
-            <AvatarIcon
-              id="avatar"
-              width={250}
-              height={250}
-              viewBox="0 0 250 250"
-            />
+            {user?.avatar ? (
+              <AvatarContainer>
+                <AvatarImage
+                  src={BASE_UPLOADS_URL + user.avatar.filename}
+                  alt={'avatar'}
+                />
+              </AvatarContainer>
+            ) : (
+              <AvatarIcon
+                id="avatar"
+                width={250}
+                height={250}
+                viewBox="0 0 250 250"
+              />
+            )}
             <UserDetailsBlock>
-              <UserNameText>Name Surname</UserNameText>
-              <UserIdText>USER ID: 1798435</UserIdText>
-              <GenderText>FEMALE</GenderText>
+              <UserNameText>{getUserName()}</UserNameText>
+              <UserIdText>USER ID: {user?.id}</UserIdText>
+              <GenderText>{user?.gender}</GenderText>
             </UserDetailsBlock>
             <ActionBlock>
               <ActionText onClick={() => setEditProfileOpened(true)}>
@@ -177,7 +202,13 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
               <ActionText onClick={handleLogout}>Log out</ActionText>
             </ActionBlock>
           </ProfileInfoContainer>
-          <Icon id="footer-logo" width={123} height={30} viewBox="0 0 123 30" />
+          <Icon
+            id="footer-logo"
+            width={123}
+            height={30}
+            viewBox="0 0 123 30"
+            fill={theme.logoColor}
+          />
         </ErrorBoundary>
       </Wrapper>
     </>

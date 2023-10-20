@@ -7,14 +7,14 @@ import Auth from 'auth/Auth';
 import AuthorizedRoute from 'utils/AuthorizedRoute';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'styled-components';
-import { useSelector } from 'react-redux';
 import { selectThemeValue } from 'redux/selectors/theme';
 import { THEMES } from 'constants/Themes';
 import Wrapper from 'pages/Wrapper';
+import { useAppSelector } from 'redux/hooks';
 
 function App() {
   const location = useLocation();
-  const currentThemeValue = useSelector(selectThemeValue);
+  const currentThemeValue = useAppSelector(selectThemeValue);
 
   return (
     <Auth>

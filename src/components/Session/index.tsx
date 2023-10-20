@@ -1,7 +1,9 @@
 import { styled } from 'styled-components';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useMemo } from 'react';
+import { SessionType } from 'types/Session';
 
 type SessionProps = {
+  data: SessionType;
   selected?: boolean;
   onClick?: MouseEventHandler<HTMLDivElement>;
 };
@@ -46,14 +48,32 @@ const SeatsText = styled.span`
   font-weight: 300;
 `;
 
-function Session({ onClick, selected = false }: SessionProps) {
+function Session({ data, onClick, selected = false }: SessionProps) {
+  const sessionTime = useMemo(() => {
+    let startTimeStr = 'AM',
+      endTimeStr = 'AM';
+    const startDate = new Date(data.start);
+    const endDate = new Date(data.end);
+
+    if (startDate.getHours() > 12) {
+      startDate.setHours(startDate.getHours() - 12);
+      startTimeStr = 'PM';
+    }
+    if (endDate.getHours() > 12) {
+      endDate.setHours(endDate.getHours() - 12);
+      endTimeStr = 'PM';
+    }
+
+    return `${startDate.getHours()}:${startDate.getMinutes()} ${startTimeStr} - ${endDate.getHours()}:${endDate.getMinutes()} ${endTimeStr}`;
+  }, [data]);
+
   return (
     <SessionContainer $selected={selected} onClick={onClick}>
-      <SessionTime>2:30 PM - 4:25 PM</SessionTime>
-      <CinemaFormat>Cinema: 1D</CinemaFormat>
+      <SessionTime>{sessionTime}</SessionTime>
+      <CinemaFormat>Cinema: {data.format}</CinemaFormat>
       <SeatsContainer>
         <img src={'/images/seat.png'} alt={'seat'} />
-        <SeatsText>25 seats available</SeatsText>
+        <SeatsText>{data.availableSeats ?? 0} seats available</SeatsText>
       </SeatsContainer>
     </SessionContainer>
   );

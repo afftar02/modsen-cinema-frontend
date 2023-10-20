@@ -1,6 +1,11 @@
 import { styled } from 'styled-components';
-import Icon from '../Icon';
+import Icon from 'components/Icon';
 import { useCallback, useRef, useState } from 'react';
+
+type HorizontalCarouselProps = {
+  data: Date[];
+  onClick?: (date: Date) => Promise<void>;
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -96,54 +101,22 @@ const Divider = styled.div`
   background-color: #fff;
 `;
 
-const data = [
-  {
-    id: 1,
-    date: 12,
-  },
-  {
-    id: 2,
-    date: 13,
-  },
-  {
-    id: 3,
-    date: 14,
-  },
-  {
-    id: 4,
-    date: 15,
-  },
-  {
-    id: 5,
-    date: 16,
-  },
-  {
-    id: 6,
-    date: 17,
-  },
-  {
-    id: 7,
-    date: 18,
-  },
-  {
-    id: 8,
-    date: 19,
-  },
-];
-
 const FIRST_SLIDE_OFFSET = 348;
 const LAST_SLIDE_OFFSET = 298;
 
-function Carousel() {
+function Carousel({ data, onClick }: HorizontalCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLDivElement[]>([]);
 
-  const checkIndex = useCallback((index: number) => {
-    if (index < 0) return data.length - 1;
-    else if (index >= data.length) return 0;
-    return index;
-  }, []);
+  const checkIndex = useCallback(
+    (index: number) => {
+      if (index < 0) return data.length - 1;
+      else if (index >= data.length) return 0;
+      return index;
+    },
+    [data]
+  );
 
   const scrollToCurrentItem = useCallback(
     (index: number) => {
@@ -167,6 +140,9 @@ function Carousel() {
   const handleItemClick = (index: number) => {
     updateCurrentIndex(index);
     scrollToCurrentItem(checkIndex(index));
+    if (onClick) {
+      onClick(data[checkIndex(index)]);
+    }
   };
 
   const bindRef = (element: HTMLDivElement | null, index: number) => {
@@ -189,7 +165,7 @@ function Carousel() {
         <Slider ref={sliderRef}>
           {data.map((item, index) => (
             <Slide
-              key={item.id}
+              key={index}
               onClick={() => handleItemClick(index)}
               $isActive={index === currentIndex}
               $isNearActive={
@@ -197,7 +173,7 @@ function Carousel() {
               }
               ref={(elem) => bindRef(elem, index)}
             >
-              {item.date}
+              {item.getDate()}
             </Slide>
           ))}
         </Slider>

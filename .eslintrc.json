@@ -19,7 +19,9 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "react"],
-  "rules": {},
+  "rules": {
+    "import/named": 0
+  },
   "settings": {
     "import/resolver": {
       "node": {
