@@ -7,6 +7,7 @@ import { getSeats } from 'services/seatService';
 type CinemaHallProps = {
   sessionId: number;
   onSeatClick: (seatId: number, price: number) => void;
+  chosenSeatIds?: number[];
   isBooked?: boolean;
   resetIsBooked?: () => void;
 };
@@ -95,6 +96,7 @@ function CinemaHall({
   sessionId,
   onSeatClick,
   isBooked,
+  chosenSeatIds,
   resetIsBooked,
 }: CinemaHallProps) {
   const [seats, setSeats] = useState<Array<SeatType>>([]);
@@ -169,6 +171,7 @@ function CinemaHall({
           <StyledSeat
             key={seat.id}
             reserved={seat.ticket !== null}
+            selected={chosenSeatIds?.includes(seat.id)}
             $top={calculateSeatTopPosition(seat.row)}
             $left={calculateSeatLeftPosition(seat.number, seat.row)}
             onClick={() => onSeatClick(seat.id, seat.price)}

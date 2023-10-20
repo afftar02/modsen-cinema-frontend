@@ -169,6 +169,18 @@ function Film() {
     }
   }, [bookingOpened, scrollToBooking]);
 
+  useEffect(() => {
+    if (localStorage.getItem('booking')) {
+      const bookingInfo = JSON.parse(localStorage.getItem('booking') as string);
+
+      if (Number(bookingInfo.movieId) === Number(id)) {
+        setBookingOpened(true);
+      } else {
+        localStorage.removeItem('booking');
+      }
+    }
+  }, [id]);
+
   return (
     <PageContainer>
       <Header />

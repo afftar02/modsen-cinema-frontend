@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 type SeatProps = {
   reserved: boolean;
+  selected?: boolean;
   onClick?: () => void;
 };
 
@@ -41,12 +42,12 @@ const StyledSeat = styled.div<{ $isReserved: boolean; $isSelected: boolean }>`
   `};
 `;
 
-function Seat({ reserved, onClick, ...props }: SeatProps) {
-  const [selected, setSelected] = useState(false);
+function Seat({ reserved, selected = false, onClick, ...props }: SeatProps) {
+  const [active, setActive] = useState(selected);
 
   const handleClick = () => {
     if (!reserved) {
-      setSelected(!selected);
+      setActive(!active);
       if (onClick) {
         onClick();
       }
@@ -56,7 +57,7 @@ function Seat({ reserved, onClick, ...props }: SeatProps) {
   return (
     <StyledSeat
       $isReserved={reserved}
-      $isSelected={!reserved && selected}
+      $isSelected={!reserved && active}
       onClick={handleClick}
       {...props}
     />
