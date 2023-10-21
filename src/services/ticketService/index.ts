@@ -2,7 +2,7 @@ import { request } from 'services/axiosService';
 import { TicketDto, TicketType } from 'types/Ticket';
 
 export const getUserTickets = async () => {
-  const { data } = await request<Array<TicketType>>({ url: '/tickets' });
+  const { data } = await request<Array<TicketType>>({ url: '/en/tickets' });
   return data;
 };
 

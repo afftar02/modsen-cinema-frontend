@@ -204,7 +204,7 @@ function BookingCard({
         <div>
           <TitleBlock>
             <StyledLink to={`/film/${ticket.movie?.id}`}>
-              <Title>{ticket.movie?.title_en}</Title>
+              <Title>{ticket.movie?.title}</Title>
             </StyledLink>
             <div>
               <Rating>{ticket.movie?.rating}</Rating>

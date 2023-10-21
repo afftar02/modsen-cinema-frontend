@@ -117,8 +117,8 @@ function Main() {
             }}
             viewport={{ once: true }}
           >
-            <TrailerTitle>{lastMovie?.title_en}</TrailerTitle>
-            <TrailerDescription>{lastMovie?.description_en}</TrailerDescription>
+            <TrailerTitle>{lastMovie?.title}</TrailerTitle>
+            <TrailerDescription>{lastMovie?.description}</TrailerDescription>
           </DescriptionContainer>
           <VideoPreview
             previewUrl={BASE_UPLOADS_URL + lastMovie?.trailer?.preview.filename}

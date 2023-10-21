@@ -123,7 +123,7 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
         }}
         viewport={{ once: true }}
       >
-        <MovieTitleText>{movie.title_en}</MovieTitleText>
+        <MovieTitleText>{movie.title}</MovieTitleText>
       </MovieTitleContainer>
       <MovieDataContainer>
         <PosterContainer
@@ -196,7 +196,7 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
           }}
           viewport={{ once: true }}
         >
-          {movie.description_en}
+          {movie.description}
         </DescriptionText>
       </div>
     </MovieInfoContainer>
