@@ -1,4 +1,5 @@
 import * as Formik from 'formik';
+import { TFunction } from 'i18next';
 
 interface Values {
   name: string;
@@ -7,19 +8,19 @@ interface Values {
   password: string;
 }
 
-export const validateEditProfile = (values: Values) => {
+export const validateEditProfile = (values: Values, t: TFunction) => {
   const errors: Formik.FormikErrors<Values> = {};
 
   if (values.gender && values.gender !== 'FEMALE' && values.gender !== 'MALE') {
-    errors.gender = 'Invalid gender type, please type MALE or FEMALE';
+    errors.gender = t('invalid_gender_error');
     values.gender = '';
   }
 
-  if (values.password && values.password.length < 4) {
-    errors.password = 'Password must be 4 characters or more';
-    values.password = '';
-  } else if (values.password && values.password.length > 16) {
-    errors.password = 'Password must be 16 characters or less';
+  if (
+    values.password &&
+    (values.password.length < 4 || values.password.length > 16)
+  ) {
+    errors.password = t('invalid_password_error');
     values.password = '';
   }
 

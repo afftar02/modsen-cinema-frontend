@@ -3,6 +3,7 @@ import Icon from 'components/Icon';
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { init, send } from '@emailjs/browser';
 import * as process from 'process';
+import { useTranslation } from 'react-i18next';
 
 const InputWrapper = styled.div`
   position: relative;
@@ -47,13 +48,14 @@ const StyledIcon = styled(Icon)`
 `;
 
 function FooterInput() {
+  const { t } = useTranslation();
   const [value, setValue] = useState('');
 
   const theme = useTheme();
 
   const handleSubmit = async () => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      alert('Invalid email address!');
+      alert(t('invalid_email'));
       return;
     }
 
@@ -66,9 +68,9 @@ function FooterInput() {
         }
       );
       setValue('');
-      alert('Subscription successfully completed!');
+      alert(t('subscribed_text'));
     } catch (err) {
-      alert('Subscription error!');
+      alert(t('subscription_error'));
     }
   };
 
@@ -85,7 +87,7 @@ function FooterInput() {
   return (
     <InputWrapper>
       <StyledInput
-        placeholder="Enter email"
+        placeholder={t('email_subscription_placeholder')}
         value={value}
         onChange={(event) => setValue(event.target.value)}
         onKeyDown={handleEnter}

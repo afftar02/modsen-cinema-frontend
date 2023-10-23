@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { MovieType } from 'types/Movie';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type MovieInfoProps = {
   movie: MovieType;
@@ -103,10 +104,11 @@ const DescriptionText = styled(motion.p)`
   font-family: 'Nunito Sans', sans-serif;
   font-size: 32px;
   font-weight: 300;
-  text-transform: capitalize;
 `;
 
 function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
+  const { t } = useTranslation();
+
   const bookingStartDate = useMemo(() => {
     const date = new Date(movie.start);
     date.setDate(movie.start.getDate() - 7);
@@ -123,7 +125,7 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
         }}
         viewport={{ once: true }}
       >
-        <MovieTitleText>{movie.title_en}</MovieTitleText>
+        <MovieTitleText>{movie.title}</MovieTitleText>
       </MovieTitleContainer>
       <MovieDataContainer>
         <PosterContainer
@@ -148,25 +150,25 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
           viewport={{ once: true }}
         >
           <InfoBlock>
-            <InfoLabel>Release year: </InfoLabel>
+            <InfoLabel>{t('movie_year')}</InfoLabel>
             <InfoText>{movie.start.getFullYear()}</InfoText>
           </InfoBlock>
           <InfoBlock>
-            <InfoLabel>Country: </InfoLabel>
+            <InfoLabel>{t('movie_country')}</InfoLabel>
             <InfoText>{movie.country?.title.toUpperCase()}</InfoText>
           </InfoBlock>
           <InfoBlock>
-            <InfoLabel>Genre: </InfoLabel>
+            <InfoLabel>{t('movie_genre')}</InfoLabel>
             <InfoText>
               {movie.genres?.map((genre) => genre.title).join(' / ')}
             </InfoText>
           </InfoBlock>
           <InfoBlock>
-            <InfoLabel>Author: </InfoLabel>
+            <InfoLabel>{t('movie_author')}</InfoLabel>
             <InfoText>{movie.author}</InfoText>
           </InfoBlock>
           <InfoBlock>
-            <InfoLabel>Actors: </InfoLabel>
+            <InfoLabel>{t('movie_actors')}</InfoLabel>
             <InfoText>
               {movie.actors &&
                 movie.actors
@@ -176,9 +178,9 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
           </InfoBlock>
           <BookingBlock>
             {bookingStartDate <= new Date() ? (
-              <Button onClick={onOpenBooking}>Book Now!</Button>
+              <Button onClick={onOpenBooking}>{t('book_button_text')}!</Button>
             ) : (
-              <ComingSoonButton>Coming soon</ComingSoonButton>
+              <ComingSoonButton>{t('coming_soon_text')}</ComingSoonButton>
             )}
             <RatingBlock>
               <RatingText>{movie.rating.toLocaleString()}</RatingText>
@@ -196,7 +198,7 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
           }}
           viewport={{ once: true }}
         >
-          {movie.description_en}
+          {movie.description}
         </DescriptionText>
       </div>
     </MovieInfoContainer>

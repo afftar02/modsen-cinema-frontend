@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { ChangeEvent, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type FileInputProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -50,6 +51,8 @@ const FileInputContainer = styled.div`
 `;
 
 function FileInput({ onChange, value }: FileInputProps) {
+  const { t } = useTranslation();
+
   const cutFileName = useCallback((fileName: string) => {
     const cutFromIndex = fileName.lastIndexOf('\\') + 1;
     return fileName.slice(cutFromIndex);
@@ -58,7 +61,7 @@ function FileInput({ onChange, value }: FileInputProps) {
   return (
     <FileInputContainer>
       <FileUploadLabel htmlFor="avatar-file" $isUploaded={!!value}>
-        {value ? `Uploaded file:` : 'Upload a profile photo'}
+        {value ? t('uploaded_file_text') : t('upload_avatar_text')}
       </FileUploadLabel>
       <UploadedFileName>{cutFileName(value ?? '')}</UploadedFileName>
       <StyledInput

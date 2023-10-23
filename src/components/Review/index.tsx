@@ -2,6 +2,7 @@ import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 type ReviewProps = {
   author: string;
@@ -95,6 +96,7 @@ const TEXT_OVERFLOW_COEFFICIENT = 1.8;
 const TEXT_COEFFICIENT = 1.6;
 
 function Review({ author, text, bgColor }: ReviewProps) {
+  const { t } = useTranslation();
   const [opened, setOpened] = useState(false);
   const reviewRef = useRef<HTMLDivElement>(null);
 
@@ -124,14 +126,16 @@ function Review({ author, text, bgColor }: ReviewProps) {
       }}
       viewport={{ once: true }}
     >
-      <ReviewTitle>Review</ReviewTitle>
-      <AuthorDescription>from {author}</AuthorDescription>
+      <ReviewTitle>{t('review_title')}</ReviewTitle>
+      <AuthorDescription>
+        {t('from_text')} {author}
+      </AuthorDescription>
       <ReviewTextContainer ref={reviewRef} $isOpened={opened}>
         <ReviewText>{text}</ReviewText>
       </ReviewTextContainer>
       {isOverflowed && (
         <ShowMoreContainer onClick={handleShowClick}>
-          <ShowMoreText>read more</ShowMoreText>
+          <ShowMoreText>{t('read_more_text')}</ShowMoreText>
           <Icon id={'show'} width={40} height={40} viewBox="0 0 40 40" />
         </ShowMoreContainer>
       )}

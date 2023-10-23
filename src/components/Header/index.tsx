@@ -10,6 +10,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import SettingsModal from 'components/SettingsModal';
 import { AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -63,6 +64,7 @@ const ProfileText = styled.span`
 `;
 
 function Header() {
+  const { t } = useTranslation();
   const [profileOpened, setProfileOpened] = useState(false);
   const [settingsOpened, setSettingsOpened] = useState(false);
 
@@ -80,7 +82,7 @@ function Header() {
           </Flex>
           {isAuth ? (
             <AnimatedFlex onClick={() => setProfileOpened(true)}>
-              <ProfileText>Profile</ProfileText>
+              <ProfileText>{t('profile_text')}</ProfileText>
               <Icon
                 id="profile"
                 width={55}
@@ -93,10 +95,10 @@ function Header() {
             <Flex>
               <StyledContainer>
                 <Link to={'/signup'}>
-                  <Button>Sign up</Button>
+                  <Button>{t('signup_button_text')}</Button>
                 </Link>
                 <Link to={'/signin'}>
-                  <SignInButton>Sign in</SignInButton>
+                  <SignInButton>{t('signin_button_text')}</SignInButton>
                 </Link>
               </StyledContainer>
               <StyledIcon

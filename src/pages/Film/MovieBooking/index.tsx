@@ -14,6 +14,7 @@ import CinemaHall from 'components/CinemaHall';
 import { getSessions } from 'services/sessionService';
 import { SessionType } from 'types/Session';
 import { createTicket } from 'services/ticketService';
+import { useTranslation } from 'react-i18next';
 
 type BookingProps = {
   movieId: number;
@@ -78,6 +79,7 @@ const SeatsCount = styled.span`
   font-family: 'Poppins', sans-serif;
   font-size: 23px;
   font-weight: 400;
+  text-transform: capitalize;
 `;
 
 const TicketPrice = styled.span`
@@ -102,6 +104,7 @@ function MovieBooking(
   { movieId }: BookingProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
+  const { t } = useTranslation();
   const [sessions, setSessions] = useState<Array<SessionType>>([]);
   const [selectedSessionId, setSelectedSessionId] = useState(-1);
   const [seats, setSeats] = useState<Map<number, number>>(new Map());
@@ -138,10 +141,10 @@ function MovieBooking(
         setSelectedSessionId(-1);
         setSeats(new Map());
       } catch (err) {
-        alert('Data loading error!');
+        alert(t('loading_error'));
       }
     },
-    [loadSessions]
+    [loadSessions, t]
   );
 
   const handleSessionClick = useCallback((sessionId: number) => {
@@ -166,9 +169,9 @@ function MovieBooking(
       setSeats(new Map());
       setIsBooked(true);
     } catch (err) {
-      alert('Booking error!');
+      alert(t('booking_error'));
     }
-  }, [seats]);
+  }, [seats, t]);
 
   const calculateTicketPrice = useCallback(() => {
     let discount = 0;
@@ -221,7 +224,7 @@ function MovieBooking(
     <Wrapper ref={ref}>
       <Divider />
       <Container>
-        <BookingTitle>Book Now!</BookingTitle>
+        <BookingTitle>{t('booking_title')}</BookingTitle>
         <HorizontalCarousel
           data={dates}
           onClick={handleDateClick}
@@ -238,7 +241,7 @@ function MovieBooking(
               />
             ))
           ) : (
-            <NoSessionsMessage>No sessions available!</NoSessionsMessage>
+            <NoSessionsMessage>{t('no_sessions_text')}</NoSessionsMessage>
           )}
         </SessionsBlock>
         {selectedSessionId >= 0 && (
@@ -253,10 +256,14 @@ function MovieBooking(
         {sessions.length > 0 && (
           <ActionContainer>
             <TicketInfo>
-              <SeatsCount>{seats?.size} Seats</SeatsCount>
+              <SeatsCount>
+                {seats?.size} {t('seats_text')}
+              </SeatsCount>
               <TicketPrice>{calculateTicketPrice()} $</TicketPrice>
             </TicketInfo>
-            <StyledButton onClick={handleBookClick}>Book Now</StyledButton>
+            <StyledButton onClick={handleBookClick}>
+              {t('book_button_text')}
+            </StyledButton>
           </ActionContainer>
         )}
       </Container>

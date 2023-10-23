@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const StyledNav = styled.nav`
   margin-left: 92px;
@@ -32,10 +33,12 @@ const StyledLink = styled(NavLink)`
 `;
 
 function Navigation() {
+  const { t } = useTranslation();
+
   return (
     <StyledNav>
-      <StyledLink to={'/'}>Home</StyledLink>
-      <StyledLink to={'/bookings'}>Bookings</StyledLink>
+      <StyledLink to={'/'}>{t('main_page_nav_text')}</StyledLink>
+      <StyledLink to={'/bookings'}>{t('bookings_page_nav_text')}</StyledLink>
     </StyledNav>
   );
 }

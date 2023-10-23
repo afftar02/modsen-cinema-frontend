@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const FallbackContainer = styled.div`
   display: flex;
@@ -16,9 +17,11 @@ const FallbackText = styled.span`
 `;
 
 function ErrorFallback() {
+  const { t } = useTranslation();
+
   return (
     <FallbackContainer>
-      <FallbackText>Oops... Something went wrong!😢</FallbackText>
+      <FallbackText>{t('fallback_text')}</FallbackText>
     </FallbackContainer>
   );
 }

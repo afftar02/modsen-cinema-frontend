@@ -15,6 +15,7 @@ import { uploadAvatar } from 'services/avatarService';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import { updateUser } from 'services/userService';
 import { UserType } from 'types/User';
+import { useTranslation } from 'react-i18next';
 
 type AuthFormProps = {
   onClose: () => void;
@@ -57,6 +58,7 @@ const SubmitButton = styled(Button)`
 `;
 
 function EditProfileModal({ onClose }: AuthFormProps) {
+  const { t } = useTranslation();
   const [avatar, setAvatar] = useState<File>();
 
   const { loadUser } = useAuth() as AuthContextType;
@@ -68,7 +70,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
       gender: '',
       password: '',
     },
-    validate: validateEditProfile,
+    validate: (values) => validateEditProfile(values, t),
     validateOnChange: false,
     onSubmit: async () => {
       await handleProfileEdit();
@@ -109,10 +111,10 @@ function EditProfileModal({ onClose }: AuthFormProps) {
       }
       await loadUser();
     } catch (err) {
-      alert('Data uploading error!');
+      alert(t('loading_error'));
       await loadUser();
     }
-  }, [avatar, formik, loadUser]);
+  }, [t, avatar, formik, loadUser]);
 
   return (
     <ModalPortal>
@@ -127,12 +129,12 @@ function EditProfileModal({ onClose }: AuthFormProps) {
         <CloseIcon onClick={onClose} />
         <ErrorBoundary fallback={<ErrorFallback />}>
           <TextBlock>
-            <span>Please, enter new profile information:</span>
+            <span>{t('edit_profile_title')}</span>
           </TextBlock>
           <StyledForm onSubmit={formik.handleSubmit}>
             <FileInput value={avatar?.name} onChange={handleFileUpload} />
             <Input
-              placeholder={formik.errors.name ?? 'Enter new name'}
+              placeholder={formik.errors.name ?? t('edit_name_placeholder')}
               onChange={formik.handleChange}
               value={formik.values.name}
               onClick={() => formik.setFieldError('name', undefined)}
@@ -140,7 +142,9 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               isError={!!formik.errors.name}
             />
             <Input
-              placeholder={formik.errors.surname ?? 'Enter new surname'}
+              placeholder={
+                formik.errors.surname ?? t('edit_surname_placeholder')
+              }
               onChange={formik.handleChange}
               value={formik.values.surname}
               onClick={() => formik.setFieldError('surname', undefined)}
@@ -148,7 +152,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               isError={!!formik.errors.surname}
             />
             <Input
-              placeholder={formik.errors.gender ?? 'Enter new gender'}
+              placeholder={formik.errors.gender ?? t('edit_gender_placeholder')}
               onChange={formik.handleChange}
               value={formik.values.gender}
               onClick={() => formik.setFieldError('gender', undefined)}
@@ -157,13 +161,15 @@ function EditProfileModal({ onClose }: AuthFormProps) {
             />
             <PasswordInput
               withIcon={false}
-              placeholder={formik.errors.password ?? 'Enter new password'}
+              placeholder={
+                formik.errors.password ?? t('edit_password_placeholder')
+              }
               onChange={formik.handleChange}
               value={formik.values.password}
               onClick={() => formik.setFieldError('password', undefined)}
               isError={!!formik.errors.password}
             />
-            <SubmitButton type={'submit'}>Save</SubmitButton>
+            <SubmitButton type={'submit'}>{t('save_text')}</SubmitButton>
           </StyledForm>
         </ErrorBoundary>
       </Modal>

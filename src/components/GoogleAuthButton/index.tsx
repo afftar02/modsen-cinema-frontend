@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
+import { useTranslation } from 'react-i18next';
 
 const GoogleButton = styled.button`
   position: relative;
@@ -31,10 +32,12 @@ const GoogleIcon = styled(Icon)`
 `;
 
 function GoogleAuthButton() {
+  const { t } = useTranslation();
+
   return (
     <GoogleButton>
       <GoogleIcon id="google" width={15} height={17} viewBox="0 0 15 17" />
-      <span>Continue with Google</span>
+      <span>{t('google_auth')}</span>
     </GoogleButton>
   );
 }

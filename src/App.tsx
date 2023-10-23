@@ -11,8 +11,10 @@ import { selectThemeValue } from 'redux/selectors/theme';
 import { THEMES } from 'constants/Themes';
 import Wrapper from 'pages/Wrapper';
 import { useAppSelector } from 'redux/hooks';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const { t } = useTranslation();
   const location = useLocation();
   const currentThemeValue = useAppSelector(selectThemeValue);
 
@@ -29,12 +31,10 @@ function App() {
                   element={
                     <AuthForm
                       isSignUp
-                      title={
-                        'Great Movies in the best cinema! We care about your comfort.'
-                      }
-                      brightTitle={'Join us Right Now!'}
-                      hint={'Already has an account?'}
-                      underlinedHint={'Login please.'}
+                      title={t('signup_title')}
+                      brightTitle={t('signup_bright_title')}
+                      hint={t('signup_hint')}
+                      underlinedHint={t('signup_underlined_hint')}
                       hintLink={'/signin'}
                     />
                   }
@@ -43,10 +43,10 @@ function App() {
                   path="signin"
                   element={
                     <AuthForm
-                      title={'We are glad to see you again!'}
-                      brightTitle={'Enjoy watching movies with us!'}
-                      hint={'No account?'}
-                      underlinedHint={'Sign up please.'}
+                      title={t('signin_title')}
+                      brightTitle={t('signin_bright_title')}
+                      hint={t('signin_hint')}
+                      underlinedHint={t('signin_underlined_hint')}
                       hintLink={'/signup'}
                     />
                   }

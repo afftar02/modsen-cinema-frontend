@@ -3,6 +3,7 @@ import Seat from 'components/Seat';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SeatType } from 'types/Seat';
 import { getSeats } from 'services/seatService';
+import { useTranslation } from 'react-i18next';
 
 type CinemaHallProps = {
   sessionId: number;
@@ -99,6 +100,7 @@ function CinemaHall({
   chosenSeatIds,
   resetIsBooked,
 }: CinemaHallProps) {
+  const { t } = useTranslation();
   const [seats, setSeats] = useState<Array<SeatType>>([]);
 
   const rowsLengths = useMemo(() => {
@@ -156,15 +158,15 @@ function CinemaHall({
           resetIsBooked();
         }
       } catch (err) {
-        alert('Data loading error!');
+        alert(t('loading_error'));
       }
     })();
-  }, [sessionId, isBooked, resetIsBooked]);
+  }, [sessionId, isBooked, resetIsBooked, t]);
 
   return (
     <Wrapper>
       <ScreenContainer>
-        <Screen>Screen</Screen>
+        <Screen>{t('screen_text')}</Screen>
       </ScreenContainer>
       <SeatsContainer $width={calculateWidth()} $height={calculateHeight()}>
         {seats.map((seat) => (
@@ -181,15 +183,15 @@ function CinemaHall({
       <DescriptionContainer>
         <DescriptionItem>
           <AvailableSeat />
-          <Label>Available</Label>
+          <Label>{t('available_text')}</Label>
         </DescriptionItem>
         <DescriptionItem>
           <ReservedSeat />
-          <Label>Reserved</Label>
+          <Label>{t('reserved_text')}</Label>
         </DescriptionItem>
         <DescriptionItem>
           <SelectedSeat />
-          <Label>Selected</Label>
+          <Label>{t('selected_text')}</Label>
         </DescriptionItem>
       </DescriptionContainer>
     </Wrapper>

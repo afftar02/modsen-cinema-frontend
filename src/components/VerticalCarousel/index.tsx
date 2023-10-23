@@ -253,7 +253,7 @@ function VerticalCarousel({ data }: VerticalCarouselProps) {
             width={262}
           />
           <InfoContainer>
-            <Title>{data.at(currentIndex)?.title_en}</Title>
+            <Title>{data.at(currentIndex)?.title}</Title>
             <TagsContainer>
               {data.at(currentIndex)?.genres?.map((genre) => (
                 <Tag key={genre.id}>

@@ -17,6 +17,7 @@ import { motion } from 'framer-motion';
 import CloseIcon from 'components/CloseIcon';
 import { useCallback } from 'react';
 import { AxiosError } from 'axios';
+import { useTranslation } from 'react-i18next';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -120,6 +121,7 @@ function AuthForm({
   underlinedHint,
   hintLink,
 }: AuthFormProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { register, login } = useAuth() as AuthContextType;
 
@@ -130,7 +132,8 @@ function AuthForm({
       email: '',
       password: '',
     },
-    validate: isSignUp ? validateRegistration : validateLogin,
+    validate: (values) =>
+      isSignUp ? validateRegistration(values, t) : validateLogin(values, t),
     validateOnChange: false,
     onSubmit: () => {
       isSignUp ? handleRegister() : handleLogin();
@@ -156,10 +159,10 @@ function AuthForm({
     } catch (err) {
       formik.values.email = '';
       formik.values.password = '';
-      formik.setFieldError('email', 'Invalid email or password');
-      formik.setFieldError('password', 'Invalid email or password');
+      formik.setFieldError('email', t('invalid_login'));
+      formik.setFieldError('password', t('invalid_login'));
     }
-  }, [formik, login, navigate]);
+  }, [formik, login, navigate, t]);
 
   return (
     <ModalPortal>
@@ -183,7 +186,7 @@ function AuthForm({
             {isSignUp && (
               <Input
                 iconId={'name'}
-                placeholder={formik.errors.name ?? 'Enter your name'}
+                placeholder={formik.errors.name ?? t('name_input_placeholder')}
                 onChange={formik.handleChange}
                 value={formik.values.name}
                 onClick={() => formik.setFieldError('name', undefined)}
@@ -194,7 +197,9 @@ function AuthForm({
             {isSignUp && (
               <Input
                 iconId={'surname'}
-                placeholder={formik.errors.surname ?? 'Enter your surname'}
+                placeholder={
+                  formik.errors.surname ?? t('surname_input_placeholder')
+                }
                 onChange={formik.handleChange}
                 value={formik.values.surname}
                 onClick={() => formik.setFieldError('surname', undefined)}
@@ -204,7 +209,7 @@ function AuthForm({
             )}
             <Input
               iconId={'email'}
-              placeholder={formik.errors.email ?? 'Enter your email'}
+              placeholder={formik.errors.email ?? t('email_input_placeholder')}
               onChange={formik.handleChange}
               value={formik.values.email}
               onClick={() => formik.setFieldError('email', undefined)}
@@ -212,13 +217,15 @@ function AuthForm({
               isError={!!formik.errors.email}
             />
             <PasswordInput
-              placeholder={formik.errors.password ?? 'Enter strong password'}
+              placeholder={
+                formik.errors.password ?? t('password_input_placeholder')
+              }
               onChange={formik.handleChange}
               value={formik.values.password}
               onClick={() => formik.setFieldError('password', undefined)}
               isError={!!formik.errors.password}
             />
-            <SubmitButton type={'submit'}>Send</SubmitButton>
+            <SubmitButton type={'submit'}>{t('send_text')}</SubmitButton>
           </StyledForm>
           <AuthButtonsContainer>
             <StyledAuthContainer>

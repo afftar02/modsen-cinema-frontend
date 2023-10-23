@@ -1,6 +1,7 @@
 import Icon from 'components/Icon';
 import { styled, useTheme } from 'styled-components';
 import FooterInput from 'components/FooterInput';
+import { useTranslation } from 'react-i18next';
 
 const FooterWrapper = styled.div`
   display: flex;
@@ -70,6 +71,7 @@ const SubscribeBlock = styled.div`
 `;
 
 function Footer() {
+  const { t } = useTranslation();
   const theme = useTheme();
 
   return (
@@ -108,11 +110,11 @@ function Footer() {
           </ColumnList>
         </Column>
         <SubscribeBlock>
-          <ColumnTitle>Subscribe</ColumnTitle>
+          <ColumnTitle>{t('subscribe_text')}</ColumnTitle>
           <FooterInputBlock>
             <FooterInput />
             <InputDescriptionText>
-              Join our newsletter to stay up to date on features and releases
+              {t('subscribe_description_text')}
             </InputDescriptionText>
           </FooterInputBlock>
         </SubscribeBlock>

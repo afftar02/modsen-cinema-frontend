@@ -17,6 +17,7 @@ import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
 import { selectMovies } from 'redux/selectors/movie';
+import { useTranslation } from 'react-i18next';
 
 const PageContainer = styled.div`
   position: relative;
@@ -111,6 +112,7 @@ const ReviewsBlock = styled.div`
 `;
 
 function Film() {
+  const { t, i18n } = useTranslation();
   const [movie, setMovie] = useState<MovieType>();
   const [bookingOpened, setBookingOpened] = useState(false);
   const [backgroundColors, setBackgroundColors] = useState({
@@ -146,7 +148,7 @@ function Film() {
     if (id) {
       (async () => {
         try {
-          const currentMovie = await getMovie(+id);
+          const currentMovie = await getMovie(+id, i18n.language);
           const palette = await Vibrant.from(
             BASE_UPLOADS_URL + currentMovie.poster?.filename
           ).getPalette();
@@ -161,7 +163,7 @@ function Film() {
         }
       })();
     }
-  }, [id, navigate]);
+  }, [i18n.language, id, navigate]);
 
   useEffect(() => {
     if (bookingOpened) {
@@ -193,7 +195,7 @@ function Film() {
             />
             <Link to={`/film/${nextMovieId}`}>
               <MoveNextContainer>
-                <MoveNextText>Move to the next movie</MoveNextText>
+                <MoveNextText>{t('next_movie_text')}</MoveNextText>
                 <Icon
                   id={'arrow-right'}
                   width={69}
@@ -218,7 +220,7 @@ function Film() {
                 }}
                 viewport={{ once: true }}
               >
-                Watch trailer online!
+                {t('trailer_title')}
               </TrailerText>
               <StyledPreview
                 previewUrl={BASE_UPLOADS_URL + movie?.trailer?.preview.filename}

@@ -1,5 +1,6 @@
 import { styled, useTheme } from 'styled-components';
 import { ReactNode, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type WrapperProps = {
   children?: ReactNode;
@@ -17,6 +18,7 @@ const Container = styled.div<{ $bgColor: string }>`
 `;
 
 function Wrapper({ children }: WrapperProps) {
+  const { i18n } = useTranslation();
   const theme = useTheme();
   const [bgColor, setBgColor] = useState(theme.bgColor);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -34,6 +36,12 @@ function Wrapper({ children }: WrapperProps) {
       setBgColor(theme.bgColor);
     }, 1200);
   }, [theme]);
+
+  useEffect(() => {
+    if (localStorage.getItem('language')) {
+      i18n.changeLanguage(localStorage.getItem('language') as string);
+    }
+  }, [i18n]);
 
   return (
     <Container ref={wrapperRef} $bgColor={bgColor}>

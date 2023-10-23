@@ -11,8 +11,9 @@ import { getMovies } from 'redux/thunks/movie';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { selectMovies } from 'redux/selectors/movie';
 import { MovieType } from 'types/Movie';
-import { getMovie } from '../../services/movieService';
-import { BASE_UPLOADS_URL } from '../../constants/BaseApiUrl';
+import { getMovie } from 'services/movieService';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { useTranslation } from 'react-i18next';
 
 const MainWrapper = styled.div`
   position: relative;
@@ -50,7 +51,11 @@ const TrailerDescription = styled.p`
   font-size: 32px;
 `;
 
-const CurrentMovieTitle = styled.span`
+const CurrentMoviesContainer = styled(motion.div)`
+  margin-right: 50px;
+`;
+
+const CurrentMoviesTitle = styled.span`
   color: ${(props) => props.theme.color};
   transition: color 1.5s ease-in-out;
   font-family: 'Nunito Sans', sans-serif;
@@ -60,8 +65,8 @@ const CurrentMovieTitle = styled.span`
   text-transform: uppercase;
 `;
 
-const CurrentMovieDescription = styled.p`
-  width: 630px;
+const CurrentMoviesDescription = styled.p`
+  max-width: 630px;
   margin: 25px 0 0;
 
   color: ${(props) => props.theme.color};
@@ -81,27 +86,28 @@ const StyledYear = styled(motion.span)`
 `;
 
 function Main() {
+  const { t, i18n } = useTranslation();
   const movies = useAppSelector(selectMovies);
   const [lastMovie, setLastMovie] = useState<MovieType>();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getMovies());
-  }, [dispatch]);
+    dispatch(getMovies(i18n.language));
+  }, [dispatch, i18n.language]);
 
   useEffect(() => {
     if (movies.at(0)) {
       (async () => {
         try {
-          const movie = await getMovie(movies[0].id);
+          const movie = await getMovie(movies[0].id, i18n.language);
           setLastMovie(movie);
         } catch (err) {
-          alert('Data loading error!');
+          alert(t('loading_error'));
         }
       })();
     }
-  }, [movies]);
+  }, [i18n.language, movies, t]);
 
   return (
     <MainWrapper>
@@ -117,8 +123,8 @@ function Main() {
             }}
             viewport={{ once: true }}
           >
-            <TrailerTitle>{lastMovie?.title_en}</TrailerTitle>
-            <TrailerDescription>{lastMovie?.description_en}</TrailerDescription>
+            <TrailerTitle>{lastMovie?.title}</TrailerTitle>
+            <TrailerDescription>{lastMovie?.description}</TrailerDescription>
           </DescriptionContainer>
           <VideoPreview
             previewUrl={BASE_UPLOADS_URL + lastMovie?.trailer?.preview.filename}
@@ -127,7 +133,7 @@ function Main() {
           />
         </Flex>
         <Flex $marginTop={86} $height={497}>
-          <motion.div
+          <CurrentMoviesContainer
             initial={{ opacity: 0, translateX: '-100px' }}
             whileInView={{ opacity: 1, translateX: 0 }}
             transition={{
@@ -135,12 +141,11 @@ function Main() {
             }}
             viewport={{ once: true }}
           >
-            <CurrentMovieTitle>Now in the Cinema</CurrentMovieTitle>
-            <CurrentMovieDescription>
-              Watch great Movies in the best cinema! We care about your comfort.
-              Book tickets right now!
-            </CurrentMovieDescription>
-          </motion.div>
+            <CurrentMoviesTitle>{t('current_movies_title')}</CurrentMoviesTitle>
+            <CurrentMoviesDescription>
+              {t('current_movies_description')}
+            </CurrentMoviesDescription>
+          </CurrentMoviesContainer>
           <VerticalCarousel data={movies} />
         </Flex>
         <Flex $marginTop={150}>
