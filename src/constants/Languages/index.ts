@@ -1,10 +1,1 @@
-export const LANGUAGES = [
-  {
-    value: 'en',
-    description: 'english',
-  },
-  {
-    value: 'ru',
-    description: 'russian',
-  },
-];
+export const LANGUAGES = ['en', 'ru'];

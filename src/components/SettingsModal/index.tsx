@@ -4,7 +4,6 @@ import { styled } from 'styled-components';
 import Button from 'components/Button';
 import RadioButton from 'components/RadioButton';
 import { useCallback, useState } from 'react';
-import { LANGUAGES } from 'constants/Languages';
 import { THEMES } from 'constants/Themes';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
@@ -12,6 +11,8 @@ import { changeTheme } from 'redux/slices/ThemeSlice';
 import { selectThemeValue } from 'redux/selectors/theme';
 import CloseIcon from 'components/CloseIcon';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { useTranslation } from 'react-i18next';
+import { LANGUAGES } from 'constants/Languages';
 
 type SettingsModalProps = {
   onClose: () => void;
@@ -73,18 +74,23 @@ const SettingsItemValues = styled.div`
 `;
 
 function SettingsModal({ onClose }: SettingsModalProps) {
+  const { t, i18n } = useTranslation();
   const currentTheme = useAppSelector(selectThemeValue);
-  const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0].value);
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
   const [selectedTheme, setSelectedTheme] = useState(currentTheme);
 
   const dispatch = useAppDispatch();
 
-  const applySettings = useCallback(() => {
+  const applySettings = useCallback(async () => {
     if (currentTheme !== selectedTheme) {
       dispatch(changeTheme(selectedTheme));
     }
+    if (i18n.language !== selectedLanguage) {
+      await i18n.changeLanguage(selectedLanguage);
+      localStorage.setItem('language', selectedLanguage);
+    }
     onClose();
-  }, [currentTheme, dispatch, onClose, selectedTheme]);
+  }, [currentTheme, dispatch, i18n, onClose, selectedLanguage, selectedTheme]);
 
   return (
     <ModalPortal isFixed>
@@ -99,27 +105,27 @@ function SettingsModal({ onClose }: SettingsModalProps) {
         <CloseIcon onClick={onClose} />
         <ErrorBoundary fallback={<ErrorFallback />}>
           <TextBlock>
-            <span>Choose settings:</span>
+            <span>{t('settings_title')}</span>
           </TextBlock>
           <SettingsItems>
             <SettingsItemBlock>
-              <SettingsItemTitle>Language:</SettingsItemTitle>
+              <SettingsItemTitle>{t('language_title')}</SettingsItemTitle>
               <SettingsItemValues>
                 {LANGUAGES.map((language, index) => (
                   <RadioButton
                     key={index}
-                    id={language.value}
+                    id={language}
                     name={'language'}
-                    value={language.value}
-                    text={language.description}
-                    checked={selectedLanguage === language.value}
-                    onClick={() => setSelectedLanguage(language.value)}
+                    value={language}
+                    text={t(language)}
+                    checked={selectedLanguage === language}
+                    onClick={() => setSelectedLanguage(language)}
                   />
                 ))}
               </SettingsItemValues>
             </SettingsItemBlock>
             <SettingsItemBlock>
-              <SettingsItemTitle>Theme:</SettingsItemTitle>
+              <SettingsItemTitle>{t('theme_title')}</SettingsItemTitle>
               <SettingsItemValues>
                 {Object.values(THEMES).map((theme, index) => (
                   <RadioButton
@@ -127,7 +133,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
                     id={theme.value}
                     name={'theme'}
                     value={theme.value}
-                    text={theme.value}
+                    text={t(`${theme.value.toLowerCase()}_theme`)}
                     checked={selectedTheme === theme.value}
                     onClick={() => setSelectedTheme(theme.value)}
                   />
@@ -135,7 +141,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
               </SettingsItemValues>
             </SettingsItemBlock>
           </SettingsItems>
-          <ApplyButton onClick={applySettings}>Apply</ApplyButton>
+          <ApplyButton onClick={applySettings}>{t('apply_text')}</ApplyButton>
         </ErrorBoundary>
       </Modal>
     </ModalPortal>

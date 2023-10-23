@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { MouseEventHandler, useMemo } from 'react';
 import { SessionType } from 'types/Session';
+import { useTranslation } from 'react-i18next';
 
 type SessionProps = {
   data: SessionType;
@@ -49,6 +50,8 @@ const SeatsText = styled.span`
 `;
 
 function Session({ data, onClick, selected = false }: SessionProps) {
+  const { t } = useTranslation();
+
   const sessionTime = useMemo(() => {
     let startTimeStr = 'AM',
       endTimeStr = 'AM';
@@ -70,10 +73,14 @@ function Session({ data, onClick, selected = false }: SessionProps) {
   return (
     <SessionContainer $selected={selected} onClick={onClick}>
       <SessionTime>{sessionTime}</SessionTime>
-      <CinemaFormat>Cinema: {data.format}</CinemaFormat>
+      <CinemaFormat>
+        {t('session_cinema')}: {data.format}
+      </CinemaFormat>
       <SeatsContainer>
         <img src={'/images/seat.png'} alt={'seat'} />
-        <SeatsText>{data.availableSeats ?? 0} seats available</SeatsText>
+        <SeatsText>
+          {data.availableSeats ?? 0} {t('session_seats_available')}
+        </SeatsText>
       </SeatsContainer>
     </SessionContainer>
   );

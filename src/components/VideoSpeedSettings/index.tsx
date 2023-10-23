@@ -1,5 +1,6 @@
 import Icon from 'components/Icon';
 import { styled } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 type VideoSpeedSettingsProps = {
   speed: number;
@@ -62,6 +63,8 @@ function VideoSpeedSettings({
   onChangeSpeed,
   onReturn,
 }: VideoSpeedSettingsProps) {
+  const { t } = useTranslation();
+
   return (
     <SettingsContainer>
       <ParamTitleBlock onClick={onReturn}>
@@ -71,14 +74,16 @@ function VideoSpeedSettings({
           width={20}
           viewBox="0 0 24 24"
         />
-        <SettingsText>Speed</SettingsText>
+        <SettingsText>{t('video_settings_speed')}</SettingsText>
       </ParamTitleBlock>
       {speedValues.map((value, index) => (
         <SettingsParamItem onClick={() => onChangeSpeed(value)} key={index}>
           {speed === value && (
             <TickIcon id={'tick'} height={20} width={20} viewBox="0 0 24 24" />
           )}
-          <SettingsText>{value === 1 ? 'Normal' : value}</SettingsText>
+          <SettingsText>
+            {value === 1 ? t('video_normal_speed') : value}
+          </SettingsText>
         </SettingsParamItem>
       ))}
     </SettingsContainer>

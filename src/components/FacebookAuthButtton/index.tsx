@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
+import { useTranslation } from 'react-i18next';
 
 const FacebookButton = styled.button`
   position: relative;
@@ -31,10 +32,12 @@ const FacebookIcon = styled(Icon)`
 `;
 
 function FacebookAuthButton() {
+  const { t } = useTranslation();
+
   return (
     <FacebookButton>
       <FacebookIcon id="facebook" width={19} height={20} viewBox="0 0 19 20" />
-      <span>Sign up with Facebook</span>
+      <span>{t('facebook_auth')}</span>
     </FacebookButton>
   );
 }

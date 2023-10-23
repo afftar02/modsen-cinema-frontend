@@ -1,5 +1,6 @@
 import * as Formik from 'formik';
 import { validateLogin } from 'helpers/ValidateLogin';
+import { TFunction } from 'i18next';
 
 interface Values {
   name: string;
@@ -8,18 +9,18 @@ interface Values {
   password: string;
 }
 
-export const validateRegistration = (values: Values) => {
+export const validateRegistration = (values: Values, t: TFunction) => {
   const errors: Formik.FormikErrors<Values> = {};
 
   if (!values.name) {
-    errors.name = 'Name required';
+    errors.name = t('name_required_error');
   }
 
   if (!values.surname) {
-    errors.surname = 'Surname required';
+    errors.surname = t('surname_required_error');
   }
 
-  const loginErrors = validateLogin(values);
+  const loginErrors = validateLogin(values, t);
 
   return { ...errors, ...loginErrors };
 };

@@ -8,6 +8,7 @@ import ErrorFallback from 'components/ErrorFallback';
 import SettingsModal from 'components/SettingsModal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { useTranslation } from 'react-i18next';
 
 type ProfileMenuProps = {
   onClose: () => void;
@@ -129,6 +130,7 @@ const AvatarImage = styled.img`
 `;
 
 function ProfileMenu({ onClose }: ProfileMenuProps) {
+  const { t } = useTranslation();
   const [editProfileOpened, setEditProfileOpened] = useState(false);
   const [settingsOpened, setSettingsOpened] = useState(false);
 
@@ -170,7 +172,7 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
           fill={theme.color}
         />
         <ErrorBoundary fallback={<ErrorFallback />}>
-          <ProfileTitle>User profile</ProfileTitle>
+          <ProfileTitle>{t('profile_menu_title')}</ProfileTitle>
           <ProfileInfoContainer>
             {user?.avatar ? (
               <AvatarContainer>
@@ -189,17 +191,19 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
             )}
             <UserDetailsBlock>
               <UserNameText>{getUserName()}</UserNameText>
-              <UserIdText>USER ID: {user?.id}</UserIdText>
+              <UserIdText>
+                {t('user_id_text')}: {user?.id}
+              </UserIdText>
               <GenderText>{user?.gender}</GenderText>
             </UserDetailsBlock>
             <ActionBlock>
               <ActionText onClick={() => setEditProfileOpened(true)}>
-                Edit profile
+                {t('edit_profile_text')}
               </ActionText>
               <ActionText onClick={() => setSettingsOpened(true)}>
-                Settings
+                {t('settings_text')}
               </ActionText>
-              <ActionText onClick={handleLogout}>Log out</ActionText>
+              <ActionText onClick={handleLogout}>{t('logout_text')}</ActionText>
             </ActionBlock>
           </ProfileInfoContainer>
           <Icon

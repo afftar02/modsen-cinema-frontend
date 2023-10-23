@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { TicketType } from 'types/Ticket';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type BookingCardProps = {
   ticket: TicketType;
@@ -144,26 +145,13 @@ const StyledLink = styled(Link)`
   height: 36px;
 `;
 
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
 function BookingCard({
   ticket,
   onCancelClick,
   isOver = false,
 }: BookingCardProps) {
+  const { t } = useTranslation();
+
   const price = useMemo(() => {
     if (ticket.seats) {
       const result =
@@ -178,11 +166,11 @@ function BookingCard({
     if (ticket.session) {
       const date = new Date(ticket.session?.start);
 
-      return `Date: ${monthNames.at(
-        date.getMonth()
+      return `${t('date_text')}: ${t(
+        `months.${date.getMonth() + 1}`
       )} ${date.getDate()}, ${date.getFullYear()}`;
     }
-  }, [ticket.session]);
+  }, [t, ticket.session]);
 
   return (
     <CardContainer
@@ -221,12 +209,14 @@ function BookingCard({
         </div>
         <Divider />
         <TicketSumContainer>
-          <SeatsNumber>{ticket.seats?.length} seats</SeatsNumber>
+          <SeatsNumber>
+            {ticket.seats?.length} {t('seats_text')}
+          </SeatsNumber>
           <Price>{price} $</Price>
         </TicketSumContainer>
         {!isOver && (
           <CancelButton onClick={onCancelClick}>
-            <span>Cancel</span>
+            <span>{t('cancel_button_text')}</span>
             <CancelIcon
               id={'cancel'}
               width={17}

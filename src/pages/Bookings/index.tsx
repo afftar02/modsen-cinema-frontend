@@ -9,8 +9,9 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { selectTickets } from 'redux/selectors/ticket';
 import { useCallback, useEffect } from 'react';
 import { getTickets } from 'redux/thunks/ticket';
-import { updateTicket } from '../../services/ticketService';
+import { updateTicket } from 'services/ticketService';
 import { AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -35,6 +36,7 @@ const BookingsContainer = styled.div`
 `;
 
 function Bookings() {
+  const { t, i18n } = useTranslation();
   const tickets = useAppSelector(selectTickets);
   const dispatch = useAppDispatch();
 
@@ -42,17 +44,17 @@ function Bookings() {
     async (ticketId: number) => {
       try {
         await updateTicket(ticketId, { isMissed: true });
-        dispatch(getTickets());
+        dispatch(getTickets(i18n.language));
       } catch (err) {
-        alert('Ticket cancelling error!');
+        alert(t('ticket_cancel_error'));
       }
     },
-    [dispatch]
+    [dispatch, i18n.language, t]
   );
 
   useEffect(() => {
-    dispatch(getTickets());
-  }, [dispatch]);
+    dispatch(getTickets(i18n.language));
+  }, [dispatch, i18n.language]);
 
   return (
     <Wrapper>
@@ -61,7 +63,7 @@ function Bookings() {
         <BookingsWrapper>
           {tickets.find((ticket) => !ticket.isVisited && !ticket.isMissed) && (
             <div>
-              <SectionTitle>Your UPCOMING bookings</SectionTitle>
+              <SectionTitle>{t('upcoming_bookings_title')}</SectionTitle>
               <BookingsContainer>
                 <AnimatePresence>
                   {tickets.map(
@@ -81,7 +83,7 @@ function Bookings() {
           )}
           {tickets.find((ticket) => ticket.isVisited) && (
             <div>
-              <SectionTitle>Your past bookings</SectionTitle>
+              <SectionTitle>{t('past_bookings_title')}</SectionTitle>
               <BookingsContainer>
                 <AnimatePresence>
                   {tickets.map(
@@ -101,7 +103,7 @@ function Bookings() {
           )}
           {tickets.find((ticket) => ticket.isMissed) && (
             <div>
-              <SectionTitle>Your missing bookings</SectionTitle>
+              <SectionTitle>{t('missing_bookings_title')}</SectionTitle>
               <BookingsContainer>
                 <AnimatePresence>
                   {tickets.map(
