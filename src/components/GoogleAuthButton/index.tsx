@@ -39,7 +39,7 @@ function GoogleAuthButton() {
     try {
       window.open(GOOGLE_AUTH_URL, '_self');
     } catch (err) {
-      alert(t('google_auth_error'));
+      alert(t('auth_error'));
     }
   };
 

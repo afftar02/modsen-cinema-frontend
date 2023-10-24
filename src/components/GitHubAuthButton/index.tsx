@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
 import { useTranslation } from 'react-i18next';
+import { GITHUB_AUTH_URL } from 'constants/BaseApiUrl';
 
 const GitHubButton = styled.button`
   position: relative;
@@ -34,8 +35,16 @@ const GitHubIcon = styled(Icon)`
 function GitHubAuthButton() {
   const { t } = useTranslation();
 
+  const handleClick = async () => {
+    try {
+      window.open(GITHUB_AUTH_URL, '_self');
+    } catch (err) {
+      alert(t('auth_error'));
+    }
+  };
+
   return (
-    <GitHubButton>
+    <GitHubButton onClick={handleClick}>
       <GitHubIcon id="github" width={22} height={24} viewBox="0 0 22 24" />
       <span>{t('github_auth')}</span>
     </GitHubButton>
