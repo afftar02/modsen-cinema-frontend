@@ -101,5 +101,7 @@
   "signin_title": "Мы рады видеть Вас снова!",
   "signin_bright_title": "Наслаждайтесь просмотром фильмов!",
   "signin_hint": "Нет учетной записи?",
-  "signin_underlined_hint": "Зарегистрируйтесь, пожалуйста."
+  "signin_underlined_hint": "Зарегистрируйтесь, пожалуйста.",
+  "google_auth_error": "Ошибка авторизации через Google!",
+  "oauth_success_message": "Авторизация успешно выполнена!"
 }

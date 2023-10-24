@@ -101,5 +101,7 @@
   "signin_title": "We are glad to see you again!",
   "signin_bright_title": "Enjoy watching movies with us!",
   "signin_hint": "No account?",
-  "signin_underlined_hint": "Sign up please."
+  "signin_underlined_hint": "Sign up please.",
+  "google_auth_error": "Google authorization error!",
+  "oauth_success_message": "Authorization successfully completed!"
 }

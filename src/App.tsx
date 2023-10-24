@@ -12,6 +12,7 @@ import { THEMES } from 'constants/Themes';
 import Wrapper from 'pages/Wrapper';
 import { useAppSelector } from 'redux/hooks';
 import { useTranslation } from 'react-i18next';
+import OAuthSuccessRedirect from 'components/OAuthSuccessRedirect';
 
 function App() {
   const { t } = useTranslation();
@@ -67,6 +68,10 @@ function App() {
                     <Bookings />
                   </AuthorizedRoute>
                 }
+              />
+              <Route
+                path="/oauth-success-redirect"
+                element={<OAuthSuccessRedirect />}
               />
             </Routes>
           </Wrapper>
