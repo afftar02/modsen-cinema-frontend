@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import './i18n';
+import { CookiesProvider } from 'react-cookie';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <CookiesProvider>
+        <App />
+      </CookiesProvider>
     </Router>
   </Provider>
 );

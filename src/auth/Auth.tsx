@@ -4,6 +4,7 @@ import {
   useContext,
   ReactNode,
   useEffect,
+  useCallback,
 } from 'react';
 import { loginUser, registerUser } from 'services/authService';
 import { getCurrentUser } from 'services/userService';
@@ -33,6 +34,7 @@ export type AuthContextType = {
   user: UserType | null;
   getUserName: () => string;
   loadUser: () => Promise<void>;
+  checkAuthenticated: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -70,23 +72,36 @@ function Auth({ children }: AuthProps) {
   const getUserName = () =>
     `${user?.name} ${user?.surname}` || user?.email || '';
 
+  const checkAuthenticated = useCallback(async () => {
+    if (localStorage.getItem('tokens')) {
+      try {
+        await loadUser();
+        setIsAuth(true);
+      } catch (err) {
+        logout();
+      }
+    }
+  }, []);
+
   useEffect(() => {
     (async () => {
-      if (localStorage.getItem('tokens')) {
-        try {
-          await loadUser();
-          setIsAuth(true);
-        } catch (err) {
-          logout();
-        }
-      }
+      await checkAuthenticated();
       setIsAuthChecked(true);
     })();
-  }, []);
+  }, [checkAuthenticated]);
 
   return (
     <AuthContext.Provider
-      value={{ isAuth, register, login, logout, user, getUserName, loadUser }}
+      value={{
+        isAuth,
+        register,
+        login,
+        logout,
+        user,
+        getUserName,
+        loadUser,
+        checkAuthenticated,
+      }}
     >
       {isAuthChecked && children}
     </AuthContext.Provider>
