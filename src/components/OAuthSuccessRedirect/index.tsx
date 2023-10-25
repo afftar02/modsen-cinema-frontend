@@ -7,6 +7,7 @@ import { AuthContextType, useAuth } from 'auth/Auth';
 import { useTranslation } from 'react-i18next';
 
 const Container = styled.div`
+  background-color: #fff;
   width: 100%;
   display: flex;
   flex-direction: column;
