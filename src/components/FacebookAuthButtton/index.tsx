@@ -1,7 +1,10 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
-import { useTranslation } from 'react-i18next';
-import { FACEBOOK_AUTH_URL } from 'constants/BaseApiUrl';
+
+type FacebookAuthProps = {
+  authUrl: string;
+  text: string;
+};
 
 const FacebookButton = styled.button`
   position: relative;
@@ -32,21 +35,19 @@ const FacebookIcon = styled(Icon)`
   left: 18px;
 `;
 
-function FacebookAuthButton() {
-  const { t } = useTranslation();
-
+function FacebookAuthButton({ authUrl, text }: FacebookAuthProps) {
   const handleClick = async () => {
     try {
-      window.open(FACEBOOK_AUTH_URL, '_self');
+      window.open(authUrl, '_self');
     } catch (err) {
-      alert(t('auth_error'));
+      alert('Authorization error!');
     }
   };
 
   return (
     <FacebookButton onClick={handleClick}>
       <FacebookIcon id="facebook" width={19} height={20} viewBox="0 0 19 20" />
-      <span>{t('facebook_auth')}</span>
+      <span>{text}</span>
     </FacebookButton>
   );
 }

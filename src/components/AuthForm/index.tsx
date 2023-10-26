@@ -18,6 +18,7 @@ import CloseIcon from 'components/CloseIcon';
 import { useCallback } from 'react';
 import { AxiosError } from 'axios';
 import { useTranslation } from 'react-i18next';
+import { FACEBOOK_AUTH_URL } from 'constants/BaseApiUrl';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -230,7 +231,10 @@ function AuthForm({
           <AuthButtonsContainer>
             <StyledAuthContainer>
               <GoogleAuthButton />
-              <FacebookAuthButton />
+              <FacebookAuthButton
+                authUrl={FACEBOOK_AUTH_URL}
+                text={t('facebook_auth')}
+              />
             </StyledAuthContainer>
             <GitHubAuthButton />
           </AuthButtonsContainer>

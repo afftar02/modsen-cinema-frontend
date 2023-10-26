@@ -102,6 +102,5 @@
   "signin_bright_title": "Enjoy watching movies with us!",
   "signin_hint": "No account?",
   "signin_underlined_hint": "Sign up please.",
-  "auth_error": "Authorization error!",
   "oauth_success_message": "Authorization successfully completed!"
 }
