@@ -132,7 +132,12 @@ function EditProfileModal({ onClose }: AuthFormProps) {
             <span>{t('edit_profile_title')}</span>
           </TextBlock>
           <StyledForm onSubmit={formik.handleSubmit}>
-            <FileInput value={avatar?.name} onChange={handleFileUpload} />
+            <FileInput
+              value={avatar?.name}
+              onChange={handleFileUpload}
+              uploadText={t('upload_avatar_text')}
+              uploadedText={t('uploaded_file_text')}
+            />
             <Input
               placeholder={formik.errors.name ?? t('edit_name_placeholder')}
               onChange={formik.handleChange}
