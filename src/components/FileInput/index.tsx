@@ -5,6 +5,10 @@ type FileInputProps = {
   uploadText: string;
   uploadedText: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  borderColor: string;
+  textColor: string;
+  uploadedButtonBgColor: string;
+  uploadedButtonColor: string;
   value?: string;
 };
 
@@ -14,21 +18,27 @@ const StyledInput = styled.input`
   }
 `;
 
-const FileUploadLabel = styled.label<{ $isUploaded: boolean }>`
+const FileUploadLabel = styled.label<{
+  $isUploaded: boolean;
+  $borderColor: string;
+  $textColor: string;
+  $uploadedBgColor: string;
+  $uploadedColor: string;
+}>`
   width: fit-content;
-  border: 1px solid ${(props) => props.theme.color};
+  border: 1px solid ${(props) => props.$borderColor};
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  color: ${(props) => props.theme.color};
+  color: ${(props) => props.$textColor};
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;
   ${(props) =>
     props.$isUploaded &&
     `
-    background-color: ${props.theme.buttonBgColor};
-    color: ${props.theme.buttonColor};
+    background-color: ${props.$uploadedBgColor};
+    color: ${props.$uploadedColor};
   `}
   transition: all 0.2s ease-in-out;
 
@@ -38,8 +48,8 @@ const FileUploadLabel = styled.label<{ $isUploaded: boolean }>`
   }
 `;
 
-const UploadedFileName = styled.span`
-  color: ${(props) => props.theme.color};
+const UploadedFileName = styled.span<{ $color: string }>`
+  color: ${(props) => props.$color};
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;
@@ -56,6 +66,10 @@ function FileInput({
   value,
   uploadText,
   uploadedText,
+  borderColor,
+  textColor,
+  uploadedButtonBgColor,
+  uploadedButtonColor,
 }: FileInputProps) {
   const cutFileName = useCallback((fileName: string) => {
     const cutFromIndex = fileName.lastIndexOf('\\') + 1;
@@ -64,10 +78,19 @@ function FileInput({
 
   return (
     <FileInputContainer>
-      <FileUploadLabel htmlFor="avatar-file" $isUploaded={!!value}>
+      <FileUploadLabel
+        htmlFor="avatar-file"
+        $isUploaded={!!value}
+        $borderColor={borderColor}
+        $textColor={textColor}
+        $uploadedBgColor={uploadedButtonBgColor}
+        $uploadedColor={uploadedButtonColor}
+      >
         {value ? uploadedText : uploadText}
       </FileUploadLabel>
-      <UploadedFileName>{cutFileName(value ?? '')}</UploadedFileName>
+      <UploadedFileName $color={textColor}>
+        {cutFileName(value ?? '')}
+      </UploadedFileName>
       <StyledInput
         id={'avatar-file'}
         type={'file'}

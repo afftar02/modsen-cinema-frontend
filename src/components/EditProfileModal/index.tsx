@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import { useFormik } from 'formik';
@@ -59,6 +59,7 @@ const SubmitButton = styled(Button)`
 
 function EditProfileModal({ onClose }: AuthFormProps) {
   const { t } = useTranslation();
+  const theme = useTheme();
   const [avatar, setAvatar] = useState<File>();
 
   const { loadUser } = useAuth() as AuthContextType;
@@ -137,6 +138,10 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               onChange={handleFileUpload}
               uploadText={t('upload_avatar_text')}
               uploadedText={t('uploaded_file_text')}
+              textColor={theme.color}
+              borderColor={theme.color}
+              uploadedButtonBgColor={theme.buttonBgColor}
+              uploadedButtonColor={theme.buttonColor}
             />
             <Input
               placeholder={formik.errors.name ?? t('edit_name_placeholder')}
