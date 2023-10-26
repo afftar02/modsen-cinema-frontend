@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import { useTranslation } from 'react-i18next';
 
@@ -27,7 +26,7 @@ const StyledText = styled.span`
 export function OAuthSuccessRedirect() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [cookies] = useCookies(['tokens']);
+  const [params] = useSearchParams();
 
   const { checkAuthenticated } = useAuth() as AuthContextType;
 
@@ -36,14 +35,14 @@ export function OAuthSuccessRedirect() {
       localStorage.setItem(
         'tokens',
         JSON.stringify({
-          accessToken: cookies.tokens.access_token,
-          refreshToken: cookies.tokens.refresh_token,
+          accessToken: params.get('accessToken'),
+          refreshToken: params.get('refreshToken'),
         })
       );
       await checkAuthenticated();
       navigate('/');
     })();
-  }, [checkAuthenticated, cookies, navigate]);
+  }, [checkAuthenticated, navigate, params]);
 
   return (
     <Container>
