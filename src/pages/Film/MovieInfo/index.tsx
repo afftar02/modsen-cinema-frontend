@@ -81,11 +81,6 @@ const BookingBlock = styled.div`
   align-items: center;
 `;
 
-const ComingSoonButton = styled(Button)`
-  background: #4f4f4f;
-  cursor: auto;
-`;
-
 const RatingBlock = styled.div`
   display: flex;
   align-items: center;
@@ -180,7 +175,7 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
             {bookingStartDate <= new Date() ? (
               <Button onClick={onOpenBooking}>{t('book_button_text')}!</Button>
             ) : (
-              <ComingSoonButton>{t('coming_soon_text')}</ComingSoonButton>
+              <Button disabled>{t('coming_soon_text')}</Button>
             )}
             <RatingBlock>
               <RatingText>{movie.rating.toLocaleString()}</RatingText>
