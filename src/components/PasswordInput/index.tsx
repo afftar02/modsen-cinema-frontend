@@ -6,12 +6,13 @@ import {
   useState,
 } from 'react';
 import { checkPasswordComplexity } from 'helpers/CheckPasswordComplexity';
-import { styled, useTheme } from 'styled-components';
+import { styled } from 'styled-components';
 
 type PasswordInputProps = {
   placeholder: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
+  color: string;
   isError?: boolean;
   onClick?: MouseEventHandler<HTMLInputElement>;
   withIcon?: boolean;
@@ -68,9 +69,9 @@ function PasswordInput({
   value,
   isError,
   onClick,
+  color,
   withIcon = true,
 }: PasswordInputProps) {
-  const theme = useTheme();
   const [complexity, setComplexity] = useState('None');
 
   useEffect(() => {
@@ -88,7 +89,7 @@ function PasswordInput({
         name={'password'}
         isError={isError}
         onClick={onClick}
-        color={theme.color}
+        color={color}
       />
       <StrengthBar data-complexity={complexity} />
       <ComplexityLabelContainer>

@@ -181,6 +181,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               value={formik.values.password}
               onClick={() => formik.setFieldError('password', undefined)}
               isError={!!formik.errors.password}
+              color={theme.color}
             />
             <SubmitButton type={'submit'}>{t('save_text')}</SubmitButton>
           </StyledForm>

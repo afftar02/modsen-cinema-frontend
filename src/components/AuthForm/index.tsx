@@ -233,6 +233,7 @@ function AuthForm({
               value={formik.values.password}
               onClick={() => formik.setFieldError('password', undefined)}
               isError={!!formik.errors.password}
+              color={theme.color}
             />
             <SubmitButton type={'submit'}>{t('send_text')}</SubmitButton>
           </StyledForm>
