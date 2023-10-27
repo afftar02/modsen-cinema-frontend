@@ -4,9 +4,10 @@ import Icon from 'components/Icon';
 type GoogleAuthProps = {
   authUrl: string;
   text: string;
+  borderColor?: string;
 };
 
-const GoogleButton = styled.button`
+const GoogleButton = styled.button<{ $borderColor: string }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -18,7 +19,7 @@ const GoogleButton = styled.button`
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
-  border: 1px solid ${(props) => props.theme.googleButtonBorderColor};
+  border: 1px solid ${(props) => props.$borderColor};
 
   color: rgba(0, 0, 0, 0.55);
   font-family: Inter, sans-serif;
@@ -35,7 +36,7 @@ const GoogleIcon = styled(Icon)`
   left: 18px;
 `;
 
-function GoogleAuthButton({ authUrl, text }: GoogleAuthProps) {
+function GoogleAuthButton({ authUrl, text, borderColor }: GoogleAuthProps) {
   const handleClick = async () => {
     try {
       window.open(authUrl, '_self');
@@ -45,7 +46,7 @@ function GoogleAuthButton({ authUrl, text }: GoogleAuthProps) {
   };
 
   return (
-    <GoogleButton onClick={handleClick}>
+    <GoogleButton onClick={handleClick} $borderColor={borderColor ?? '#000'}>
       <GoogleIcon id="google" width={15} height={17} viewBox="0 0 15 17" />
       <span>{text}</span>
     </GoogleButton>

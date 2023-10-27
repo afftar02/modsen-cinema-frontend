@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import Input from 'components/Input';
 import GoogleAuthButton from 'components/GoogleAuthButton';
@@ -127,6 +127,7 @@ function AuthForm({
   hintLink,
 }: AuthFormProps) {
   const { t } = useTranslation();
+  const theme = useTheme();
   const navigate = useNavigate();
   const { register, login } = useAuth() as AuthContextType;
 
@@ -237,6 +238,7 @@ function AuthForm({
               <GoogleAuthButton
                 authUrl={GOOGLE_AUTH_URL}
                 text={t('google_auth')}
+                borderColor={theme.googleButtonBorderColor}
               />
               <FacebookAuthButton
                 authUrl={FACEBOOK_AUTH_URL}
