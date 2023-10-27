@@ -1,7 +1,10 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
-import { useTranslation } from 'react-i18next';
-import { GITHUB_AUTH_URL } from 'constants/BaseApiUrl';
+
+type GitHubAuthProps = {
+  authUrl: string;
+  text: string;
+};
 
 const GitHubButton = styled.button`
   position: relative;
@@ -32,21 +35,19 @@ const GitHubIcon = styled(Icon)`
   left: 18px;
 `;
 
-function GitHubAuthButton() {
-  const { t } = useTranslation();
-
+function GitHubAuthButton({ authUrl, text }: GitHubAuthProps) {
   const handleClick = async () => {
     try {
-      window.open(GITHUB_AUTH_URL, '_self');
+      window.open(authUrl, '_self');
     } catch (err) {
-      alert(t('auth_error'));
+      alert('Authorization error!');
     }
   };
 
   return (
     <GitHubButton onClick={handleClick}>
       <GitHubIcon id="github" width={22} height={24} viewBox="0 0 22 24" />
-      <span>{t('github_auth')}</span>
+      <span>{text}</span>
     </GitHubButton>
   );
 }

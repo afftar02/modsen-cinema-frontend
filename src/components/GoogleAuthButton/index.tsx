@@ -1,7 +1,10 @@
 import { styled } from 'styled-components';
 import Icon from 'components/Icon';
-import { useTranslation } from 'react-i18next';
-import { GOOGLE_AUTH_URL } from 'constants/BaseApiUrl';
+
+type GoogleAuthProps = {
+  authUrl: string;
+  text: string;
+};
 
 const GoogleButton = styled.button`
   position: relative;
@@ -32,21 +35,19 @@ const GoogleIcon = styled(Icon)`
   left: 18px;
 `;
 
-function GoogleAuthButton() {
-  const { t } = useTranslation();
-
+function GoogleAuthButton({ authUrl, text }: GoogleAuthProps) {
   const handleClick = async () => {
     try {
-      window.open(GOOGLE_AUTH_URL, '_self');
+      window.open(authUrl, '_self');
     } catch (err) {
-      alert(t('auth_error'));
+      alert('Authorization error!');
     }
   };
 
   return (
     <GoogleButton onClick={handleClick}>
       <GoogleIcon id="google" width={15} height={17} viewBox="0 0 15 17" />
-      <span>{t('google_auth')}</span>
+      <span>{text}</span>
     </GoogleButton>
   );
 }
