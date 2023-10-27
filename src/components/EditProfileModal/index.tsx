@@ -150,6 +150,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               onClick={() => formik.setFieldError('name', undefined)}
               name={'name'}
               isError={!!formik.errors.name}
+              color={theme.color}
             />
             <Input
               placeholder={
@@ -160,6 +161,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               onClick={() => formik.setFieldError('surname', undefined)}
               name={'surname'}
               isError={!!formik.errors.surname}
+              color={theme.color}
             />
             <Input
               placeholder={formik.errors.gender ?? t('edit_gender_placeholder')}
@@ -168,6 +170,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               onClick={() => formik.setFieldError('gender', undefined)}
               name={'gender'}
               isError={!!formik.errors.gender}
+              color={theme.color}
             />
             <PasswordInput
               withIcon={false}

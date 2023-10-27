@@ -6,6 +6,7 @@ type InputProps = {
   placeholder: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
+  color: string;
   iconId?: string;
   type?: string;
   name?: string;
@@ -18,8 +19,8 @@ const InputContainer = styled.div`
   align-items: center;
 `;
 
-const StyledInput = styled.input<{ $isError?: boolean }>`
-  color: ${(props) => props.theme.color};
+const StyledInput = styled.input<{ $isError?: boolean; $color: string }>`
+  color: ${(props) => props.$color};
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;
@@ -31,7 +32,7 @@ const StyledInput = styled.input<{ $isError?: boolean }>`
   transition: all 0.1s ease-in-out;
 
   &::placeholder {
-    color: ${(props) => props.theme.color};
+    color: ${(props) => props.$color};
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     font-weight: 300;
@@ -62,6 +63,7 @@ function Input({
   name,
   isError,
   onClick,
+  color,
 }: InputProps) {
   return (
     <InputContainer>
@@ -76,6 +78,7 @@ function Input({
         name={name}
         onClick={onClick}
         $isError={isError}
+        $color={color}
       />
     </InputContainer>
   );

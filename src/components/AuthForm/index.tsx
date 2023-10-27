@@ -198,6 +198,7 @@ function AuthForm({
                 onClick={() => formik.setFieldError('name', undefined)}
                 name={'name'}
                 isError={!!formik.errors.name}
+                color={theme.color}
               />
             )}
             {isSignUp && (
@@ -211,6 +212,7 @@ function AuthForm({
                 onClick={() => formik.setFieldError('surname', undefined)}
                 name={'surname'}
                 isError={!!formik.errors.surname}
+                color={theme.color}
               />
             )}
             <Input
@@ -221,6 +223,7 @@ function AuthForm({
               onClick={() => formik.setFieldError('email', undefined)}
               name={'email'}
               isError={!!formik.errors.email}
+              color={theme.color}
             />
             <PasswordInput
               placeholder={
