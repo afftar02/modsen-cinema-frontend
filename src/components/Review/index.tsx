@@ -2,9 +2,11 @@ import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 
 type ReviewProps = {
+  title: string;
+  fromLabel: string;
+  showMoreLabel: string;
   author: string;
   text: string;
   bgColor: string;
@@ -95,8 +97,14 @@ const DEFAULT_HEIGHT = 217;
 const TEXT_OVERFLOW_COEFFICIENT = 1.8;
 const TEXT_COEFFICIENT = 1.6;
 
-function Review({ author, text, bgColor }: ReviewProps) {
-  const { t } = useTranslation();
+function Review({
+  title,
+  fromLabel,
+  showMoreLabel,
+  author,
+  text,
+  bgColor,
+}: ReviewProps) {
   const [opened, setOpened] = useState(false);
   const reviewRef = useRef<HTMLDivElement>(null);
 
@@ -126,16 +134,16 @@ function Review({ author, text, bgColor }: ReviewProps) {
       }}
       viewport={{ once: true }}
     >
-      <ReviewTitle>{t('review_title')}</ReviewTitle>
+      <ReviewTitle>{title}</ReviewTitle>
       <AuthorDescription>
-        {t('from_text')} {author}
+        {fromLabel} {author}
       </AuthorDescription>
       <ReviewTextContainer ref={reviewRef} $isOpened={opened}>
         <ReviewText>{text}</ReviewText>
       </ReviewTextContainer>
       {isOverflowed && (
         <ShowMoreContainer onClick={handleShowClick}>
-          <ShowMoreText>{t('read_more_text')}</ShowMoreText>
+          <ShowMoreText>{showMoreLabel}</ShowMoreText>
           <Icon id={'show'} width={40} height={40} viewBox="0 0 40 40" />
         </ShowMoreContainer>
       )}

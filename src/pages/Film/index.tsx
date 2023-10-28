@@ -230,6 +230,9 @@ function Film() {
             <ReviewsBlock>
               {movie?.reviews?.map((review) => (
                 <Review
+                  title={t('review_title')}
+                  fromLabel={t('from_text')}
+                  showMoreLabel={t('read_more_text')}
                   bgColor={backgroundColors.review}
                   key={review.id}
                   author={review.author}
