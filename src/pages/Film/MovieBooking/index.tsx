@@ -235,9 +235,14 @@ function MovieBooking(
             sessions.map((session) => (
               <Session
                 key={session.id}
+                start={session.start}
+                end={session.end}
+                format={session.format}
+                availableSeats={session.availableSeats}
+                formatLabel={t('session_cinema')}
+                seatsLabel={t('session_seats_available')}
                 onClick={() => handleSessionClick(session.id)}
                 selected={selectedSessionId === session.id}
-                data={session}
               />
             ))
           ) : (
