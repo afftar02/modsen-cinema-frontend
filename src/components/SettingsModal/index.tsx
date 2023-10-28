@@ -120,6 +120,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
                     value={item}
                     text={t(item)}
                     checked={selectedLanguage === item}
+                    checkedColor={'#d98639'}
                     buttonBgColor={theme.buttonBgColor}
                     textColor={theme.color}
                     onClick={() => setSelectedLanguage(item)}
@@ -138,6 +139,7 @@ function SettingsModal({ onClose }: SettingsModalProps) {
                     value={item.value}
                     text={t(`${item.value.toLowerCase()}_theme`)}
                     checked={selectedTheme === item.value}
+                    checkedColor={'#d98639'}
                     buttonBgColor={theme.buttonBgColor}
                     textColor={theme.color}
                     onClick={() => setSelectedTheme(item.value)}

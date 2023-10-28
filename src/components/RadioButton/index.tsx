@@ -5,6 +5,7 @@ type RadioButtonProps = {
   name: string;
   value: string;
   text: string;
+  checkedColor: string;
   buttonBgColor: string;
   textColor: string;
   checked?: boolean;
@@ -17,7 +18,7 @@ const ItemValue = styled.div`
   gap: 10px;
 `;
 
-const RadioInput = styled.input<{ $bgColor: string }>`
+const RadioInput = styled.input<{ $bgColor: string; $checkedColor: string }>`
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -35,7 +36,7 @@ const RadioInput = styled.input<{ $bgColor: string }>`
     border-radius: 99px;
     transform: scale(0);
     transition: 0.1s transform ease-in-out;
-    background-color: #d98639;
+    background-color: ${(props) => props.$checkedColor};
   }
 
   &:checked::before {
@@ -58,6 +59,7 @@ function RadioButton({
   value,
   text,
   onClick,
+  checkedColor,
   buttonBgColor,
   textColor,
   checked = false,
@@ -72,6 +74,7 @@ function RadioButton({
         checked={checked}
         onChange={onClick}
         $bgColor={buttonBgColor}
+        $checkedColor={checkedColor}
       />
       <ItemLabel htmlFor={id} onClick={onClick} $color={textColor}>
         {text}
