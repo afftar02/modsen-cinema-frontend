@@ -4,15 +4,12 @@ import Icon from 'components/Icon';
 import VideoSettings from 'components/VideoSettings';
 import { secToMin } from 'helpers/ConvertSecToMin';
 import { timeToSec } from 'helpers/ConvertTimeToSec';
-import ErrorBoundary from 'components/ErrorBoundary';
-import ErrorFallback from 'components/ErrorFallback';
-import { motion } from 'framer-motion';
 
 type VideoPlayerProps = {
   src: string;
 };
 
-const PlayerContainer = styled(motion.div)`
+const PlayerContainer = styled.div`
   position: relative;
 `;
 
@@ -311,131 +308,120 @@ function VideoPlayer({ src }: VideoPlayerProps) {
   }, [handleKeyPressed]);
 
   return (
-    <PlayerContainer
-      onMouseMove={handleMouseMove}
-      onDoubleClick={togglePlay}
-      initial={{ scale: 0.5, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0.5, opacity: 0 }}
-      transition={{
-        duration: 0.3,
-      }}
-    >
-      <ErrorBoundary fallback={<ErrorFallback />}>
-        <StyledVideo
-          ref={videoRef}
-          width={850}
-          height={480}
-          autoPlay
-          muted={isMuted}
-        >
-          <source src={src} type="video/mp4" />
-          <track kind="captions" srcLang="en" />
-        </StyledVideo>
-        <ControlsContainer $isHidden={isControlsHidden}>
-          <CenterControlsContainer>
+    <PlayerContainer onMouseMove={handleMouseMove} onDoubleClick={togglePlay}>
+      <StyledVideo
+        ref={videoRef}
+        width={850}
+        height={480}
+        autoPlay
+        muted={isMuted}
+      >
+        <source src={src} type="video/mp4" />
+        <track kind="captions" srcLang="en" />
+      </StyledVideo>
+      <ControlsContainer $isHidden={isControlsHidden}>
+        <CenterControlsContainer>
+          <ControlIcon
+            id={'skip-backward-10'}
+            height={40}
+            width={40}
+            viewBox="0 0 64 64"
+            onClick={() => skipTime(10, true)}
+          />
+          {isPlaying ? (
             <ControlIcon
-              id={'skip-backward-10'}
+              id={'pause'}
               height={40}
               width={40}
-              viewBox="0 0 64 64"
-              onClick={() => skipTime(10, true)}
+              viewBox="-1 0 8 8"
+              onClick={togglePlay}
             />
-            {isPlaying ? (
-              <ControlIcon
-                id={'pause'}
-                height={40}
-                width={40}
-                viewBox="-1 0 8 8"
-                onClick={togglePlay}
-              />
-            ) : (
-              <ControlIcon
-                id={'play'}
-                height={40}
-                width={40}
-                viewBox="-3 0 28 28"
-                onClick={togglePlay}
-              />
-            )}
+          ) : (
             <ControlIcon
-              id={'skip-forward-10'}
+              id={'play'}
               height={40}
               width={40}
-              viewBox="0 0 64 64"
-              onClick={() => skipTime(10)}
+              viewBox="-3 0 28 28"
+              onClick={togglePlay}
             />
-          </CenterControlsContainer>
-          <ControlsBar $isFullscreen={isFullScreen}>
-            {isPlaying ? (
+          )}
+          <ControlIcon
+            id={'skip-forward-10'}
+            height={40}
+            width={40}
+            viewBox="0 0 64 64"
+            onClick={() => skipTime(10)}
+          />
+        </CenterControlsContainer>
+        <ControlsBar $isFullscreen={isFullScreen}>
+          {isPlaying ? (
+            <ControlIcon
+              id={'pause-control'}
+              height={30}
+              width={30}
+              viewBox="0 0 512 512"
+              onClick={togglePlay}
+            />
+          ) : (
+            <ControlIcon
+              id={'play-control'}
+              height={30}
+              width={30}
+              viewBox="0 0 60 60"
+              onClick={togglePlay}
+            />
+          )}
+          <ProgressBarContainer>
+            <TimeBlock>
+              {currentTime.min}:
+              {currentTime.sec > 9 ? currentTime.sec : `0${currentTime.sec}`}
+            </TimeBlock>
+            <ProgressBar
+              type="range"
+              min={0}
+              max={timeToSec(duration)}
+              value={timeToSec(currentTime)}
+              $progressWidth={
+                isFullScreen
+                  ? calculateProgress(FULLSCREEN_BAR_COEFFICIENT)
+                  : calculateProgress(BAR_WIDTH_COEFFICIENT)
+              }
+              onChange={handleProgressBarChange}
+            />
+            <TimeBlock>
+              {duration.min}:
+              {duration.sec > 9 ? duration.sec : `0${duration.sec}`}
+            </TimeBlock>
+          </ProgressBarContainer>
+          <RightControlsContainer>
+            {isMuted ? (
               <ControlIcon
-                id={'pause-control'}
-                height={30}
-                width={30}
+                id={'muted-control'}
+                height={20}
+                width={20}
                 viewBox="0 0 512 512"
-                onClick={togglePlay}
+                onClick={toggleVolume}
               />
             ) : (
               <ControlIcon
-                id={'play-control'}
-                height={30}
-                width={30}
-                viewBox="0 0 60 60"
-                onClick={togglePlay}
-              />
-            )}
-            <ProgressBarContainer>
-              <TimeBlock>
-                {currentTime.min}:
-                {currentTime.sec > 9 ? currentTime.sec : `0${currentTime.sec}`}
-              </TimeBlock>
-              <ProgressBar
-                type="range"
-                min={0}
-                max={timeToSec(duration)}
-                value={timeToSec(currentTime)}
-                $progressWidth={
-                  isFullScreen
-                    ? calculateProgress(FULLSCREEN_BAR_COEFFICIENT)
-                    : calculateProgress(BAR_WIDTH_COEFFICIENT)
-                }
-                onChange={handleProgressBarChange}
-              />
-              <TimeBlock>
-                {duration.min}:
-                {duration.sec > 9 ? duration.sec : `0${duration.sec}`}
-              </TimeBlock>
-            </ProgressBarContainer>
-            <RightControlsContainer>
-              {isMuted ? (
-                <ControlIcon
-                  id={'muted-control'}
-                  height={20}
-                  width={20}
-                  viewBox="0 0 512 512"
-                  onClick={toggleVolume}
-                />
-              ) : (
-                <ControlIcon
-                  id={'volume-control'}
-                  height={20}
-                  width={20}
-                  viewBox="0 0 24 24"
-                  onClick={toggleVolume}
-                />
-              )}
-              <VideoSettings speed={speed} onChangeSpeed={handleChangeSpeed} />
-              <ControlIcon
-                id={'screen-control'}
+                id={'volume-control'}
                 height={20}
                 width={20}
                 viewBox="0 0 24 24"
-                onClick={toggleScreenSize}
+                onClick={toggleVolume}
               />
-            </RightControlsContainer>
-          </ControlsBar>
-        </ControlsContainer>
-      </ErrorBoundary>
+            )}
+            <VideoSettings speed={speed} onChangeSpeed={handleChangeSpeed} />
+            <ControlIcon
+              id={'screen-control'}
+              height={20}
+              width={20}
+              viewBox="0 0 24 24"
+              onClick={toggleScreenSize}
+            />
+          </RightControlsContainer>
+        </ControlsBar>
+      </ControlsContainer>
     </PlayerContainer>
   );
 }

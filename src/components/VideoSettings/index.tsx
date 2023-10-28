@@ -2,7 +2,6 @@ import Icon from 'components/Icon';
 import { useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 import VideoSpeedSettings from 'components/VideoSpeedSettings';
-import { useTranslation } from 'react-i18next';
 
 type VideoSettingsProps = {
   speed: number;
@@ -57,7 +56,6 @@ const SettingsItemValue = styled.div`
 `;
 
 function VideoSettings({ speed, onChangeSpeed }: VideoSettingsProps) {
-  const { t } = useTranslation();
   const [isSettingsOpened, setSettingsOpened] = useState(false);
   const [openedSettingsParam, setOpenedSettingsParam] = useState('');
 
@@ -88,11 +86,9 @@ function VideoSettings({ speed, onChangeSpeed }: VideoSettingsProps) {
       {isSettingsOpened && openedSettingsParam === '' && (
         <SettingsContainer>
           <SettingsItem onClick={() => setOpenedSettingsParam('speed')}>
-            <SettingsText>{t('video_settings_speed')}</SettingsText>
+            <SettingsText>Speed</SettingsText>
             <SettingsItemValue>
-              <SettingsText>
-                {speed === 1 ? t('video_normal_speed') : speed}
-              </SettingsText>
+              <SettingsText>{speed === 1 ? 'Normal' : speed}</SettingsText>
               <Icon
                 id={'right-arrow-nested'}
                 height={20}

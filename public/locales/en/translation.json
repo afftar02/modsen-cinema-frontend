@@ -70,8 +70,6 @@
   "read_more_text": "read more",
   "session_cinema": "Cinema",
   "session_seats_available": "seats available",
-  "video_settings_speed": "Speed",
-  "video_normal_speed": "Normal",
   "invalid_gender_error": "Invalid gender type, please type MALE or FEMALE",
   "invalid_password_error": "Password length must be from 4 to 16 characters",
   "email_required_error": "Email required",
