@@ -1,6 +1,4 @@
 import { styled, useTheme } from 'styled-components';
-import Icon from 'components/Icon';
-import Button from 'components/Button';
 import Navigation from 'components/Navigation';
 import { Link } from 'react-router-dom';
 import { AuthContextType, useAuth } from 'auth/Auth';
@@ -11,6 +9,7 @@ import ErrorFallback from 'components/ErrorFallback';
 import SettingsModal from 'components/SettingsModal';
 import { AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Button, Icon } from 'modsen-library';
 
 const StyledHeader = styled.header`
   display: flex;

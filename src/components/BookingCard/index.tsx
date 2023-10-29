@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
-import Icon from 'components/Icon';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { TicketType } from 'types/Ticket';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'modsen-library';
 
 type BookingCardProps = {
   ticket: TicketType;

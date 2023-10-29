@@ -1,14 +1,8 @@
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import Input from 'components/Input';
-import GoogleAuthButton from 'components/GoogleAuthButton';
-import FacebookAuthButton from 'components/FacebookAuthButtton';
-import GitHubAuthButton from 'components/GitHubAuthButton';
-import Button from 'components/Button';
 import { useFormik } from 'formik';
 import { validateRegistration } from 'helpers/ValidateRegistration';
 import { validateLogin } from 'helpers/ValidateLogin';
-import PasswordInput from 'components/PasswordInput';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
@@ -18,6 +12,19 @@ import CloseIcon from 'components/CloseIcon';
 import { useCallback } from 'react';
 import { AxiosError } from 'axios';
 import { useTranslation } from 'react-i18next';
+import {
+  FACEBOOK_AUTH_URL,
+  GITHUB_AUTH_URL,
+  GOOGLE_AUTH_URL,
+} from 'constants/BaseApiUrl';
+import {
+  Button,
+  FacebookAuthButton,
+  GitHubAuthButton,
+  GoogleAuthButton,
+  Input,
+  PasswordInput,
+} from 'modsen-library';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -122,6 +129,7 @@ function AuthForm({
   hintLink,
 }: AuthFormProps) {
   const { t } = useTranslation();
+  const theme = useTheme();
   const navigate = useNavigate();
   const { register, login } = useAuth() as AuthContextType;
 
@@ -192,6 +200,7 @@ function AuthForm({
                 onClick={() => formik.setFieldError('name', undefined)}
                 name={'name'}
                 isError={!!formik.errors.name}
+                color={theme.color}
               />
             )}
             {isSignUp && (
@@ -205,6 +214,7 @@ function AuthForm({
                 onClick={() => formik.setFieldError('surname', undefined)}
                 name={'surname'}
                 isError={!!formik.errors.surname}
+                color={theme.color}
               />
             )}
             <Input
@@ -215,6 +225,7 @@ function AuthForm({
               onClick={() => formik.setFieldError('email', undefined)}
               name={'email'}
               isError={!!formik.errors.email}
+              color={theme.color}
             />
             <PasswordInput
               placeholder={
@@ -224,15 +235,26 @@ function AuthForm({
               value={formik.values.password}
               onClick={() => formik.setFieldError('password', undefined)}
               isError={!!formik.errors.password}
+              color={theme.color}
             />
             <SubmitButton type={'submit'}>{t('send_text')}</SubmitButton>
           </StyledForm>
           <AuthButtonsContainer>
             <StyledAuthContainer>
-              <GoogleAuthButton />
-              <FacebookAuthButton />
+              <GoogleAuthButton
+                authUrl={GOOGLE_AUTH_URL}
+                text={t('google_auth')}
+                borderColor={theme.googleButtonBorderColor}
+              />
+              <FacebookAuthButton
+                authUrl={FACEBOOK_AUTH_URL}
+                text={t('facebook_auth')}
+              />
             </StyledAuthContainer>
-            <GitHubAuthButton />
+            <GitHubAuthButton
+              authUrl={GITHUB_AUTH_URL}
+              text={t('github_auth')}
+            />
           </AuthButtonsContainer>
           <TextContainer>
             <StyledText>{hint}</StyledText>

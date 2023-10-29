@@ -1,11 +1,10 @@
-import Button from 'components/Button';
-import Icon from 'components/Icon';
 import { styled } from 'styled-components';
 import { motion } from 'framer-motion';
 import { MovieType } from 'types/Movie';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Icon } from 'modsen-library';
 
 type MovieInfoProps = {
   movie: MovieType;
@@ -79,11 +78,6 @@ const BookingBlock = styled.div`
   display: flex;
   gap: 50px;
   align-items: center;
-`;
-
-const ComingSoonButton = styled(Button)`
-  background: #4f4f4f;
-  cursor: auto;
 `;
 
 const RatingBlock = styled.div`
@@ -180,7 +174,7 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
             {bookingStartDate <= new Date() ? (
               <Button onClick={onOpenBooking}>{t('book_button_text')}!</Button>
             ) : (
-              <ComingSoonButton>{t('coming_soon_text')}</ComingSoonButton>
+              <Button disabled>{t('coming_soon_text')}</Button>
             )}
             <RatingBlock>
               <RatingText>{movie.rating.toLocaleString()}</RatingText>

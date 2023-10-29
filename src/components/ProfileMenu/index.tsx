@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import Icon from 'components/Icon';
 import { styled, useTheme } from 'styled-components';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import EditProfileModal from 'components/EditProfileModal';
@@ -9,6 +8,7 @@ import SettingsModal from 'components/SettingsModal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'modsen-library';
 
 type ProfileMenuProps = {
   onClose: () => void;

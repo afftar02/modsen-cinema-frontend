@@ -1,10 +1,6 @@
-import { styled } from 'styled-components';
-import Input from 'components/Input';
-import Button from 'components/Button';
+import { styled, useTheme } from 'styled-components';
 import { useFormik } from 'formik';
-import PasswordInput from 'components/PasswordInput';
 import { validateEditProfile } from 'helpers/ValidateEditProfile';
-import FileInput from 'components/FileInput';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
@@ -16,6 +12,7 @@ import { AuthContextType, useAuth } from 'auth/Auth';
 import { updateUser } from 'services/userService';
 import { UserType } from 'types/User';
 import { useTranslation } from 'react-i18next';
+import { Button, FileInput, Input, PasswordInput } from 'modsen-library';
 
 type AuthFormProps = {
   onClose: () => void;
@@ -59,6 +56,7 @@ const SubmitButton = styled(Button)`
 
 function EditProfileModal({ onClose }: AuthFormProps) {
   const { t } = useTranslation();
+  const theme = useTheme();
   const [avatar, setAvatar] = useState<File>();
 
   const { loadUser } = useAuth() as AuthContextType;
@@ -132,7 +130,16 @@ function EditProfileModal({ onClose }: AuthFormProps) {
             <span>{t('edit_profile_title')}</span>
           </TextBlock>
           <StyledForm onSubmit={formik.handleSubmit}>
-            <FileInput value={avatar?.name} onChange={handleFileUpload} />
+            <FileInput
+              value={avatar?.name}
+              onChange={handleFileUpload}
+              uploadText={t('upload_avatar_text')}
+              uploadedText={t('uploaded_file_text')}
+              textColor={theme.color}
+              borderColor={theme.color}
+              uploadedButtonBgColor={theme.buttonBgColor}
+              uploadedButtonColor={theme.buttonColor}
+            />
             <Input
               placeholder={formik.errors.name ?? t('edit_name_placeholder')}
               onChange={formik.handleChange}
@@ -140,6 +147,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               onClick={() => formik.setFieldError('name', undefined)}
               name={'name'}
               isError={!!formik.errors.name}
+              color={theme.color}
             />
             <Input
               placeholder={
@@ -150,6 +158,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               onClick={() => formik.setFieldError('surname', undefined)}
               name={'surname'}
               isError={!!formik.errors.surname}
+              color={theme.color}
             />
             <Input
               placeholder={formik.errors.gender ?? t('edit_gender_placeholder')}
@@ -158,6 +167,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               onClick={() => formik.setFieldError('gender', undefined)}
               name={'gender'}
               isError={!!formik.errors.gender}
+              color={theme.color}
             />
             <PasswordInput
               withIcon={false}
@@ -168,6 +178,7 @@ function EditProfileModal({ onClose }: AuthFormProps) {
               value={formik.values.password}
               onClick={() => formik.setFieldError('password', undefined)}
               isError={!!formik.errors.password}
+              color={theme.color}
             />
             <SubmitButton type={'submit'}>{t('save_text')}</SubmitButton>
           </StyledForm>

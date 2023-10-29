@@ -1,5 +1,5 @@
 import { styled, useTheme } from 'styled-components';
-import Icon from 'components/Icon';
+import { Icon } from 'modsen-library';
 
 type CloseIconProps = {
   onClick?: () => void;

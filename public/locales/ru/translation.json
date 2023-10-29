@@ -70,8 +70,6 @@
   "read_more_text": "подробнее",
   "session_cinema": "Кино",
   "session_seats_available": "мест свободно",
-  "video_settings_speed": "Скорость",
-  "video_normal_speed": "Обычная",
   "invalid_gender_error": "Некорректный пол, введите MALE или FEMALE",
   "invalid_password_error": "Длина пароля должна быть от 4 до 16 символов",
   "email_required_error": "Требуется email",
@@ -102,6 +100,5 @@
   "signin_bright_title": "Наслаждайтесь просмотром фильмов!",
   "signin_hint": "Нет учетной записи?",
   "signin_underlined_hint": "Зарегистрируйтесь, пожалуйста.",
-  "auth_error": "Ошибка авторизации!",
   "oauth_success_message": "Авторизация успешно выполнена!"
 }
