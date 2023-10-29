@@ -1,14 +1,8 @@
 import { styled, useTheme } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import Input from 'components/Input';
-import GoogleAuthButton from 'components/GoogleAuthButton';
-import FacebookAuthButton from 'components/FacebookAuthButtton';
-import GitHubAuthButton from 'components/GitHubAuthButton';
-import Button from 'components/Button';
 import { useFormik } from 'formik';
 import { validateRegistration } from 'helpers/ValidateRegistration';
 import { validateLogin } from 'helpers/ValidateLogin';
-import PasswordInput from 'components/PasswordInput';
 import { AuthContextType, useAuth } from 'auth/Auth';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
@@ -23,6 +17,14 @@ import {
   GITHUB_AUTH_URL,
   GOOGLE_AUTH_URL,
 } from 'constants/BaseApiUrl';
+import {
+  Button,
+  FacebookAuthButton,
+  GitHubAuthButton,
+  GoogleAuthButton,
+  Input,
+  PasswordInput,
+} from 'modsen-library';
 
 type AuthFormProps = {
   isSignUp?: boolean;

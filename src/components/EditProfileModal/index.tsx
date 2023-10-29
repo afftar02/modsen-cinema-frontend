@@ -1,10 +1,6 @@
 import { styled, useTheme } from 'styled-components';
-import Input from 'components/Input';
-import Button from 'components/Button';
 import { useFormik } from 'formik';
-import PasswordInput from 'components/PasswordInput';
 import { validateEditProfile } from 'helpers/ValidateEditProfile';
-import FileInput from 'components/FileInput';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
@@ -16,6 +12,7 @@ import { AuthContextType, useAuth } from 'auth/Auth';
 import { updateUser } from 'services/userService';
 import { UserType } from 'types/User';
 import { useTranslation } from 'react-i18next';
+import { Button, FileInput, Input, PasswordInput } from 'modsen-library';
 
 type AuthFormProps = {
   onClose: () => void;

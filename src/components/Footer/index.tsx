@@ -1,7 +1,7 @@
-import Icon from 'components/Icon';
 import { styled, useTheme } from 'styled-components';
 import FooterInput from 'components/FooterInput';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'modsen-library';
 
 const FooterWrapper = styled.div`
   display: flex;

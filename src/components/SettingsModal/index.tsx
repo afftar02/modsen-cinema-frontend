@@ -1,8 +1,6 @@
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import { styled, useTheme } from 'styled-components';
-import Button from 'components/Button';
-import RadioButton from 'components/RadioButton';
 import { useCallback, useState } from 'react';
 import { THEMES } from 'constants/Themes';
 import ModalPortal from 'components/ModalPortal';
@@ -13,6 +11,7 @@ import CloseIcon from 'components/CloseIcon';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGES } from 'constants/Languages';
+import { Button, RadioButton } from 'modsen-library';
 
 type SettingsModalProps = {
   onClose: () => void;

@@ -1,9 +1,9 @@
 import { styled, useTheme } from 'styled-components';
-import Icon from 'components/Icon';
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { init, send } from '@emailjs/browser';
 import * as process from 'process';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'modsen-library';
 
 const InputWrapper = styled.div`
   position: relative;

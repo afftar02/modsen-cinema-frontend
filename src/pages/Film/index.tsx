@@ -1,7 +1,5 @@
 import Header from 'components/Header';
 import { styled } from 'styled-components';
-import Icon from 'components/Icon';
-import Review from 'components/Review';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Footer from 'components/Footer';
 import Vibrant from 'node-vibrant/lib/bundle';
@@ -18,6 +16,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
 import { selectMovies } from 'redux/selectors/movie';
 import { useTranslation } from 'react-i18next';
+import { Icon, Review } from 'modsen-library';
 
 const PageContainer = styled.div`
   position: relative;
