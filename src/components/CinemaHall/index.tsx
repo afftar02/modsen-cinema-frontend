@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
-import Seat from 'components/Seat';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SeatType } from 'types/Seat';
 import { getSeats } from 'services/seatService';
 import { useTranslation } from 'react-i18next';
+import { Seat } from 'modsen-library';
 
 type CinemaHallProps = {
   sessionId: number;

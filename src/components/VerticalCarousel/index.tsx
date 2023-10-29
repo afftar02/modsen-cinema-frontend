@@ -1,9 +1,9 @@
 import { styled, useTheme } from 'styled-components';
-import Icon from 'components/Icon';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MovieType } from 'types/Movie';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { Icon } from 'modsen-library';
 
 type VerticalCarouselProps = {
   data: MovieType[];

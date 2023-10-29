@@ -1,10 +1,9 @@
 import { styled } from 'styled-components';
-import Icon from 'components/Icon';
 import { useState } from 'react';
-import VideoPlayer from 'components/VideoPlayer';
 import ModalPortal from 'components/ModalPortal';
 import CloseIcon from 'components/CloseIcon';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Icon, VideoPlayer } from 'modsen-library';
 
 type VideoPreviewProps = {
   previewUrl: string;
@@ -62,7 +61,16 @@ function VideoPreview({
               lineColor={'#DBDBDB'}
               bgColor={'#D9D9D9'}
             />
-            <VideoPlayer src={videoUrl} />
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.5, opacity: 0 }}
+              transition={{
+                duration: 0.3,
+              }}
+            >
+              <VideoPlayer src={videoUrl} />
+            </motion.div>
           </ModalPortal>
         )}
       </AnimatePresence>
