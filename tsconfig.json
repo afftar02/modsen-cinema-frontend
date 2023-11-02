@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "downlevelIteration": true,
-    "types": ["cypress"]
+    "types": ["cypress", "jest", "@testing-library/jest-dom"]
   },
   "include": ["src"]
 }
