@@ -1,16 +1,13 @@
 import { styled } from 'styled-components';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { SeatType } from 'types/Seat';
-import { getSeats } from 'services/seatService';
 import { useTranslation } from 'react-i18next';
 import { Seat } from 'modsen-library';
 
 type CinemaHallProps = {
-  sessionId: number;
+  seats: Array<SeatType>;
   onSeatClick: (seatId: number, price: number) => void;
   chosenSeatIds?: number[];
-  isBooked?: boolean;
-  resetIsBooked?: () => void;
 };
 
 const Wrapper = styled.div`
@@ -93,15 +90,8 @@ const SEAT_WIDTH = 45,
   SEAT_SPACE = 17,
   CENTER_SPACE = 90;
 
-function CinemaHall({
-  sessionId,
-  onSeatClick,
-  isBooked,
-  chosenSeatIds,
-  resetIsBooked,
-}: CinemaHallProps) {
+function CinemaHall({ seats, onSeatClick, chosenSeatIds }: CinemaHallProps) {
   const { t } = useTranslation();
-  const [seats, setSeats] = useState<Array<SeatType>>([]);
 
   const rowsLengths = useMemo(() => {
     const map = new Map();
@@ -148,20 +138,6 @@ function CinemaHall({
   const calculateHeight = useCallback(() => {
     return rowsLengths.size * SEAT_WIDTH + (rowsLengths.size - 1) * SEAT_SPACE;
   }, [rowsLengths]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const loadedSeats = await getSeats(sessionId);
-        setSeats(loadedSeats);
-        if (resetIsBooked) {
-          resetIsBooked();
-        }
-      } catch (err) {
-        alert(t('loading_error'));
-      }
-    })();
-  }, [sessionId, isBooked, resetIsBooked, t]);
 
   return (
     <Wrapper>
