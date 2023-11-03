@@ -281,6 +281,10 @@ function MovieBooking(
             seats={seats}
             onSeatClick={handleSeatClick}
             chosenSeatIds={Array.from(chosenSeats.keys())}
+            screenLabel={t('screen_text')}
+            availableSeatLabel={t('available_text')}
+            reservedSeatLabel={t('reserved_text')}
+            selectedSeatLabel={t('selected_text')}
           />
         )}
         {sessions.length > 0 && (

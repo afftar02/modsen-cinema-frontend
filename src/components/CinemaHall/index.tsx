@@ -1,10 +1,13 @@
 import { styled } from 'styled-components';
 import { useCallback, useMemo } from 'react';
 import { SeatType } from 'types/Seat';
-import { useTranslation } from 'react-i18next';
 import { Seat } from 'modsen-library';
 
 type CinemaHallProps = {
+  screenLabel: string;
+  availableSeatLabel: string;
+  reservedSeatLabel: string;
+  selectedSeatLabel: string;
   seats: Array<SeatType>;
   onSeatClick: (seatId: number, price: number) => void;
   chosenSeatIds?: number[];
@@ -90,9 +93,15 @@ const SEAT_WIDTH = 45,
   SEAT_SPACE = 17,
   CENTER_SPACE = 90;
 
-function CinemaHall({ seats, onSeatClick, chosenSeatIds }: CinemaHallProps) {
-  const { t } = useTranslation();
-
+function CinemaHall({
+  seats,
+  onSeatClick,
+  chosenSeatIds,
+  screenLabel,
+  availableSeatLabel,
+  reservedSeatLabel,
+  selectedSeatLabel,
+}: CinemaHallProps) {
   const rowsLengths = useMemo(() => {
     const map = new Map();
     for (const seat of seats) {
@@ -142,7 +151,7 @@ function CinemaHall({ seats, onSeatClick, chosenSeatIds }: CinemaHallProps) {
   return (
     <Wrapper>
       <ScreenContainer>
-        <Screen>{t('screen_text')}</Screen>
+        <Screen>{screenLabel}</Screen>
       </ScreenContainer>
       <SeatsContainer $width={calculateWidth()} $height={calculateHeight()}>
         {seats.map((seat) => (
@@ -159,15 +168,15 @@ function CinemaHall({ seats, onSeatClick, chosenSeatIds }: CinemaHallProps) {
       <DescriptionContainer>
         <DescriptionItem>
           <AvailableSeat />
-          <Label>{t('available_text')}</Label>
+          <Label>{availableSeatLabel}</Label>
         </DescriptionItem>
         <DescriptionItem>
           <ReservedSeat />
-          <Label>{t('reserved_text')}</Label>
+          <Label>{reservedSeatLabel}</Label>
         </DescriptionItem>
         <DescriptionItem>
           <SelectedSeat />
-          <Label>{t('selected_text')}</Label>
+          <Label>{selectedSeatLabel}</Label>
         </DescriptionItem>
       </DescriptionContainer>
     </Wrapper>
