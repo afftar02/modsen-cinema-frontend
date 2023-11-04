@@ -8599,10 +8599,10 @@ mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.6"
 
-modsen-library@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/modsen-library/-/modsen-library-1.0.9.tgz#9669cc1e202082aa669a29e0ee5ae26f0d09e02e"
-  integrity sha512-NsMzJ/8ICzL08VQE9h0bLaANRMv9+OWyzOGXooB/6amwe7TwNNguOImLDaNpLHRdDiH4amhQi61+7M41GRS1TQ==
+modsen-library@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/modsen-library/-/modsen-library-1.0.10.tgz#f543e99698843e31b9a013b8686d4189b1feaef3"
+  integrity sha512-6nXKzCeZTIw9DDANH5eqMlfS55EPDZ0SZMnt+2TdLGqKZvzkpYxyQrI2cy7a72++Qy88iZek2y+pTnV7yFR+FA==
 
 ms@2.0.0:
   version "2.0.0"
