@@ -1,10 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import { styled } from 'styled-components';
+import { styled, useTheme } from 'styled-components';
 import Header from 'components/Header';
 import VideoPreview from 'components/VideoPreview';
 import ErrorFallback from 'components/ErrorFallback';
 import ErrorBoundary from 'components/ErrorBoundary';
-import VerticalCarousel from 'components/VerticalCarousel';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { getMovies } from 'redux/thunks/movie';
@@ -14,6 +13,7 @@ import { MovieType } from 'types/Movie';
 import { getMovie } from 'services/movieService';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useTranslation } from 'react-i18next';
+import { VerticalCarousel } from 'modsen-library';
 
 const MainWrapper = styled.div`
   position: relative;
@@ -90,6 +90,8 @@ function Main() {
   const movies = useAppSelector(selectMovies);
   const [lastMovie, setLastMovie] = useState<MovieType>();
 
+  const theme = useTheme();
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -146,7 +148,16 @@ function Main() {
               {t('current_movies_description')}
             </CurrentMoviesDescription>
           </CurrentMoviesContainer>
-          <VerticalCarousel data={movies} />
+          <VerticalCarousel
+            data={movies.map((movie) => ({
+              ...movie,
+              posterUrl: BASE_UPLOADS_URL + movie.poster?.filename,
+              genre: movie.genres?.at(0)?.title,
+            }))}
+            titleColor={theme.color}
+            buttonsColor={theme.color}
+            linkPrefix={'/film'}
+          />
         </Flex>
         <Flex $marginTop={150}>
           <motion.img

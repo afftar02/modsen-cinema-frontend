@@ -7,12 +7,16 @@ import {
   useMemo,
   useState,
 } from 'react';
-import CinemaHall from 'components/CinemaHall';
 import { getSessions } from 'services/sessionService';
 import { SessionType } from 'types/Session';
 import { createTicket } from 'services/ticketService';
 import { useTranslation } from 'react-i18next';
-import { Button, HorizontalCarousel, Session } from 'modsen-library';
+import {
+  Button,
+  CinemaHall,
+  HorizontalCarousel,
+  Session,
+} from 'modsen-library';
 import { SeatType } from 'types/Seat';
 import { getSeats } from 'services/seatService';
 
@@ -281,6 +285,10 @@ function MovieBooking(
             seats={seats}
             onSeatClick={handleSeatClick}
             chosenSeatIds={Array.from(chosenSeats.keys())}
+            screenLabel={t('screen_text')}
+            availableSeatLabel={t('available_text')}
+            reservedSeatLabel={t('reserved_text')}
+            selectedSeatLabel={t('selected_text')}
           />
         )}
         {sessions.length > 0 && (
