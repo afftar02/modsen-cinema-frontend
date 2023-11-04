@@ -1,12 +1,23 @@
-import { styled, useTheme } from 'styled-components';
+import { styled } from 'styled-components';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MovieType } from 'types/Movie';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { Icon } from 'modsen-library';
 
+type SlideType = {
+  id: number;
+  title: string;
+  ageRestriction: number;
+  quality: string;
+  start: Date;
+  posterUrl: string;
+  genre?: string;
+};
+
 type VerticalCarouselProps = {
-  data: MovieType[];
+  data: SlideType[];
+  titleColor: string;
+  buttonsColor: string;
+  linkPrefix: string;
 };
 
 const Wrapper = styled.div`
@@ -22,6 +33,7 @@ const CurrentContainer = styled.div`
   justify-content: center;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
+  max-width: 262px;
 
   &:hover {
     transform: scale(1.05);
@@ -38,8 +50,8 @@ const InfoContainer = styled.div`
   margin-top: 23px;
 `;
 
-const Title = styled.span`
-  color: ${(props) => props.theme.color};
+const Title = styled.span<{ $color: string }>`
+  color: ${(props) => props.$color};
   font-family: 'Poppins', sans-serif;
   font-size: 32px;
   font-weight: 500;
@@ -48,6 +60,7 @@ const Title = styled.span`
 const TagsContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
   margin-top: 10px;
   max-width: 260px;
@@ -164,15 +177,18 @@ const StyledLink = styled(Link)`
 const FIRST_SLIDE_OFFSET = 216;
 const LAST_SLIDE_OFFSET = 158;
 
-function VerticalCarousel({ data }: VerticalCarouselProps) {
+function VerticalCarousel({
+  data,
+  titleColor,
+  buttonsColor,
+  linkPrefix,
+}: VerticalCarouselProps) {
   const [canUserScroll, allowUserScroll] = useState(false);
   const [prevScroll, setPrevScroll] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(1);
   const currentItemRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLDivElement[]>([]);
-
-  const theme = useTheme();
 
   const checkIndex = useCallback(
     (index: number) => {
@@ -245,21 +261,27 @@ function VerticalCarousel({ data }: VerticalCarouselProps) {
 
   return (
     <Wrapper>
-      <StyledLink to={`/film/${data.at(currentIndex)?.id}`}>
+      <StyledLink to={`${linkPrefix}/${data.at(currentIndex)?.id}`}>
         <CurrentContainer ref={currentItemRef}>
           <CurrentImage
-            src={BASE_UPLOADS_URL + data.at(currentIndex)?.poster?.filename}
+            src={data.at(currentIndex)?.posterUrl}
             alt="poster"
             width={262}
           />
           <InfoContainer>
-            <Title>{data.at(currentIndex)?.title}</Title>
+            <Title $color={titleColor}>{data.at(currentIndex)?.title}</Title>
             <TagsContainer>
-              {data.at(currentIndex)?.genres?.map((genre) => (
-                <Tag key={genre.id}>
-                  <span>{genre.title}</span>
+              <Tag>
+                <span>{data.at(currentIndex)?.ageRestriction}+</span>
+              </Tag>
+              <Tag>
+                <span>{data.at(currentIndex)?.quality}</span>
+              </Tag>
+              {data.at(currentIndex)?.genre && (
+                <Tag>
+                  <span>{data.at(currentIndex)?.genre}</span>
                 </Tag>
-              ))}
+              )}
             </TagsContainer>
           </InfoContainer>
         </CurrentContainer>
@@ -277,10 +299,7 @@ function VerticalCarousel({ data }: VerticalCarouselProps) {
               $isActive={index === currentIndex}
               ref={(elem) => bindRef(elem, index)}
             >
-              <Image
-                src={BASE_UPLOADS_URL + item.poster?.filename}
-                alt="slide"
-              />
+              <Image src={item.posterUrl} alt="slide" />
             </Slide>
           ))}
         </ImageSlider>
@@ -291,7 +310,7 @@ function VerticalCarousel({ data }: VerticalCarouselProps) {
             height={32}
             viewBox="0 0 22 32"
             fill="none"
-            stroke={theme.color}
+            stroke={buttonsColor}
             onClick={() => handleItemClick(currentIndex - 1)}
           />
           <StyledIcon
@@ -300,7 +319,7 @@ function VerticalCarousel({ data }: VerticalCarouselProps) {
             height={32}
             viewBox="0 0 22 32"
             fill="none"
-            stroke={theme.color}
+            stroke={buttonsColor}
             onClick={() => handleItemClick(currentIndex + 1)}
           />
         </ArrowsContainer>
