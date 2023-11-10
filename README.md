@@ -4,6 +4,9 @@
 
 This application provides functionality for booking tickets for different movies in the cinema. User can check current movies, watch their trailers, get information about movie, like its author, actors, country, description, rating and etc. When booking, user can choose date, session and seats to book. At Bookings page user can check his tickets. Also user can edit his profile information, for example, gender and avatar image. Application has English and Russian localization, Dark and Light themes, so user can choose what's best for him.
 
+## Deployed app
+https://cinema-app-sigma.vercel.app/
+
 ## Available Scripts
 
 In the project directory, you can run:
