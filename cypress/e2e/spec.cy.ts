@@ -41,6 +41,7 @@ describe('Settings', () => {
     cy.contains('Регистрация');
     cy.contains('Вход');
   });
+
   it('Theme changing', () => {
     cy.visit('/');
 
@@ -57,11 +58,30 @@ describe('Settings', () => {
   });
 });
 
-// describe('Auth forms', () => {
-//   it('', () => {
-//     cy.visit('/signin');
-//   });
-// });
-// cy.get('.action-email').type('fake@email.com');
-//
-// cy.get('.action-email').should('have.value', 'fake@email.com');
+describe('Auth forms', () => {
+  it('System sign in', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+
+    cy.contains('Profile');
+  });
+
+  it('Go to sign up from sign in page', () => {
+    cy.visit('/signin');
+
+    cy.contains('Sign up please.').click();
+
+    cy.url().should('include', '/signup');
+  });
+
+  it('Go to sign in from sign up page', () => {
+    cy.visit('/signup');
+
+    cy.contains('Login please.').click();
+
+    cy.url().should('include', '/signin');
+  });
+});
