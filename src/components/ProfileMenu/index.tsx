@@ -170,6 +170,7 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
           viewBox="0 0 69 38"
           onClick={onClose}
           fill={theme.color}
+          data-cy={'close-menu'}
         />
         <ErrorBoundary fallback={<ErrorFallback />}>
           <ProfileTitle>{t('profile_menu_title')}</ProfileTitle>

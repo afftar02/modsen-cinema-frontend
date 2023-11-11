@@ -30,6 +30,7 @@ function CloseIcon({ onClick, lineColor, bgColor }: CloseIconProps) {
       width={50}
       height={50}
       viewBox="0 0 50 50"
+      data-cy={'close'}
       stroke={lineColor ?? theme.closeIconColor}
       fill={bgColor ?? theme.closeIconBgColor}
       onClick={onClick}

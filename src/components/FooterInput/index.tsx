@@ -99,6 +99,7 @@ function FooterInput() {
         viewBox="0 0 24 24"
         fill={theme.color}
         onClick={handleSubmit}
+        data-cy={'subscribe'}
       />
     </InputWrapper>
   );
