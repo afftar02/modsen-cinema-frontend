@@ -159,3 +159,63 @@ describe('Profile', () => {
     cy.contains('Sign in').should('exist');
   });
 });
+
+describe('Bookings page', () => {
+  it('Render', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+
+    cy.contains('Bookings').click();
+
+    cy.contains('Bookings').should('have.css', 'color', 'rgb(217, 134, 57)');
+    cy.contains('Home').should('have.css', 'color', 'rgb(255, 255, 255)');
+  });
+});
+
+describe('Film page', () => {
+  it('Render', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+
+    cy.get('img[alt="poster"]').click();
+
+    cy.url().should('include', '/film');
+    cy.contains('Move to the next movie');
+    cy.contains('Release year');
+    cy.contains('Country');
+    cy.contains('Genre');
+    cy.contains('Author');
+    cy.contains('Actors');
+    cy.get('img[alt="poster"]').should('exist');
+    cy.contains('Watch trailer online!');
+
+    cy.get('[data-cy="play-preview"]').click();
+    cy.get('video').should('exist');
+    cy.get('[data-cy="close"]').click();
+
+    cy.contains('Review').should('exist');
+    cy.contains('read more');
+  });
+
+  it('Next button click', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+
+    cy.get('img[alt="poster"]').click();
+
+    cy.url().then((url) => {
+      cy.contains('Move to the next movie').click({ force: true });
+
+      cy.url().should('not.eq', url);
+    });
+  });
+});
