@@ -219,3 +219,40 @@ describe('Film page', () => {
     });
   });
 });
+
+describe('Footer', () => {
+  it('Render', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+    cy.contains('Bookings').click();
+
+    cy.contains('First column');
+    cy.contains('Second');
+    cy.contains('Third');
+    cy.contains('First page');
+    cy.contains('Eighth');
+    cy.contains('Subscribe');
+    cy.contains(
+      'Join our newsletter to stay up to date on features and releases'
+    );
+    cy.get('input[placeholder="Enter email"]').should('exist');
+  });
+
+  it('Email sending', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+    cy.contains('Bookings').click();
+
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal('Subscription successfully completed!');
+    });
+    cy.get('input[placeholder="Enter email"]').type('user@mail.com');
+    cy.get('[data-cy="subscribe"]').click();
+  });
+});
