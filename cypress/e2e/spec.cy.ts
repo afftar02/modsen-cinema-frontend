@@ -85,3 +85,77 @@ describe('Auth forms', () => {
     cy.url().should('include', '/signin');
   });
 });
+
+describe('Profile', () => {
+  it('Menu opening and closing', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+
+    cy.contains('Profile').click();
+
+    cy.contains('User profile');
+    cy.contains('Edit profile');
+    cy.contains('Settings');
+    cy.contains('Log out');
+
+    cy.get('[data-cy="close-menu"]').click();
+    cy.contains('User profile').should('not.exist');
+  });
+
+  it('Profile editing', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+
+    cy.contains('Profile').click();
+    cy.contains('Edit profile').click();
+
+    cy.contains('Please, enter new profile information:');
+
+    cy.get('input[placeholder="Enter your gender"]').type('FEMALE');
+    cy.contains('Save').click();
+
+    cy.contains('FEMALE').should('exist');
+
+    cy.contains('Edit profile').click();
+
+    cy.get('input[placeholder="Enter your gender"]').type('MALE');
+    cy.contains('Save').click();
+
+    cy.contains('FEMALE').should('not.exist');
+    cy.contains('MALE').should('exist');
+  });
+
+  it('Settings opening', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+
+    cy.contains('Profile').click();
+    cy.contains('Settings').click();
+
+    cy.contains('Choose settings:').should('exist');
+  });
+
+  it('Logging out', () => {
+    cy.visit('/signin');
+
+    cy.get('input[placeholder="Enter your email"]').type('stets119@gmail.com');
+    cy.get('input[placeholder="Enter strong password"]').type('30102002');
+    cy.contains('Send').click();
+
+    cy.contains('Profile').click();
+    cy.contains('Log out').click();
+
+    cy.contains('Profile').should('not.exist');
+    cy.contains('Sign up').should('exist');
+    cy.contains('Sign in').should('exist');
+  });
+});
