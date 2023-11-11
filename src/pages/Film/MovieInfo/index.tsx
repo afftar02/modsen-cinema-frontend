@@ -177,7 +177,9 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
               <Button disabled>{t('coming_soon_text')}</Button>
             )}
             <RatingBlock>
-              <RatingText>{movie.rating.toLocaleString()}</RatingText>
+              <RatingText>
+                {movie.rating ? movie.rating.toLocaleString() : 0}
+              </RatingText>
               <Icon id={'star'} width={39} height={38} viewBox="0 0 39 38" />
             </RatingBlock>
           </BookingBlock>

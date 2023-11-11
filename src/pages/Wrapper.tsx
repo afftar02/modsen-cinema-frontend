@@ -44,7 +44,7 @@ function Wrapper({ children }: WrapperProps) {
   }, [i18n]);
 
   return (
-    <Container ref={wrapperRef} $bgColor={bgColor}>
+    <Container ref={wrapperRef} $bgColor={bgColor} data-cy={'theme-wrapper'}>
       {children}
     </Container>
   );

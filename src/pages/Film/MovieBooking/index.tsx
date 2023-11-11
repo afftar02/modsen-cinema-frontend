@@ -7,12 +7,18 @@ import {
   useMemo,
   useState,
 } from 'react';
-import CinemaHall from 'components/CinemaHall';
 import { getSessions } from 'services/sessionService';
 import { SessionType } from 'types/Session';
 import { createTicket } from 'services/ticketService';
 import { useTranslation } from 'react-i18next';
-import { Button, HorizontalCarousel, Session } from 'modsen-library';
+import {
+  Button,
+  CinemaHall,
+  HorizontalCarousel,
+  Session,
+} from 'modsen-library';
+import { SeatType } from 'types/Seat';
+import { getSeats } from 'services/seatService';
 
 type BookingProps = {
   movieId: number;
@@ -105,9 +111,11 @@ function MovieBooking(
   const { t } = useTranslation();
   const [sessions, setSessions] = useState<Array<SessionType>>([]);
   const [selectedSessionId, setSelectedSessionId] = useState(-1);
-  const [seats, setSeats] = useState<Map<number, number>>(new Map());
+  const [chosenSeats, setChosenSeats] = useState<Map<number, number>>(
+    new Map()
+  );
+  const [seats, setSeats] = useState<Array<SeatType>>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [isBooked, setIsBooked] = useState(false);
 
   const dates = useMemo(() => {
     const dates = new Array<Date>();
@@ -123,10 +131,26 @@ function MovieBooking(
 
   const loadSessions = useCallback(
     async (date: Date) => {
-      const loadedSessions = await getSessions(movieId, date);
-      setSessions(loadedSessions);
+      try {
+        const loadedSessions = await getSessions(movieId, date);
+        setSessions(loadedSessions);
+      } catch (err) {
+        alert(t('loading_error'));
+      }
     },
-    [movieId]
+    [movieId, t]
+  );
+
+  const loadSeats = useCallback(
+    async (sessionId: number) => {
+      try {
+        const loadedSeats = await getSeats(sessionId);
+        setSeats(loadedSeats);
+      } catch (err) {
+        alert(t('loading_error'));
+      }
+    },
+    [t]
   );
 
   const handleDateClick = useCallback(
@@ -137,7 +161,7 @@ function MovieBooking(
         await loadSessions(date);
 
         setSelectedSessionId(-1);
-        setSeats(new Map());
+        setChosenSeats(new Map());
       } catch (err) {
         alert(t('loading_error'));
       }
@@ -145,13 +169,17 @@ function MovieBooking(
     [loadSessions, t]
   );
 
-  const handleSessionClick = useCallback((sessionId: number) => {
-    setSelectedSessionId(sessionId);
-    setSeats(new Map());
-  }, []);
+  const handleSessionClick = useCallback(
+    async (sessionId: number) => {
+      setSelectedSessionId(sessionId);
+      await loadSeats(sessionId);
+      setChosenSeats(new Map());
+    },
+    [loadSeats]
+  );
 
   const handleSeatClick = useCallback((seatId: number, price: number) => {
-    setSeats((prev) => {
+    setChosenSeats((prev) => {
       if (prev?.has(seatId)) {
         prev?.delete(seatId);
       } else {
@@ -163,13 +191,13 @@ function MovieBooking(
 
   const handleBookClick = useCallback(async () => {
     try {
-      await createTicket({ seatIds: [...seats.keys()] });
-      setSeats(new Map());
-      setIsBooked(true);
+      await createTicket({ seatIds: [...chosenSeats.keys()] });
+      await loadSeats(selectedSessionId);
+      setChosenSeats(new Map());
     } catch (err) {
       alert(t('booking_error'));
     }
-  }, [seats, t]);
+  }, [chosenSeats, loadSeats, selectedSessionId, t]);
 
   const calculateTicketPrice = useCallback(() => {
     let discount = 0;
@@ -179,14 +207,14 @@ function MovieBooking(
       discount = ((selectedDate.getDate() - new Date().getDate()) * 5) / 100;
     }
 
-    seats.forEach((price) => {
+    chosenSeats.forEach((price) => {
       result += price;
     });
 
     result = (1 - discount) * result;
 
     return Number(result.toFixed(1));
-  }, [seats, selectedDate]);
+  }, [chosenSeats, selectedDate]);
 
   useEffect(() => {
     (async () => {
@@ -194,15 +222,20 @@ function MovieBooking(
         const bookingInfo = JSON.parse(
           localStorage.getItem('booking') as string
         );
-        const bookingDate = new Date(bookingInfo.date);
+        if (bookingInfo.date && Number(bookingInfo.sessionId) >= 0) {
+          const bookingDate = new Date(bookingInfo.date);
 
-        setSelectedDate(bookingDate);
-        await loadSessions(bookingDate);
-        setSelectedSessionId(Number(bookingInfo.sessionId));
-        setSeats(new Map(bookingInfo.seats));
+          setSelectedDate(bookingDate);
+          await loadSessions(bookingDate);
+          setSelectedSessionId(Number(bookingInfo.sessionId));
+          await loadSeats(Number(bookingInfo.sessionId));
+        }
+        if (bookingInfo.chosenSeats) {
+          setChosenSeats(new Map(bookingInfo.chosenSeats));
+        }
       }
     })();
-  }, [loadSessions]);
+  }, [loadSeats, loadSessions]);
 
   useEffect(
     () =>
@@ -212,10 +245,10 @@ function MovieBooking(
           movieId: movieId,
           date: selectedDate,
           sessionId: selectedSessionId.toString(),
-          seats: Array.from(seats.entries()),
+          chosenSeats: Array.from(chosenSeats.entries()),
         })
       ),
-    [movieId, seats, selectedDate, selectedSessionId]
+    [movieId, chosenSeats, selectedDate, selectedSessionId]
   );
 
   return (
@@ -249,18 +282,20 @@ function MovieBooking(
         </SessionsBlock>
         {selectedSessionId >= 0 && (
           <CinemaHall
-            sessionId={selectedSessionId}
+            seats={seats}
             onSeatClick={handleSeatClick}
-            isBooked={isBooked}
-            chosenSeatIds={Array.from(seats.keys())}
-            resetIsBooked={() => setIsBooked(false)}
+            chosenSeatIds={Array.from(chosenSeats.keys())}
+            screenLabel={t('screen_text')}
+            availableSeatLabel={t('available_text')}
+            reservedSeatLabel={t('reserved_text')}
+            selectedSeatLabel={t('selected_text')}
           />
         )}
         {sessions.length > 0 && (
           <ActionContainer>
             <TicketInfo>
               <SeatsCount>
-                {seats?.size} {t('seats_text')}
+                {chosenSeats?.size} {t('seats_text')}
               </SeatsCount>
               <TicketPrice>{calculateTicketPrice()} $</TicketPrice>
             </TicketInfo>

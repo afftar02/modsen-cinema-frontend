@@ -14,7 +14,7 @@ import { UserType } from 'types/User';
 import { useTranslation } from 'react-i18next';
 import { Button, FileInput, Input, PasswordInput } from 'modsen-library';
 
-type AuthFormProps = {
+type EditProfileFormProps = {
   onClose: () => void;
 };
 
@@ -54,7 +54,7 @@ const SubmitButton = styled(Button)`
   width: 100%;
 `;
 
-function EditProfileModal({ onClose }: AuthFormProps) {
+function EditProfileModal({ onClose }: EditProfileFormProps) {
   const { t } = useTranslation();
   const theme = useTheme();
   const [avatar, setAvatar] = useState<File>();

@@ -102,6 +102,7 @@ function Header() {
               </StyledContainer>
               <StyledIcon
                 id="settings"
+                data-cy={'settings'}
                 width={48}
                 height={48}
                 fill={theme.color}

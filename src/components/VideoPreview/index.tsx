@@ -87,6 +87,7 @@ function VideoPreview({
       >
         <PlayIcon
           id={'play-preview'}
+          data-cy={'play-preview'}
           width={70}
           height={70}
           viewBox="0 0 70 70"
