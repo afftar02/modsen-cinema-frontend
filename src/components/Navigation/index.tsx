@@ -2,10 +2,9 @@ import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
-const StyledNav = styled.nav`
-  margin-left: 92px;
-  padding-top: 14px;
-`;
+type NavigationProps = {
+  className?: string;
+};
 
 const StyledLink = styled(NavLink)`
   color: ${(props) => props.theme.color};
@@ -32,14 +31,14 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-function Navigation() {
+function Navigation({ className }: NavigationProps) {
   const { t } = useTranslation();
 
   return (
-    <StyledNav>
+    <nav className={className}>
       <StyledLink to={'/'}>{t('main_page_nav_text')}</StyledLink>
       <StyledLink to={'/bookings'}>{t('bookings_page_nav_text')}</StyledLink>
-    </StyledNav>
+    </nav>
   );
 }
 
