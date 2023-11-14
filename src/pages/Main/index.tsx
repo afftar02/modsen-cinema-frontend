@@ -14,7 +14,7 @@ import { getMovie } from 'services/movieService';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useTranslation } from 'react-i18next';
 import { VerticalCarousel } from 'modsen-library';
-import useWindowDimensions from '../../hooks/useWindowDimensions';
+import useWindowDimensions from 'hooks/useWindowDimensions';
 
 const MainWrapper = styled.div`
   position: relative;
