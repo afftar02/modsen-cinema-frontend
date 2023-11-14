@@ -44,11 +44,20 @@ const Modal = styled(motion.div)`
   padding: 40px 107px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 840px) {
+    width: 100%;
+  }
+  @media (max-width: 650px) {
+    padding: 40px 50px;
+  }
+  @media (max-width: 500px) {
+    padding: 20px 25px;
+  }
 `;
 
 const TextBlock = styled.div`
   width: 430px;
-  height: 123px;
 
   color: ${(props) => props.theme.color};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
@@ -57,6 +66,10 @@ const TextBlock = styled.div`
   font-style: italic;
   font-weight: 300;
   line-height: normal;
+
+  @media (max-width: 650px) {
+    width: 230px;
+  }
 `;
 
 const BrightText = styled.span`
@@ -85,6 +98,10 @@ const AuthButtonsContainer = styled.div`
 const StyledAuthContainer = styled.div`
   display: flex;
   gap: 20px;
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+  }
 `;
 
 const TextContainer = styled.div`
