@@ -40,6 +40,7 @@ const TextBlock = styled.div`
   display: flex;
   align-items: center;
   min-height: 80px;
+  max-width: 250px;
 
   color: ${(props) => props.theme.color};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
