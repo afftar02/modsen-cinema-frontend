@@ -27,7 +27,7 @@ const CardContainer = styled(motion.div)`
     height: 160px;
   }
   @media (max-width: 430px) {
-    height: 190px;
+    height: 200px;
   }
 `;
 
@@ -69,6 +69,10 @@ const Title = styled.span`
 
   @media (max-width: 430px) {
     font-size: 22px;
+    max-width: 140px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 `;
 
