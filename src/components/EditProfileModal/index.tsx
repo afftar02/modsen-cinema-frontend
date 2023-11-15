@@ -27,11 +27,20 @@ const Modal = styled(motion.div)`
   box-sizing: border-box;
   background-color: ${(props) => props.theme.bgColor};
   padding: 40px 107px;
+
+  @media (max-width: 840px) {
+    width: 100%;
+  }
+  @media (max-width: 600px) {
+    padding: 20px 25px;
+  }
 `;
 
 const TextBlock = styled.div`
-  width: 430px;
-  height: 123px;
+  display: flex;
+  align-items: center;
+  min-height: 100px;
+  max-width: 430px;
 
   color: ${(props) => props.theme.color};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
@@ -40,6 +49,10 @@ const TextBlock = styled.div`
   font-style: italic;
   font-weight: 300;
   line-height: normal;
+
+  @media (max-width: 500px) {
+    max-width: 230px;
+  }
 `;
 
 const StyledForm = styled.form`
@@ -48,6 +61,12 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 50px;
+
+  @media (max-width: 500px) {
+    gap: 35px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
 `;
 
 const SubmitButton = styled(Button)`
@@ -115,7 +134,7 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
   }, [t, avatar, formik, loadUser]);
 
   return (
-    <ModalPortal>
+    <ModalPortal isFixed>
       <Modal
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}

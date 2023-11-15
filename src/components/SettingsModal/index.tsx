@@ -19,19 +19,28 @@ type SettingsModalProps = {
 
 const Modal = styled(motion.div)`
   position: relative;
-  width: 840px;
-  min-height: 500px;
+  width: 780px;
+  min-height: 420px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   background-color: ${(props) => props.theme.bgColor};
   transition: background-color 1s ease-in-out;
-  padding: 40px 107px;
+  padding: 40px 50px;
+
+  @media (max-width: 840px) {
+    width: 100%;
+  }
+  @media (max-width: 550px) {
+    padding: 20px 25px;
+  }
 `;
 
 const TextBlock = styled.div`
-  width: 430px;
-  height: 123px;
+  display: flex;
+  align-items: center;
+  min-height: 80px;
+  max-width: 250px;
 
   color: ${(props) => props.theme.color};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
@@ -43,7 +52,7 @@ const TextBlock = styled.div`
 
 const ApplyButton = styled(Button)`
   width: 100%;
-  margin-top: 80px;
+  margin-top: 40px;
 `;
 
 const SettingsItems = styled.div`
@@ -51,6 +60,10 @@ const SettingsItems = styled.div`
   justify-content: space-around;
   flex-grow: 1;
   align-items: center;
+
+  @media (max-width: 550px) {
+    flex-direction: column;
+  }
 `;
 
 const SettingsItemBlock = styled.div`

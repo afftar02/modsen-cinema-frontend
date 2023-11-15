@@ -17,6 +17,14 @@ const StyledHeader = styled.header`
   justify-content: space-between;
 
   padding: 65px 85px 0;
+
+  @media (max-width: 800px) {
+    padding: 35px 45px 0;
+  }
+  @media (max-width: 700px) {
+    flex-direction: column;
+    gap: 30px;
+  }
 `;
 
 const Flex = styled.div`
@@ -35,6 +43,19 @@ const AnimatedFlex = styled(Flex)`
 
 const StyledContainer = styled.div`
   margin-right: 60px;
+  display: flex;
+  gap: 30px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    gap: 15px;
+  }
+  @media (max-width: 700px) {
+    flex-direction: row;
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledIcon = styled(Icon)`
@@ -50,8 +71,6 @@ const SignInButton = styled(Button)`
   background: ${(props) => props.theme.buttonBgColor};
   color: ${(props) => props.theme.buttonColor};
   transition: color 1s ease-in-out;
-
-  margin-left: 30px;
 `;
 
 const ProfileText = styled.span`
@@ -60,6 +79,18 @@ const ProfileText = styled.span`
   font-size: 40px;
   font-weight: 300;
   margin-right: 30px;
+`;
+
+const LogoIcon = styled(Icon)`
+  margin-right: 92px;
+
+  @media (max-width: 1350px) {
+    display: none;
+  }
+`;
+
+const StyledNavigation = styled(Navigation)`
+  padding-top: 14px;
 `;
 
 function Header() {
@@ -76,8 +107,13 @@ function Header() {
       <StyledHeader>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <Flex>
-            <Icon id="logo" width={245} height={55} fill={theme.logoColor} />
-            <Navigation />
+            <LogoIcon
+              id="logo"
+              width={245}
+              height={55}
+              fill={theme.logoColor}
+            />
+            <StyledNavigation />
           </Flex>
           {isAuth ? (
             <AnimatedFlex onClick={() => setProfileOpened(true)}>

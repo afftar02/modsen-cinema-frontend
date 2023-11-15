@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'modsen-library';
+import useWindowDimensions from 'hooks/useWindowDimensions';
 
 type ProfileMenuProps = {
   onClose: () => void;
@@ -30,6 +31,10 @@ const Wrapper = styled(motion.div)`
   padding-top: 70px;
   padding-bottom: 40px;
   transition: background 1.3s ease-in-out;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const BackArrowIcon = styled(Icon)`
@@ -42,6 +47,10 @@ const BackArrowIcon = styled(Icon)`
   &:hover {
     transform: translateX(5px);
     opacity: 0.5;
+  }
+
+  @media (max-width: 500px) {
+    position: static;
   }
 `;
 
@@ -108,6 +117,7 @@ const ActionText = styled.span`
   text-decoration-line: underline;
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
+  text-align: center;
 
   &:hover {
     opacity: 0.5;
@@ -130,6 +140,7 @@ const AvatarImage = styled.img`
 `;
 
 function ProfileMenu({ onClose }: ProfileMenuProps) {
+  const { width } = useWindowDimensions();
   const { t } = useTranslation();
   const [editProfileOpened, setEditProfileOpened] = useState(false);
   const [settingsOpened, setSettingsOpened] = useState(false);
@@ -173,7 +184,9 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
           data-cy={'close-menu'}
         />
         <ErrorBoundary fallback={<ErrorFallback />}>
-          <ProfileTitle>{t('profile_menu_title')}</ProfileTitle>
+          {width > 500 && (
+            <ProfileTitle>{t('profile_menu_title')}</ProfileTitle>
+          )}
           <ProfileInfoContainer>
             {user?.avatar ? (
               <AvatarContainer>

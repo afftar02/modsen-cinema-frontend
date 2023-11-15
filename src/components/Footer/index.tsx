@@ -8,12 +8,24 @@ const FooterWrapper = styled.div`
   justify-content: center;
   padding-top: 40px;
   padding-bottom: 60px;
+
+  @media (max-width: 1400px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ColumnsContainer = styled.div`
   margin-left: 170px;
   display: flex;
   gap: 38px;
+
+  @media (max-width: 1400px) {
+    margin: 40px 0 0;
+  }
+  @media (max-width: 1050px) {
+    flex-direction: column;
+  }
 `;
 
 const Column = styled.div`
@@ -64,10 +76,18 @@ const InputDescriptionText = styled.span`
   font-weight: 400;
   line-height: 20px;
   opacity: 0.4;
+
+  @media (max-width: 430px) {
+    width: 250px;
+  }
 `;
 
 const SubscribeBlock = styled.div`
   width: 395px;
+
+  @media (max-width: 430px) {
+    width: 100%;
+  }
 `;
 
 function Footer() {

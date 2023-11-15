@@ -58,6 +58,7 @@ const SessionsBlock = styled.div`
   justify-content: center;
   gap: 45px;
   margin: 50px 0;
+  flex-wrap: wrap;
 `;
 
 const ActionContainer = styled.div`
@@ -66,6 +67,10 @@ const ActionContainer = styled.div`
   gap: 45px;
   margin-top: 50px;
   margin-bottom: 45px;
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledButton = styled(Button)`

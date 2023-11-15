@@ -26,6 +26,13 @@ const BookingsWrapper = styled.div`
   flex-direction: column;
   gap: 70px;
   padding: 98px 0 170px 178px;
+
+  @media (max-width: 1000px) {
+    padding: 60px 0 100px 0;
+  }
+  @media (max-width: 650px) {
+    padding: 60px 10px;
+  }
 `;
 
 const BookingsContainer = styled.div`
@@ -33,6 +40,24 @@ const BookingsContainer = styled.div`
   display: flex;
   gap: 100px;
   flex-wrap: wrap;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    justify-content: center;
+  }
+  @media (max-width: 650px) {
+    gap: 60px;
+  }
+`;
+
+const SectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  @media (max-width: 1000px) {
+    align-items: center;
+  }
 `;
 
 function Bookings() {
@@ -62,7 +87,7 @@ function Bookings() {
       <ErrorBoundary fallback={<ErrorFallback />}>
         <BookingsWrapper>
           {tickets.find((ticket) => !ticket.isVisited && !ticket.isMissed) && (
-            <div>
+            <SectionContainer>
               <SectionTitle>{t('upcoming_bookings_title')}</SectionTitle>
               <BookingsContainer>
                 <AnimatePresence>
@@ -79,10 +104,10 @@ function Bookings() {
                   )}
                 </AnimatePresence>
               </BookingsContainer>
-            </div>
+            </SectionContainer>
           )}
           {tickets.find((ticket) => ticket.isVisited) && (
-            <div>
+            <SectionContainer>
               <SectionTitle>{t('past_bookings_title')}</SectionTitle>
               <BookingsContainer>
                 <AnimatePresence>
@@ -99,10 +124,10 @@ function Bookings() {
                   )}
                 </AnimatePresence>
               </BookingsContainer>
-            </div>
+            </SectionContainer>
           )}
           {tickets.find((ticket) => ticket.isMissed) && (
-            <div>
+            <SectionContainer>
               <SectionTitle>{t('missing_bookings_title')}</SectionTitle>
               <BookingsContainer>
                 <AnimatePresence>
@@ -119,7 +144,7 @@ function Bookings() {
                   )}
                 </AnimatePresence>
               </BookingsContainer>
-            </div>
+            </SectionContainer>
           )}
         </BookingsWrapper>
       </ErrorBoundary>

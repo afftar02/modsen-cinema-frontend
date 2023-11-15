@@ -27,12 +27,32 @@ const PageContainer = styled.div`
 
 const Wrapper = styled.div`
   padding: 0 85px;
+
+  @media (max-width: 1000px) {
+    padding: 0 30px;
+  }
+  @media (max-width: 700px) {
+    padding: 0 10px;
+  }
+  @media (max-width: 550px) {
+    padding: 0;
+  }
 `;
 
 const Container = styled.div`
   padding: 171px 120px 155px 120px;
   position: relative;
   margin-top: 46px;
+
+  @media (max-width: 700px) {
+    padding: 170px 80px;
+  }
+  @media (max-width: 550px) {
+    padding: 170px 50px;
+  }
+  @media (max-width: 450px) {
+    padding: 170px 30px;
+  }
 `;
 
 const BackgroundContainer = styled.div<{
@@ -70,6 +90,13 @@ const MoveNextContainer = styled(motion.div)`
     transform: translateX(15px);
     opacity: 0.7;
   }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    position: relative;
+    right: 0;
+    top: 0;
+  }
 `;
 
 const MoveNextText = styled.span`
@@ -79,6 +106,11 @@ const MoveNextText = styled.span`
   font-weight: 500;
   text-decoration-line: underline;
   margin-right: 30px;
+
+  @media (max-width: 800px) {
+    margin: 0;
+    text-align: center;
+  }
 `;
 
 const TrailerBlock = styled.div`
@@ -95,10 +127,24 @@ const TrailerText = styled(motion.span)`
   font-size: 42px;
   font-weight: 500;
   display: inline-block;
+  text-align: center;
 `;
 
 const StyledPreview = styled(VideoPreview)`
   margin-top: 67px;
+
+  @media (max-width: 1100px) {
+    width: 650px;
+    height: 380px;
+  }
+  @media (max-width: 850px) {
+    width: 440px;
+    height: 240px;
+  }
+  @media (max-width: 700px) {
+    width: 370px;
+    height: 190px;
+  }
 `;
 
 const ReviewsBlock = styled.div`
@@ -108,6 +154,7 @@ const ReviewsBlock = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 120px;
+  flex-wrap: wrap;
 `;
 
 function Film() {
