@@ -61,6 +61,12 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 50px;
+
+  @media (max-width: 500px) {
+    gap: 35px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
 `;
 
 const SubmitButton = styled(Button)`
@@ -128,7 +134,7 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
   }, [t, avatar, formik, loadUser]);
 
   return (
-    <ModalPortal>
+    <ModalPortal isFixed>
       <Modal
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
