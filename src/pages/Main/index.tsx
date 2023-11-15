@@ -131,10 +131,12 @@ const MoviePreviewContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 150px;
+  padding-left: 50px;
 
   @media (max-width: 1150px) {
     flex-direction: column;
     gap: 30px;
+    padding-left: 0;
   }
   @media (max-width: 700px) {
     margin-top: 50px;
