@@ -14,6 +14,11 @@ const StyledSpan = styled(motion.span)`
   font-weight: 300;
   text-transform: uppercase;
   display: inline-block;
+  text-align: center;
+
+  @media (max-width: 650px) {
+    font-size: 35px;
+  }
 `;
 
 function SectionTitle({ children }: SectionTitleProps) {

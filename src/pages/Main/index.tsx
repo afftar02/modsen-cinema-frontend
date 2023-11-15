@@ -14,6 +14,7 @@ import { getMovie } from 'services/movieService';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useTranslation } from 'react-i18next';
 import { VerticalCarousel } from 'modsen-library';
+import useWindowDimensions from 'hooks/useWindowDimensions';
 
 const MainWrapper = styled.div`
   position: relative;
@@ -47,12 +48,26 @@ const TrailerTitle = styled.span`
 const TrailerDescription = styled.p`
   width: 594px;
   margin: 10px 0 0;
-
   font-size: 32px;
+
+  @media (max-width: 1500px) {
+    width: 400px;
+  }
+  @media (max-width: 1150px) {
+    width: 594px;
+  }
+  @media (max-width: 700px) {
+    width: 360px;
+    font-size: 25px;
+  }
 `;
 
 const CurrentMoviesContainer = styled(motion.div)`
   margin-right: 50px;
+
+  @media (max-width: 1250px) {
+    margin: 0 0 50px;
+  }
 `;
 
 const CurrentMoviesTitle = styled.span`
@@ -63,6 +78,10 @@ const CurrentMoviesTitle = styled.span`
   font-style: italic;
   font-weight: 300;
   text-transform: uppercase;
+
+  @media (max-width: 700px) {
+    font-size: 38px;
+  }
 `;
 
 const CurrentMoviesDescription = styled.p`
@@ -75,6 +94,11 @@ const CurrentMoviesDescription = styled.p`
   font-size: 40px;
   font-style: italic;
   font-weight: 300;
+
+  @media (max-width: 700px) {
+    width: 360px;
+    font-size: 30px;
+  }
 `;
 
 const StyledYear = styled(motion.span)`
@@ -85,8 +109,52 @@ const StyledYear = styled(motion.span)`
   font-weight: 300;
 `;
 
+const StyledVideoPreview = styled(VideoPreview)`
+  @media (max-width: 1500px) {
+    width: 650px;
+    height: 380px;
+  }
+  @media (max-width: 700px) {
+    width: 360px;
+    height: 200px;
+  }
+`;
+
+const StudiosImage = styled(motion.img)`
+  @media (max-width: 700px) {
+    width: 360px;
+  }
+`;
+
+const MoviePreviewContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+
+  @media (max-width: 1150px) {
+    flex-direction: column;
+    gap: 30px;
+  }
+  @media (max-width: 700px) {
+    margin-top: 50px;
+  }
+`;
+
+const MoviesContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 86px;
+
+  @media (max-width: 1250px) {
+    flex-direction: column;
+  }
+`;
+
 function Main() {
   const { t, i18n } = useTranslation();
+  const { width } = useWindowDimensions();
   const movies = useAppSelector(selectMovies);
   const [lastMovie, setLastMovie] = useState<MovieType>();
 
@@ -115,7 +183,7 @@ function Main() {
     <MainWrapper>
       <Header />
       <ErrorBoundary fallback={<ErrorFallback />}>
-        <Flex $marginTop={150}>
+        <MoviePreviewContainer>
           <DescriptionContainer
             initial={{ opacity: 0, translateY: '100px' }}
             whileInView={{ opacity: 1, translateY: 0 }}
@@ -128,13 +196,13 @@ function Main() {
             <TrailerTitle>{lastMovie?.title}</TrailerTitle>
             <TrailerDescription>{lastMovie?.description}</TrailerDescription>
           </DescriptionContainer>
-          <VideoPreview
+          <StyledVideoPreview
             previewUrl={BASE_UPLOADS_URL + lastMovie?.trailer?.preview.filename}
             videoUrl={BASE_UPLOADS_URL + lastMovie?.trailer?.filename}
-            isHiding
+            isHiding={width > 1150}
           />
-        </Flex>
-        <Flex $marginTop={86} $height={497}>
+        </MoviePreviewContainer>
+        <MoviesContainer>
           <CurrentMoviesContainer
             initial={{ opacity: 0, translateX: '-100px' }}
             whileInView={{ opacity: 1, translateX: 0 }}
@@ -158,9 +226,9 @@ function Main() {
             buttonsColor={theme.color}
             linkPrefix={'/film'}
           />
-        </Flex>
+        </MoviesContainer>
         <Flex $marginTop={150}>
-          <motion.img
+          <StudiosImage
             src="images/studios.svg"
             alt="studios"
             initial={{ opacity: 0, translateY: '100%' }}
