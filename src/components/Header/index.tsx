@@ -81,7 +81,7 @@ const ProfileText = styled.span`
   margin-right: 30px;
 `;
 
-const LogoIcon = styled(Icon)`
+const LogoLink = styled(Link)`
   margin-right: 92px;
 
   @media (max-width: 1350px) {
@@ -107,12 +107,9 @@ function Header() {
       <StyledHeader>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <Flex>
-            <LogoIcon
-              id="logo"
-              width={245}
-              height={55}
-              fill={theme.logoColor}
-            />
+            <LogoLink to="/">
+              <Icon id="logo" width={245} height={55} fill={theme.logoColor} />
+            </LogoLink>
             <StyledNavigation />
           </Flex>
           {isAuth ? (
