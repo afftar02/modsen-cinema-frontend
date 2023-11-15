@@ -117,6 +117,7 @@ const ActionText = styled.span`
   text-decoration-line: underline;
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
+  text-align: center;
 
   &:hover {
     opacity: 0.5;
