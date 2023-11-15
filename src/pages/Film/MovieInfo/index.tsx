@@ -13,11 +13,17 @@ type MovieInfoProps = {
 
 const MovieInfoContainer = styled.div`
   position: relative;
+
+  @media (max-width: 1500px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+  }
 `;
 
 const MovieTitleContainer = styled(motion.div)`
-  width: 630px;
-  height: 130px;
+  margin-bottom: 34px;
 `;
 
 const MovieTitleText = styled.span`
@@ -31,6 +37,11 @@ const MovieTitleText = styled.span`
 const MovieDataContainer = styled.div`
   display: flex;
   margin: 34px 0;
+
+  @media (max-width: 1500px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const PosterContainer = styled(motion.div)`
@@ -42,6 +53,11 @@ const PosterContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+
+  @media (max-width: 700px) {
+    width: 300px;
+    height: 400px;
+  }
 `;
 
 const Poster = styled.img`
@@ -51,11 +67,19 @@ const Poster = styled.img`
 
 const MovieDataBlock = styled(motion.div)`
   margin-left: 70px;
+
+  @media (max-width: 1500px) {
+    margin: 0;
+  }
 `;
 
 const InfoBlock = styled.div`
   margin-top: 20px;
   width: 680px;
+
+  @media (max-width: 1500px) {
+    width: 100%;
+  }
 `;
 
 const InfoLabel = styled.span`
@@ -78,6 +102,11 @@ const BookingBlock = styled.div`
   display: flex;
   gap: 50px;
   align-items: center;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const RatingBlock = styled.div`
@@ -93,7 +122,7 @@ const RatingText = styled.span`
   font-weight: 700;
 `;
 
-const DescriptionText = styled(motion.p)`
+const DescriptionText = styled(motion.span)`
   color: #fff;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 32px;
