@@ -1,7 +1,7 @@
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import { styled, useTheme } from 'styled-components';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { THEMES } from 'constants/Themes';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGES } from 'constants/Languages';
 import { Button, RadioButton } from 'modsen-library';
-import OutsideHandler from 'components/OutsideHandler';
+import { useClickOutside } from 'hooks/useClickOutside';
 
 type SettingsModalProps = {
   onClose: () => void;
@@ -92,8 +92,11 @@ function SettingsModal({ onClose }: SettingsModalProps) {
   const currentTheme = useAppSelector(selectThemeValue);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
   const [selectedTheme, setSelectedTheme] = useState(currentTheme);
+  const modalRef = useRef(null);
 
   const dispatch = useAppDispatch();
+
+  useClickOutside(modalRef, onClose);
 
   const applySettings = useCallback(async () => {
     if (currentTheme !== selectedTheme) {
@@ -108,64 +111,63 @@ function SettingsModal({ onClose }: SettingsModalProps) {
 
   return (
     <ModalPortal isFixed>
-      <OutsideHandler onClick={onClose}>
-        <Modal
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.5, opacity: 0 }}
-          transition={{
-            duration: 0.3,
-          }}
-        >
-          <CloseIcon onClick={onClose} />
-          <ErrorBoundary fallback={<ErrorFallback />}>
-            <TextBlock>
-              <span>{t('settings_title')}</span>
-            </TextBlock>
-            <SettingsItems>
-              <SettingsItemBlock>
-                <SettingsItemTitle>{t('language_title')}</SettingsItemTitle>
-                <SettingsItemValues>
-                  {LANGUAGES.map((item, index) => (
-                    <RadioButton
-                      key={index}
-                      id={item}
-                      name={'language'}
-                      value={item}
-                      text={t(item)}
-                      checked={selectedLanguage === item}
-                      checkedColor={'#d98639'}
-                      buttonBgColor={theme.buttonBgColor}
-                      textColor={theme.color}
-                      onClick={() => setSelectedLanguage(item)}
-                    />
-                  ))}
-                </SettingsItemValues>
-              </SettingsItemBlock>
-              <SettingsItemBlock>
-                <SettingsItemTitle>{t('theme_title')}</SettingsItemTitle>
-                <SettingsItemValues>
-                  {Object.values(THEMES).map((item, index) => (
-                    <RadioButton
-                      key={index}
-                      id={item.value}
-                      name={'theme'}
-                      value={item.value}
-                      text={t(`${item.value.toLowerCase()}_theme`)}
-                      checked={selectedTheme === item.value}
-                      checkedColor={'#d98639'}
-                      buttonBgColor={theme.buttonBgColor}
-                      textColor={theme.color}
-                      onClick={() => setSelectedTheme(item.value)}
-                    />
-                  ))}
-                </SettingsItemValues>
-              </SettingsItemBlock>
-            </SettingsItems>
-            <ApplyButton onClick={applySettings}>{t('apply_text')}</ApplyButton>
-          </ErrorBoundary>
-        </Modal>
-      </OutsideHandler>
+      <Modal
+        ref={modalRef}
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.5, opacity: 0 }}
+        transition={{
+          duration: 0.3,
+        }}
+      >
+        <CloseIcon onClick={onClose} />
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <TextBlock>
+            <span>{t('settings_title')}</span>
+          </TextBlock>
+          <SettingsItems>
+            <SettingsItemBlock>
+              <SettingsItemTitle>{t('language_title')}</SettingsItemTitle>
+              <SettingsItemValues>
+                {LANGUAGES.map((item, index) => (
+                  <RadioButton
+                    key={index}
+                    id={item}
+                    name={'language'}
+                    value={item}
+                    text={t(item)}
+                    checked={selectedLanguage === item}
+                    checkedColor={'#d98639'}
+                    buttonBgColor={theme.buttonBgColor}
+                    textColor={theme.color}
+                    onClick={() => setSelectedLanguage(item)}
+                  />
+                ))}
+              </SettingsItemValues>
+            </SettingsItemBlock>
+            <SettingsItemBlock>
+              <SettingsItemTitle>{t('theme_title')}</SettingsItemTitle>
+              <SettingsItemValues>
+                {Object.values(THEMES).map((item, index) => (
+                  <RadioButton
+                    key={index}
+                    id={item.value}
+                    name={'theme'}
+                    value={item.value}
+                    text={t(`${item.value.toLowerCase()}_theme`)}
+                    checked={selectedTheme === item.value}
+                    checkedColor={'#d98639'}
+                    buttonBgColor={theme.buttonBgColor}
+                    textColor={theme.color}
+                    onClick={() => setSelectedTheme(item.value)}
+                  />
+                ))}
+              </SettingsItemValues>
+            </SettingsItemBlock>
+          </SettingsItems>
+          <ApplyButton onClick={applySettings}>{t('apply_text')}</ApplyButton>
+        </ErrorBoundary>
+      </Modal>
     </ModalPortal>
   );
 }

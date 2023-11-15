@@ -13,4 +13,5 @@ export type Theme = {
   footerInputBgColor: string;
   googleButtonBorderColor: string;
   profileMenuBgColor: string;
+  selectHoverColor: string;
 };

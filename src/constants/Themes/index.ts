@@ -14,6 +14,7 @@ export const THEMES: ThemeVariantsType = {
     footerInputBgColor: 'rgba(255,255,255,0.15)',
     googleButtonBorderColor: 'transparent',
     profileMenuBgColor: '#1c1c1c',
+    selectHoverColor: '#424356',
   },
   Light: {
     value: 'Light',
@@ -28,5 +29,6 @@ export const THEMES: ThemeVariantsType = {
     footerInputBgColor: 'rgba(0,0,0,0.15)',
     googleButtonBorderColor: '#000000',
     profileMenuBgColor: '#d3d3d3',
+    selectHoverColor: '#adadad',
   },
 };

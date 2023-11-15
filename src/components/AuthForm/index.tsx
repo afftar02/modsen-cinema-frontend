@@ -9,7 +9,7 @@ import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 import { motion } from 'framer-motion';
 import CloseIcon from 'components/CloseIcon';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { AxiosError } from 'axios';
 import { useTranslation } from 'react-i18next';
 import {
@@ -25,7 +25,7 @@ import {
   Input,
   PasswordInput,
 } from 'modsen-library';
-import OutsideHandler from 'components/OutsideHandler';
+import { useClickOutside } from 'hooks/useClickOutside';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -150,6 +150,9 @@ function AuthForm({
   const theme = useTheme();
   const navigate = useNavigate();
   const { register, login } = useAuth() as AuthContextType;
+  const modalRef = useRef(null);
+
+  useClickOutside(modalRef, () => navigate('/'));
 
   const formik = useFormik({
     initialValues: {
@@ -192,104 +195,99 @@ function AuthForm({
 
   return (
     <ModalPortal>
-      <OutsideHandler onClick={() => navigate('/')}>
-        <Modal
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.5, opacity: 0 }}
-          transition={{
-            duration: 0.3,
-          }}
-        >
-          <Link to="/">
-            <CloseIcon />
-          </Link>
-          <ErrorBoundary fallback={<ErrorFallback />}>
-            <TextBlock>
-              <span>{title}</span>
-              <BrightText> {brightTitle}</BrightText>
-            </TextBlock>
-            <StyledForm onSubmit={formik.handleSubmit}>
-              {isSignUp && (
-                <Input
-                  iconId={'name'}
-                  placeholder={
-                    formik.errors.name ?? t('name_input_placeholder')
-                  }
-                  onChange={formik.handleChange}
-                  value={formik.values.name}
-                  onClick={() => formik.setFieldError('name', undefined)}
-                  name={'name'}
-                  isError={!!formik.errors.name}
-                  color={theme.color}
-                />
-              )}
-              {isSignUp && (
-                <Input
-                  iconId={'surname'}
-                  placeholder={
-                    formik.errors.surname ?? t('surname_input_placeholder')
-                  }
-                  onChange={formik.handleChange}
-                  value={formik.values.surname}
-                  onClick={() => formik.setFieldError('surname', undefined)}
-                  name={'surname'}
-                  isError={!!formik.errors.surname}
-                  color={theme.color}
-                />
-              )}
+      <Modal
+        ref={modalRef}
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.5, opacity: 0 }}
+        transition={{
+          duration: 0.3,
+        }}
+      >
+        <Link to="/">
+          <CloseIcon />
+        </Link>
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <TextBlock>
+            <span>{title}</span>
+            <BrightText> {brightTitle}</BrightText>
+          </TextBlock>
+          <StyledForm onSubmit={formik.handleSubmit}>
+            {isSignUp && (
               <Input
-                iconId={'email'}
-                placeholder={
-                  formik.errors.email ?? t('email_input_placeholder')
-                }
+                iconId={'name'}
+                placeholder={formik.errors.name ?? t('name_input_placeholder')}
                 onChange={formik.handleChange}
-                value={formik.values.email}
-                onClick={() => formik.setFieldError('email', undefined)}
-                name={'email'}
-                isError={!!formik.errors.email}
+                value={formik.values.name}
+                onClick={() => formik.setFieldError('name', undefined)}
+                name={'name'}
+                isError={!!formik.errors.name}
                 color={theme.color}
               />
-              <PasswordInput
+            )}
+            {isSignUp && (
+              <Input
+                iconId={'surname'}
                 placeholder={
-                  formik.errors.password ?? t('password_input_placeholder')
+                  formik.errors.surname ?? t('surname_input_placeholder')
                 }
                 onChange={formik.handleChange}
-                value={formik.values.password}
-                onClick={() => formik.setFieldError('password', undefined)}
-                isError={!!formik.errors.password}
+                value={formik.values.surname}
+                onClick={() => formik.setFieldError('surname', undefined)}
+                name={'surname'}
+                isError={!!formik.errors.surname}
                 color={theme.color}
               />
-              <SubmitButton type={'submit'}>{t('send_text')}</SubmitButton>
-            </StyledForm>
-            <AuthButtonsContainer>
-              <StyledAuthContainer>
-                <GoogleAuthButton
-                  authUrl={GOOGLE_AUTH_URL}
-                  text={t('google_auth')}
-                  borderColor={theme.googleButtonBorderColor}
-                />
-                <FacebookAuthButton
-                  authUrl={FACEBOOK_AUTH_URL}
-                  text={t('facebook_auth')}
-                />
-              </StyledAuthContainer>
-              <GitHubAuthButton
-                authUrl={GITHUB_AUTH_URL}
-                text={t('github_auth')}
+            )}
+            <Input
+              iconId={'email'}
+              placeholder={formik.errors.email ?? t('email_input_placeholder')}
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              onClick={() => formik.setFieldError('email', undefined)}
+              name={'email'}
+              isError={!!formik.errors.email}
+              color={theme.color}
+            />
+            <PasswordInput
+              placeholder={
+                formik.errors.password ?? t('password_input_placeholder')
+              }
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              onClick={() => formik.setFieldError('password', undefined)}
+              isError={!!formik.errors.password}
+              color={theme.color}
+            />
+            <SubmitButton type={'submit'}>{t('send_text')}</SubmitButton>
+          </StyledForm>
+          <AuthButtonsContainer>
+            <StyledAuthContainer>
+              <GoogleAuthButton
+                authUrl={GOOGLE_AUTH_URL}
+                text={t('google_auth')}
+                borderColor={theme.googleButtonBorderColor}
               />
-            </AuthButtonsContainer>
-            <TextContainer>
-              <StyledText>{hint}</StyledText>
-              {hintLink && (
-                <Link to={hintLink}>
-                  <UnderlinedText>{underlinedHint}</UnderlinedText>
-                </Link>
-              )}
-            </TextContainer>
-          </ErrorBoundary>
-        </Modal>
-      </OutsideHandler>
+              <FacebookAuthButton
+                authUrl={FACEBOOK_AUTH_URL}
+                text={t('facebook_auth')}
+              />
+            </StyledAuthContainer>
+            <GitHubAuthButton
+              authUrl={GITHUB_AUTH_URL}
+              text={t('github_auth')}
+            />
+          </AuthButtonsContainer>
+          <TextContainer>
+            <StyledText>{hint}</StyledText>
+            {hintLink && (
+              <Link to={hintLink}>
+                <UnderlinedText>{underlinedHint}</UnderlinedText>
+              </Link>
+            )}
+          </TextContainer>
+        </ErrorBoundary>
+      </Modal>
     </ModalPortal>
   );
 }

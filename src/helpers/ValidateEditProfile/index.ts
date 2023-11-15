@@ -11,11 +11,6 @@ interface Values {
 export const validateEditProfile = (values: Values, t: TFunction) => {
   const errors: Formik.FormikErrors<Values> = {};
 
-  if (values.gender && values.gender !== 'FEMALE' && values.gender !== 'MALE') {
-    errors.gender = t('invalid_gender_error');
-    values.gender = '';
-  }
-
   if (
     values.password &&
     (values.password.length < 4 || values.password.length > 16)
