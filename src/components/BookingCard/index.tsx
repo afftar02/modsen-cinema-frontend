@@ -20,6 +20,15 @@ const CardContainer = styled(motion.div)`
   flex-shrink: 0;
   border-radius: 18px;
   background: rgba(118, 118, 120, 0.9);
+  align-items: center;
+
+  @media (max-width: 650px) {
+    width: 100%;
+    height: 160px;
+  }
+  @media (max-width: 430px) {
+    height: 190px;
+  }
 `;
 
 const StyledImage = styled.img`
@@ -28,12 +37,21 @@ const StyledImage = styled.img`
   border-radius: 18px;
   box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.25);
   cursor: pointer;
+
+  @media (max-width: 650px) {
+    width: 120px;
+    height: 160px;
+  }
 `;
 
 const InfoBlock = styled.div`
   width: 100%;
   position: relative;
   padding: 16px 30px 0 20px;
+
+  @media (max-width: 650px) {
+    padding: 6px 14px 0 8px;
+  }
 `;
 
 const TitleBlock = styled.div`
@@ -48,7 +66,10 @@ const Title = styled.span`
   font-family: 'Poppins', sans-serif;
   font-size: 26px;
   font-weight: 700;
-  height: 36px;
+
+  @media (max-width: 430px) {
+    font-size: 22px;
+  }
 `;
 
 const Rating = styled.span`
@@ -61,6 +82,10 @@ const Rating = styled.span`
 
 const AdditionalInfoBlock = styled.div`
   margin-top: 14px;
+
+  @media (max-width: 650px) {
+    margin-top: 0;
+  }
 `;
 
 const DateText = styled.span`
@@ -91,6 +116,12 @@ const Divider = styled.div`
   background: #d9d9d9;
   margin-top: 12px;
   margin-bottom: 10px;
+
+  @media (max-width: 650px) {
+    width: 50%;
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
 `;
 
 const TicketSumContainer = styled.div`
@@ -134,6 +165,10 @@ const CancelButton = styled.button`
   &:hover {
     background: #bd6f28;
   }
+
+  @media (max-width: 430px) {
+    right: 10px;
+  }
 `;
 
 const CancelIcon = styled(Icon)`
@@ -142,7 +177,9 @@ const CancelIcon = styled(Icon)`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  height: 36px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 function BookingCard({
