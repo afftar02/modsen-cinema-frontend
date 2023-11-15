@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 type ModalPortalProps = {
@@ -22,6 +22,16 @@ const ModalWrapper = styled.div<{ $isFixed: boolean }>`
 `;
 
 function ModalPortal({ children, isFixed = false }: ModalPortalProps) {
+  useEffect(() => {
+    if (isFixed) {
+      document.body.style.overflow = 'hidden';
+
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isFixed]);
+
   return createPortal(
     <ModalWrapper $isFixed={isFixed}>{children}</ModalWrapper>,
     document.body

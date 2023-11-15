@@ -25,6 +25,7 @@ import {
   Input,
   PasswordInput,
 } from 'modsen-library';
+import OutsideHandler from 'components/OutsideHandler';
 
 type AuthFormProps = {
   isSignUp?: boolean;
@@ -191,98 +192,104 @@ function AuthForm({
 
   return (
     <ModalPortal>
-      <Modal
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.5, opacity: 0 }}
-        transition={{
-          duration: 0.3,
-        }}
-      >
-        <Link to="/">
-          <CloseIcon />
-        </Link>
-        <ErrorBoundary fallback={<ErrorFallback />}>
-          <TextBlock>
-            <span>{title}</span>
-            <BrightText> {brightTitle}</BrightText>
-          </TextBlock>
-          <StyledForm onSubmit={formik.handleSubmit}>
-            {isSignUp && (
+      <OutsideHandler onClick={() => navigate('/')}>
+        <Modal
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.5, opacity: 0 }}
+          transition={{
+            duration: 0.3,
+          }}
+        >
+          <Link to="/">
+            <CloseIcon />
+          </Link>
+          <ErrorBoundary fallback={<ErrorFallback />}>
+            <TextBlock>
+              <span>{title}</span>
+              <BrightText> {brightTitle}</BrightText>
+            </TextBlock>
+            <StyledForm onSubmit={formik.handleSubmit}>
+              {isSignUp && (
+                <Input
+                  iconId={'name'}
+                  placeholder={
+                    formik.errors.name ?? t('name_input_placeholder')
+                  }
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                  onClick={() => formik.setFieldError('name', undefined)}
+                  name={'name'}
+                  isError={!!formik.errors.name}
+                  color={theme.color}
+                />
+              )}
+              {isSignUp && (
+                <Input
+                  iconId={'surname'}
+                  placeholder={
+                    formik.errors.surname ?? t('surname_input_placeholder')
+                  }
+                  onChange={formik.handleChange}
+                  value={formik.values.surname}
+                  onClick={() => formik.setFieldError('surname', undefined)}
+                  name={'surname'}
+                  isError={!!formik.errors.surname}
+                  color={theme.color}
+                />
+              )}
               <Input
-                iconId={'name'}
-                placeholder={formik.errors.name ?? t('name_input_placeholder')}
-                onChange={formik.handleChange}
-                value={formik.values.name}
-                onClick={() => formik.setFieldError('name', undefined)}
-                name={'name'}
-                isError={!!formik.errors.name}
-                color={theme.color}
-              />
-            )}
-            {isSignUp && (
-              <Input
-                iconId={'surname'}
+                iconId={'email'}
                 placeholder={
-                  formik.errors.surname ?? t('surname_input_placeholder')
+                  formik.errors.email ?? t('email_input_placeholder')
                 }
                 onChange={formik.handleChange}
-                value={formik.values.surname}
-                onClick={() => formik.setFieldError('surname', undefined)}
-                name={'surname'}
-                isError={!!formik.errors.surname}
+                value={formik.values.email}
+                onClick={() => formik.setFieldError('email', undefined)}
+                name={'email'}
+                isError={!!formik.errors.email}
                 color={theme.color}
               />
-            )}
-            <Input
-              iconId={'email'}
-              placeholder={formik.errors.email ?? t('email_input_placeholder')}
-              onChange={formik.handleChange}
-              value={formik.values.email}
-              onClick={() => formik.setFieldError('email', undefined)}
-              name={'email'}
-              isError={!!formik.errors.email}
-              color={theme.color}
-            />
-            <PasswordInput
-              placeholder={
-                formik.errors.password ?? t('password_input_placeholder')
-              }
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              onClick={() => formik.setFieldError('password', undefined)}
-              isError={!!formik.errors.password}
-              color={theme.color}
-            />
-            <SubmitButton type={'submit'}>{t('send_text')}</SubmitButton>
-          </StyledForm>
-          <AuthButtonsContainer>
-            <StyledAuthContainer>
-              <GoogleAuthButton
-                authUrl={GOOGLE_AUTH_URL}
-                text={t('google_auth')}
-                borderColor={theme.googleButtonBorderColor}
+              <PasswordInput
+                placeholder={
+                  formik.errors.password ?? t('password_input_placeholder')
+                }
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                onClick={() => formik.setFieldError('password', undefined)}
+                isError={!!formik.errors.password}
+                color={theme.color}
               />
-              <FacebookAuthButton
-                authUrl={FACEBOOK_AUTH_URL}
-                text={t('facebook_auth')}
+              <SubmitButton type={'submit'}>{t('send_text')}</SubmitButton>
+            </StyledForm>
+            <AuthButtonsContainer>
+              <StyledAuthContainer>
+                <GoogleAuthButton
+                  authUrl={GOOGLE_AUTH_URL}
+                  text={t('google_auth')}
+                  borderColor={theme.googleButtonBorderColor}
+                />
+                <FacebookAuthButton
+                  authUrl={FACEBOOK_AUTH_URL}
+                  text={t('facebook_auth')}
+                />
+              </StyledAuthContainer>
+              <GitHubAuthButton
+                authUrl={GITHUB_AUTH_URL}
+                text={t('github_auth')}
               />
-            </StyledAuthContainer>
-            <GitHubAuthButton
-              authUrl={GITHUB_AUTH_URL}
-              text={t('github_auth')}
-            />
-          </AuthButtonsContainer>
-          <TextContainer>
-            <StyledText>{hint}</StyledText>
-            {hintLink && (
-              <Link to={hintLink}>
-                <UnderlinedText>{underlinedHint}</UnderlinedText>
-              </Link>
-            )}
-          </TextContainer>
-        </ErrorBoundary>
-      </Modal>
+            </AuthButtonsContainer>
+            <TextContainer>
+              <StyledText>{hint}</StyledText>
+              {hintLink && (
+                <Link to={hintLink}>
+                  <UnderlinedText>{underlinedHint}</UnderlinedText>
+                </Link>
+              )}
+            </TextContainer>
+          </ErrorBoundary>
+        </Modal>
+      </OutsideHandler>
     </ModalPortal>
   );
 }

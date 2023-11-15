@@ -13,6 +13,7 @@ import { updateUser } from 'services/userService';
 import { UserType } from 'types/User';
 import { useTranslation } from 'react-i18next';
 import { Button, FileInput, Input, PasswordInput } from 'modsen-library';
+import OutsideHandler from 'components/OutsideHandler';
 
 type EditProfileFormProps = {
   onClose: () => void;
@@ -135,74 +136,78 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
 
   return (
     <ModalPortal isFixed>
-      <Modal
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.5, opacity: 0 }}
-        transition={{
-          duration: 0.3,
-        }}
-      >
-        <CloseIcon onClick={onClose} />
-        <ErrorBoundary fallback={<ErrorFallback />}>
-          <TextBlock>
-            <span>{t('edit_profile_title')}</span>
-          </TextBlock>
-          <StyledForm onSubmit={formik.handleSubmit}>
-            <FileInput
-              value={avatar?.name}
-              onChange={handleFileUpload}
-              uploadText={t('upload_avatar_text')}
-              uploadedText={t('uploaded_file_text')}
-              textColor={theme.color}
-              borderColor={theme.color}
-              uploadedButtonBgColor={theme.buttonBgColor}
-              uploadedButtonColor={theme.buttonColor}
-            />
-            <Input
-              placeholder={formik.errors.name ?? t('edit_name_placeholder')}
-              onChange={formik.handleChange}
-              value={formik.values.name}
-              onClick={() => formik.setFieldError('name', undefined)}
-              name={'name'}
-              isError={!!formik.errors.name}
-              color={theme.color}
-            />
-            <Input
-              placeholder={
-                formik.errors.surname ?? t('edit_surname_placeholder')
-              }
-              onChange={formik.handleChange}
-              value={formik.values.surname}
-              onClick={() => formik.setFieldError('surname', undefined)}
-              name={'surname'}
-              isError={!!formik.errors.surname}
-              color={theme.color}
-            />
-            <Input
-              placeholder={formik.errors.gender ?? t('edit_gender_placeholder')}
-              onChange={formik.handleChange}
-              value={formik.values.gender}
-              onClick={() => formik.setFieldError('gender', undefined)}
-              name={'gender'}
-              isError={!!formik.errors.gender}
-              color={theme.color}
-            />
-            <PasswordInput
-              withIcon={false}
-              placeholder={
-                formik.errors.password ?? t('edit_password_placeholder')
-              }
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              onClick={() => formik.setFieldError('password', undefined)}
-              isError={!!formik.errors.password}
-              color={theme.color}
-            />
-            <SubmitButton type={'submit'}>{t('save_text')}</SubmitButton>
-          </StyledForm>
-        </ErrorBoundary>
-      </Modal>
+      <OutsideHandler onClick={onClose}>
+        <Modal
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.5, opacity: 0 }}
+          transition={{
+            duration: 0.3,
+          }}
+        >
+          <CloseIcon onClick={onClose} />
+          <ErrorBoundary fallback={<ErrorFallback />}>
+            <TextBlock>
+              <span>{t('edit_profile_title')}</span>
+            </TextBlock>
+            <StyledForm onSubmit={formik.handleSubmit}>
+              <FileInput
+                value={avatar?.name}
+                onChange={handleFileUpload}
+                uploadText={t('upload_avatar_text')}
+                uploadedText={t('uploaded_file_text')}
+                textColor={theme.color}
+                borderColor={theme.color}
+                uploadedButtonBgColor={theme.buttonBgColor}
+                uploadedButtonColor={theme.buttonColor}
+              />
+              <Input
+                placeholder={formik.errors.name ?? t('edit_name_placeholder')}
+                onChange={formik.handleChange}
+                value={formik.values.name}
+                onClick={() => formik.setFieldError('name', undefined)}
+                name={'name'}
+                isError={!!formik.errors.name}
+                color={theme.color}
+              />
+              <Input
+                placeholder={
+                  formik.errors.surname ?? t('edit_surname_placeholder')
+                }
+                onChange={formik.handleChange}
+                value={formik.values.surname}
+                onClick={() => formik.setFieldError('surname', undefined)}
+                name={'surname'}
+                isError={!!formik.errors.surname}
+                color={theme.color}
+              />
+              <Input
+                placeholder={
+                  formik.errors.gender ?? t('edit_gender_placeholder')
+                }
+                onChange={formik.handleChange}
+                value={formik.values.gender}
+                onClick={() => formik.setFieldError('gender', undefined)}
+                name={'gender'}
+                isError={!!formik.errors.gender}
+                color={theme.color}
+              />
+              <PasswordInput
+                withIcon={false}
+                placeholder={
+                  formik.errors.password ?? t('edit_password_placeholder')
+                }
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                onClick={() => formik.setFieldError('password', undefined)}
+                isError={!!formik.errors.password}
+                color={theme.color}
+              />
+              <SubmitButton type={'submit'}>{t('save_text')}</SubmitButton>
+            </StyledForm>
+          </ErrorBoundary>
+        </Modal>
+      </OutsideHandler>
     </ModalPortal>
   );
 }
