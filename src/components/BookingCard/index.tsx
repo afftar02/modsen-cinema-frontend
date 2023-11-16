@@ -53,24 +53,22 @@ function BookingCard({
         />
       </StyledLink>
       <InfoBlock>
-        <div>
-          <TitleBlock>
-            <StyledLink to={`/film/${ticket.movie?.id}`}>
-              <Title>{ticket.movie?.title}</Title>
-            </StyledLink>
-            <div>
-              <Rating>{ticket.movie?.rating}</Rating>
-              <Icon id={'star'} width={20} height={20} viewBox="0 0 39 35" />
-            </div>
-          </TitleBlock>
-          <AdditionalInfoBlock>
-            <DateText>{dateInfo}</DateText>
-            <TicketNumberBlock>
-              <Icon id={'ticket'} width={23} height={23} viewBox="0 0 23 23" />
-              <TicketNumber>TC{ticket.id}</TicketNumber>
-            </TicketNumberBlock>
-          </AdditionalInfoBlock>
-        </div>
+        <TitleBlock>
+          <StyledLink to={`/film/${ticket.movie?.id}`}>
+            <Title>{ticket.movie?.title}</Title>
+          </StyledLink>
+          <div>
+            <Rating>{ticket.movie?.rating}</Rating>
+            <Icon id={'star'} width={20} height={20} viewBox="0 0 39 35" />
+          </div>
+        </TitleBlock>
+        <AdditionalInfoBlock>
+          <DateText>{dateInfo}</DateText>
+          <TicketNumberBlock>
+            <Icon id={'ticket'} width={23} height={23} viewBox="0 0 23 23" />
+            <TicketNumber>TC{ticket.id}</TicketNumber>
+          </TicketNumberBlock>
+        </AdditionalInfoBlock>
         <Divider />
         <TicketSumContainer>
           <SeatsNumber>
