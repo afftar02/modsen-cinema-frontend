@@ -1,6 +1,8 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { useTicketDate } from 'hooks/useTicketDate';
+import { useTicketPrice } from 'hooks/useTicketPrice';
 import { Icon } from 'modsen-library';
 
 import {
@@ -31,25 +33,8 @@ function BookingCard({
 }: BookingCardProps) {
   const { t } = useTranslation();
 
-  const price = useMemo(() => {
-    if (ticket.seats) {
-      const result =
-        ticket.seats.reduce((sum, seat) => sum + seat.price, 0) *
-        (1 - ticket.discount / 100);
-
-      return result.toFixed(1);
-    }
-  }, [ticket]);
-
-  const dateInfo = useMemo(() => {
-    if (ticket.session) {
-      const date = new Date(ticket.session?.start);
-
-      return `${t('date_text')}: ${t(
-        `months.${date.getMonth() + 1}`
-      )} ${date.getDate()}, ${date.getFullYear()}`;
-    }
-  }, [t, ticket.session]);
+  const price = useTicketPrice(ticket);
+  const dateInfo = useTicketDate(ticket);
 
   return (
     <CardContainer
