@@ -1,18 +1,19 @@
-import ErrorBoundary from 'components/ErrorBoundary';
-import ErrorFallback from 'components/ErrorFallback';
-import { styled, useTheme } from 'styled-components';
 import { useCallback, useRef, useState } from 'react';
-import { THEMES } from 'constants/Themes';
-import ModalPortal from 'components/ModalPortal';
-import { motion } from 'framer-motion';
-import { changeTheme } from 'redux/slices/ThemeSlice';
-import { selectThemeValue } from 'redux/selectors/theme';
-import CloseIcon from 'components/CloseIcon';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGES } from 'constants/Languages';
-import { Button, RadioButton } from 'modsen-library';
+import { THEMES } from 'constants/Themes';
+import { motion } from 'framer-motion';
 import { useClickOutside } from 'hooks/useClickOutside';
+import { Button, RadioButton } from 'modsen-library';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { selectThemeValue } from 'redux/selectors/theme';
+import { changeTheme } from 'redux/slices/ThemeSlice';
+import { styled, useTheme } from 'styled-components';
+
+import CloseIcon from 'components/CloseIcon';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
+import ModalPortal from 'components/ModalPortal';
 
 type SettingsModalProps = {
   onClose: () => void;

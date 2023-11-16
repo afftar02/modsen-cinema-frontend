@@ -5,11 +5,13 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import ProfileMenu from './index';
+import { AuthContext } from 'auth/Auth';
 import { THEMES } from 'constants/Themes';
 import { ThemeProvider } from 'styled-components';
-import { AuthContext } from 'auth/Auth';
+
+import '@testing-library/jest-dom';
+
+import ProfileMenu from './index';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

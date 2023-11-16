@@ -1,20 +1,21 @@
-import { Outlet } from 'react-router-dom';
-import { styled, useTheme } from 'styled-components';
-import Header from 'components/Header';
-import VideoPreview from 'components/VideoPreview';
-import ErrorFallback from 'components/ErrorFallback';
-import ErrorBoundary from 'components/ErrorBoundary';
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { getMovies } from 'redux/thunks/movie';
+import { useTranslation } from 'react-i18next';
+import { Outlet } from 'react-router-dom';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { motion } from 'framer-motion';
+import useWindowDimensions from 'hooks/useWindowDimensions';
+import { VerticalCarousel } from 'modsen-library';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { selectMovies } from 'redux/selectors/movie';
-import { MovieType } from 'types/Movie';
+import { getMovies } from 'redux/thunks/movie';
 import { getMovie } from 'services/movieService';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
-import { useTranslation } from 'react-i18next';
-import { VerticalCarousel } from 'modsen-library';
-import useWindowDimensions from 'hooks/useWindowDimensions';
+import { styled, useTheme } from 'styled-components';
+import { MovieType } from 'types/Movie';
+
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
+import Header from 'components/Header';
+import VideoPreview from 'components/VideoPreview';
 
 const MainWrapper = styled.div`
   position: relative;

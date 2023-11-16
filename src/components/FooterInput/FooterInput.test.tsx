@@ -5,10 +5,12 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import FooterInput from './index';
 import { THEMES } from 'constants/Themes';
 import { ThemeProvider } from 'styled-components';
+
+import '@testing-library/jest-dom';
+
+import FooterInput from './index';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

@@ -1,9 +1,10 @@
-import { styled } from 'styled-components';
 import { useState } from 'react';
-import ModalPortal from 'components/ModalPortal';
-import CloseIcon from 'components/CloseIcon';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Icon, VideoPlayer } from 'modsen-library';
+import { styled } from 'styled-components';
+
+import CloseIcon from 'components/CloseIcon';
+import ModalPortal from 'components/ModalPortal';
 
 type VideoPreviewProps = {
   previewUrl: string;

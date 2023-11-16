@@ -1,10 +1,12 @@
+import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Header from './index';
+import { AuthContext } from 'auth/Auth';
 import { THEMES } from 'constants/Themes';
 import { ThemeProvider } from 'styled-components';
-import { AuthContext } from 'auth/Auth';
-import { BrowserRouter } from 'react-router-dom';
+
+import '@testing-library/jest-dom';
+
+import Header from './index';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

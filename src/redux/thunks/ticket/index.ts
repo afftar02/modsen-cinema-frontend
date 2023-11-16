@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getUserTickets } from 'services/ticketService';
 import { setTickets } from 'redux/slices/TicketSlice';
+import { getUserTickets } from 'services/ticketService';
 
 export const getTickets = createAsyncThunk<void, string>(
   'ticket/getTickets',

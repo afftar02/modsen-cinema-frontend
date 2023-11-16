@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
 import { ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { styled } from 'styled-components';
 
 type ModalPortalProps = {
   children: ReactNode;

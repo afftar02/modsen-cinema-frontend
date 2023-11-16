@@ -1,8 +1,8 @@
-import { ReviewType } from 'types/Review';
-import { CountryType } from 'types/Country';
 import { ActorType } from 'types/Actor';
+import { CountryType } from 'types/Country';
 import { GenreType } from 'types/Genre';
 import { ImageType } from 'types/Image';
+import { ReviewType } from 'types/Review';
 import { TrailerType } from 'types/Trailer';
 
 export type MovieType = {

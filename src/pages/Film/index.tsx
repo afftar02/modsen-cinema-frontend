@@ -1,22 +1,24 @@
-import Header from 'components/Header';
-import { styled } from 'styled-components';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Footer from 'components/Footer';
-import Vibrant from 'node-vibrant/lib/bundle';
-import MovieBooking from './MovieBooking';
-import VideoPreview from 'components/VideoPreview';
-import MovieInfo from './MovieInfo';
-import ErrorFallback from 'components/ErrorFallback';
-import ErrorBoundary from 'components/ErrorBoundary';
-import { motion } from 'framer-motion';
-import { MovieType } from 'types/Movie';
-import { getMovie } from 'services/movieService';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { motion } from 'framer-motion';
+import { Icon, Review } from 'modsen-library';
+import Vibrant from 'node-vibrant/lib/bundle';
 import { useAppSelector } from 'redux/hooks';
 import { selectMovies } from 'redux/selectors/movie';
-import { useTranslation } from 'react-i18next';
-import { Icon, Review } from 'modsen-library';
+import { getMovie } from 'services/movieService';
+import { styled } from 'styled-components';
+import { MovieType } from 'types/Movie';
+
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
+import VideoPreview from 'components/VideoPreview';
+
+import MovieBooking from './MovieBooking';
+import MovieInfo from './MovieInfo';
 
 const PageContainer = styled.div`
   position: relative;

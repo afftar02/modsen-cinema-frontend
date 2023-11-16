@@ -1,16 +1,18 @@
+import { BrowserRouter } from 'react-router-dom';
 import {
-  render,
-  fireEvent,
-  screen,
   act,
+  fireEvent,
+  render,
+  screen,
   waitFor,
 } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import AuthForm from './index';
+import { AuthContextType } from 'auth/Auth';
 import { THEMES } from 'constants/Themes';
 import { ThemeProvider } from 'styled-components';
-import { AuthContextType } from 'auth/Auth';
-import { BrowserRouter } from 'react-router-dom';
+
+import '@testing-library/jest-dom';
+
+import AuthForm from './index';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

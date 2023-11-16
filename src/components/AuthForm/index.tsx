@@ -1,22 +1,18 @@
-import { styled, useTheme } from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { validateRegistration } from 'helpers/ValidateRegistration';
-import { validateLogin } from 'helpers/ValidateLogin';
-import { AuthContextType, useAuth } from 'auth/Auth';
-import ErrorBoundary from 'components/ErrorBoundary';
-import ErrorFallback from 'components/ErrorFallback';
-import ModalPortal from 'components/ModalPortal';
-import { motion } from 'framer-motion';
-import CloseIcon from 'components/CloseIcon';
 import { useCallback, useRef } from 'react';
-import { AxiosError } from 'axios';
 import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContextType, useAuth } from 'auth/Auth';
+import { AxiosError } from 'axios';
 import {
   FACEBOOK_AUTH_URL,
   GITHUB_AUTH_URL,
   GOOGLE_AUTH_URL,
 } from 'constants/BaseApiUrl';
+import { useFormik } from 'formik';
+import { motion } from 'framer-motion';
+import { validateLogin } from 'helpers/ValidateLogin';
+import { validateRegistration } from 'helpers/ValidateRegistration';
+import { useClickOutside } from 'hooks/useClickOutside';
 import {
   Button,
   FacebookAuthButton,
@@ -25,7 +21,12 @@ import {
   Input,
   PasswordInput,
 } from 'modsen-library';
-import { useClickOutside } from 'hooks/useClickOutside';
+import { styled, useTheme } from 'styled-components';
+
+import CloseIcon from 'components/CloseIcon';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
+import ModalPortal from 'components/ModalPortal';
 
 type AuthFormProps = {
   isSignUp?: boolean;

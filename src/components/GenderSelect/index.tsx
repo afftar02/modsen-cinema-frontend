@@ -1,7 +1,7 @@
-import { styled, useTheme } from 'styled-components';
-import { Icon } from 'modsen-library';
-import { useTranslation } from 'react-i18next';
 import { ChangeEventHandler } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Icon } from 'modsen-library';
+import { styled, useTheme } from 'styled-components';
 
 type GenderSelectProps = {
   onChange: ChangeEventHandler<HTMLSelectElement>;

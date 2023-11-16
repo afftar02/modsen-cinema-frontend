@@ -1,20 +1,21 @@
-import { styled, useTheme } from 'styled-components';
+import { ChangeEvent, useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { AuthContextType, useAuth } from 'auth/Auth';
 import { useFormik } from 'formik';
+import { motion } from 'framer-motion';
 import { validateEditProfile } from 'helpers/ValidateEditProfile';
+import { useClickOutside } from 'hooks/useClickOutside';
+import { Button, FileInput, Input, PasswordInput } from 'modsen-library';
+import { uploadAvatar } from 'services/avatarService';
+import { updateUser } from 'services/userService';
+import { styled, useTheme } from 'styled-components';
+import { UserType } from 'types/User';
+
+import CloseIcon from 'components/CloseIcon';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
-import ModalPortal from 'components/ModalPortal';
-import { motion } from 'framer-motion';
-import CloseIcon from 'components/CloseIcon';
-import { ChangeEvent, useCallback, useRef, useState } from 'react';
-import { uploadAvatar } from 'services/avatarService';
-import { AuthContextType, useAuth } from 'auth/Auth';
-import { updateUser } from 'services/userService';
-import { UserType } from 'types/User';
-import { useTranslation } from 'react-i18next';
-import { Button, FileInput, Input, PasswordInput } from 'modsen-library';
-import { useClickOutside } from 'hooks/useClickOutside';
 import GenderSelect from 'components/GenderSelect';
+import ModalPortal from 'components/ModalPortal';
 
 type EditProfileFormProps = {
   onClose: () => void;

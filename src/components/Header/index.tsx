@@ -1,15 +1,16 @@
-import { styled, useTheme } from 'styled-components';
-import Navigation from 'components/Navigation';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { AuthContextType, useAuth } from 'auth/Auth';
-import { useState } from 'react';
-import ProfileMenu from 'components/ProfileMenu';
+import { AnimatePresence } from 'framer-motion';
+import { Button, Icon } from 'modsen-library';
+import { styled, useTheme } from 'styled-components';
+
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import Navigation from 'components/Navigation';
+import ProfileMenu from 'components/ProfileMenu';
 import SettingsModal from 'components/SettingsModal';
-import { AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
-import { Button, Icon } from 'modsen-library';
 
 const StyledHeader = styled.header`
   display: flex;

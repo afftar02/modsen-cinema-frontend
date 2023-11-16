@@ -1,15 +1,16 @@
 import { useCallback, useState } from 'react';
-import { styled, useTheme } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { AuthContextType, useAuth } from 'auth/Auth';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { AnimatePresence, motion } from 'framer-motion';
+import useWindowDimensions from 'hooks/useWindowDimensions';
+import { Icon } from 'modsen-library';
+import { styled, useTheme } from 'styled-components';
+
 import EditProfileModal from 'components/EditProfileModal';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import SettingsModal from 'components/SettingsModal';
-import { AnimatePresence, motion } from 'framer-motion';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
-import { useTranslation } from 'react-i18next';
-import { Icon } from 'modsen-library';
-import useWindowDimensions from 'hooks/useWindowDimensions';
 
 type ProfileMenuProps = {
   onClose: () => void;

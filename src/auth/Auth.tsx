@@ -1,10 +1,10 @@
 import {
-  useState,
   createContext,
-  useContext,
   ReactNode,
-  useEffect,
   useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from 'react';
 import { loginUser, registerUser } from 'services/authService';
 import { getCurrentUser } from 'services/userService';

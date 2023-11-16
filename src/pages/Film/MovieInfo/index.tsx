@@ -1,10 +1,10 @@
-import { styled } from 'styled-components';
-import { motion } from 'framer-motion';
-import { MovieType } from 'types/Movie';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { motion } from 'framer-motion';
 import { Button, Icon } from 'modsen-library';
+import { styled } from 'styled-components';
+import { MovieType } from 'types/Movie';
 
 type MovieInfoProps = {
   movie: MovieType;

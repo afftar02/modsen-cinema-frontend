@@ -1,17 +1,18 @@
-import Main from 'pages/Main';
+import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import AuthForm from 'components/AuthForm';
-import Film from 'pages/Film';
-import Bookings from 'pages/Bookings';
 import Auth from 'auth/Auth';
-import AuthorizedRoute from 'utils/AuthorizedRoute';
-import { AnimatePresence } from 'framer-motion';
-import { ThemeProvider } from 'styled-components';
-import { selectThemeValue } from 'redux/selectors/theme';
 import { THEMES } from 'constants/Themes';
+import { AnimatePresence } from 'framer-motion';
+import Bookings from 'pages/Bookings';
+import Film from 'pages/Film';
+import Main from 'pages/Main';
 import Wrapper from 'pages/Wrapper';
 import { useAppSelector } from 'redux/hooks';
-import { useTranslation } from 'react-i18next';
+import { selectThemeValue } from 'redux/selectors/theme';
+import { ThemeProvider } from 'styled-components';
+import AuthorizedRoute from 'utils/AuthorizedRoute';
+
+import AuthForm from 'components/AuthForm';
 import OAuthSuccessRedirect from 'components/OAuthSuccessRedirect';
 
 function App() {

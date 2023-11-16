@@ -1,4 +1,3 @@
-import { styled } from 'styled-components';
 import {
   ForwardedRef,
   forwardRef,
@@ -7,9 +6,6 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { getSessions } from 'services/sessionService';
-import { SessionType } from 'types/Session';
-import { createTicket } from 'services/ticketService';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
@@ -17,8 +13,12 @@ import {
   HorizontalCarousel,
   Session,
 } from 'modsen-library';
-import { SeatType } from 'types/Seat';
 import { getSeats } from 'services/seatService';
+import { getSessions } from 'services/sessionService';
+import { createTicket } from 'services/ticketService';
+import { styled } from 'styled-components';
+import { SeatType } from 'types/Seat';
+import { SessionType } from 'types/Session';
 
 type BookingProps = {
   movieId: number;

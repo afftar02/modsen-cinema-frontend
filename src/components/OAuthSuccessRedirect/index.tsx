@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { styled } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AuthContextType, useAuth } from 'auth/Auth';
-import { useTranslation } from 'react-i18next';
 import { Icon } from 'modsen-library';
+import { styled } from 'styled-components';
 
 const Container = styled.div`
   background-color: #fff;

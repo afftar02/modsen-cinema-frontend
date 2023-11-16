@@ -1,17 +1,19 @@
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import { useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { AnimatePresence } from 'framer-motion';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { selectTickets } from 'redux/selectors/ticket';
+import { getTickets } from 'redux/thunks/ticket';
+import { updateTicket } from 'services/ticketService';
 import { styled } from 'styled-components';
+
 import BookingCard from 'components/BookingCard';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
+
 import SectionTitle from './SectionTitle';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { selectTickets } from 'redux/selectors/ticket';
-import { useCallback, useEffect } from 'react';
-import { getTickets } from 'redux/thunks/ticket';
-import { updateTicket } from 'services/ticketService';
-import { AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
   min-height: 100vh;
