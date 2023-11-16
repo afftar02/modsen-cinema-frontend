@@ -1,51 +1,10 @@
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { init, send } from '@emailjs/browser';
-import { Icon } from 'modsen-library';
 import * as process from 'process';
-import { styled, useTheme } from 'styled-components';
+import { useTheme } from 'styled-components';
 
-const InputWrapper = styled.div`
-  position: relative;
-`;
-
-const StyledInput = styled.input`
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px 50px 12px 24px;
-  border-radius: 40px;
-  background: ${(props) => props.theme.footerInputBgColor};
-  border: none;
-  outline: none;
-  color: ${(props) => props.theme.color};
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0.1px;
-
-  &::placeholder {
-    color: ${(props) => props.theme.color};
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.1px;
-    opacity: 0.5;
-  }
-`;
-
-const StyledIcon = styled(Icon)`
-  position: absolute;
-  top: 12px;
-  right: 24px;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: scale(1.4);
-  }
-`;
+import { InputWrapper, StyledIcon, StyledInput } from './styled';
 
 function FooterInput() {
   const { t } = useTranslation();

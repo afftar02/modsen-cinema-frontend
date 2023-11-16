@@ -3,13 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from 'auth/Auth';
 import { AuthContextType } from 'auth/types';
 import { useFormik } from 'formik';
-import { motion } from 'framer-motion';
 import { validateEditProfile } from 'helpers/ValidateEditProfile';
 import { useClickOutside } from 'hooks/useClickOutside';
-import { Button, FileInput, Input, PasswordInput } from 'modsen-library';
+import { FileInput, Input, PasswordInput } from 'modsen-library';
 import { uploadAvatar } from 'services/avatarService';
 import { updateUser } from 'services/userService';
-import { styled, useTheme } from 'styled-components';
+import { useTheme } from 'styled-components';
 import { UserType } from 'types/User';
 
 import CloseIcon from 'components/CloseIcon';
@@ -18,62 +17,8 @@ import ErrorFallback from 'components/ErrorFallback';
 import GenderSelect from 'components/GenderSelect';
 import ModalPortal from 'components/ModalPortal';
 
+import { Modal, StyledForm, SubmitButton, TextBlock } from './styled';
 import { EditProfileFormProps } from './types';
-
-const Modal = styled(motion.div)`
-  position: relative;
-  width: 840px;
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  background-color: ${(props) => props.theme.bgColor};
-  padding: 40px 107px;
-
-  @media (max-width: 840px) {
-    width: 100%;
-  }
-  @media (max-width: 600px) {
-    padding: 20px 25px;
-  }
-`;
-
-const TextBlock = styled.div`
-  display: flex;
-  align-items: center;
-  min-height: 100px;
-  max-width: 430px;
-
-  color: ${(props) => props.theme.color};
-  text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 32px;
-  font-style: italic;
-  font-weight: 300;
-  line-height: normal;
-
-  @media (max-width: 500px) {
-    max-width: 230px;
-  }
-`;
-
-const StyledForm = styled.form`
-  margin-top: 20px;
-  margin-bottom: 58px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-
-  @media (max-width: 500px) {
-    gap: 35px;
-    margin-bottom: 20px;
-    margin-top: 10px;
-  }
-`;
-
-const SubmitButton = styled(Button)`
-  width: 100%;
-`;
 
 function EditProfileModal({ onClose }: EditProfileFormProps) {
   const { t } = useTranslation();

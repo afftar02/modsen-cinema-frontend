@@ -2,88 +2,28 @@ import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGES } from 'constants/Languages';
 import { THEMES } from 'constants/Themes';
-import { motion } from 'framer-motion';
 import { useClickOutside } from 'hooks/useClickOutside';
-import { Button, RadioButton } from 'modsen-library';
+import { RadioButton } from 'modsen-library';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { selectThemeValue } from 'redux/selectors/theme';
 import { changeTheme } from 'redux/slices/ThemeSlice';
-import { styled, useTheme } from 'styled-components';
+import { useTheme } from 'styled-components';
 
 import CloseIcon from 'components/CloseIcon';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 
+import {
+  ApplyButton,
+  Modal,
+  SettingsItemBlock,
+  SettingsItems,
+  SettingsItemTitle,
+  SettingsItemValues,
+  TextBlock,
+} from './styled';
 import { SettingsModalProps } from './types';
-
-const Modal = styled(motion.div)`
-  position: relative;
-  width: 780px;
-  min-height: 420px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  background-color: ${(props) => props.theme.bgColor};
-  transition: background-color 1s ease-in-out;
-  padding: 40px 50px;
-
-  @media (max-width: 840px) {
-    width: 100%;
-  }
-  @media (max-width: 550px) {
-    padding: 20px 25px;
-  }
-`;
-
-const TextBlock = styled.div`
-  display: flex;
-  align-items: center;
-  min-height: 80px;
-  max-width: 250px;
-
-  color: ${(props) => props.theme.color};
-  text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 32px;
-  font-style: italic;
-  font-weight: 300;
-`;
-
-const ApplyButton = styled(Button)`
-  width: 100%;
-  margin-top: 40px;
-`;
-
-const SettingsItems = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-grow: 1;
-  align-items: center;
-
-  @media (max-width: 550px) {
-    flex-direction: column;
-  }
-`;
-
-const SettingsItemBlock = styled.div`
-  display: flex;
-`;
-
-const SettingsItemTitle = styled.span`
-  color: ${(props) => props.theme.color};
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  font-weight: 300;
-`;
-
-const SettingsItemValues = styled.div`
-  margin-left: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-top: 5px;
-`;
 
 function SettingsModal({ onClose }: SettingsModalProps) {
   const { t, i18n } = useTranslation();

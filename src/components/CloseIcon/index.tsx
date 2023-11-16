@@ -1,21 +1,7 @@
-import { Icon } from 'modsen-library';
-import { styled, useTheme } from 'styled-components';
+import { useTheme } from 'styled-components';
 
+import { StyledIcon } from './styled';
 import { CloseIconProps } from './types';
-
-const StyledIcon = styled(Icon)`
-  position: absolute;
-  top: 40px;
-  right: 50px;
-  cursor: pointer;
-  opacity: 1;
-  z-index: 5;
-  transition: opacity 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
 
 function CloseIcon({ onClick, lineColor, bgColor }: CloseIconProps) {
   const theme = useTheme();

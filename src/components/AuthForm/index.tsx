@@ -11,128 +11,36 @@ import {
 } from 'constants/BaseApiUrl';
 import { PATHS } from 'constants/Paths';
 import { useFormik } from 'formik';
-import { motion } from 'framer-motion';
 import { validateLogin } from 'helpers/ValidateLogin';
 import { validateRegistration } from 'helpers/ValidateRegistration';
 import { useClickOutside } from 'hooks/useClickOutside';
 import {
-  Button,
   FacebookAuthButton,
   GitHubAuthButton,
   GoogleAuthButton,
   Input,
   PasswordInput,
 } from 'modsen-library';
-import { styled, useTheme } from 'styled-components';
+import { useTheme } from 'styled-components';
 
 import CloseIcon from 'components/CloseIcon';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 
+import {
+  AuthButtonsContainer,
+  BrightText,
+  Modal,
+  StyledAuthContainer,
+  StyledForm,
+  StyledText,
+  SubmitButton,
+  TextBlock,
+  TextContainer,
+  UnderlinedText,
+} from './styled';
 import { AuthFormProps } from './types';
-
-const Modal = styled(motion.div)`
-  position: relative;
-  width: 840px;
-  min-height: 500px;
-  box-sizing: border-box;
-  background-color: ${(props) => props.theme.bgColor};
-  padding: 40px 107px;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 840px) {
-    width: 100%;
-  }
-  @media (max-width: 650px) {
-    padding: 40px 50px;
-  }
-  @media (max-width: 500px) {
-    padding: 20px 25px;
-  }
-`;
-
-const TextBlock = styled.div`
-  width: 430px;
-
-  color: ${(props) => props.theme.color};
-  text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 32px;
-  font-style: italic;
-  font-weight: 300;
-  line-height: normal;
-
-  @media (max-width: 650px) {
-    width: 230px;
-  }
-`;
-
-const BrightText = styled.span`
-  color: #d98639;
-`;
-
-const StyledForm = styled.form`
-  margin-top: 33px;
-  margin-bottom: 58px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-`;
-
-const SubmitButton = styled(Button)`
-  width: 100%;
-`;
-
-const AuthButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-`;
-
-const StyledAuthContainer = styled.div`
-  display: flex;
-  gap: 20px;
-
-  @media (max-width: 650px) {
-    flex-direction: column;
-  }
-`;
-
-const TextContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-top: 14px;
-`;
-
-const StyledText = styled.span`
-  color: ${(props) => props.theme.color};
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 18px;
-  font-style: italic;
-  font-weight: 300;
-`;
-
-const UnderlinedText = styled.span`
-  color: ${(props) => props.theme.color};
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 18px;
-  font-style: italic;
-  font-weight: 300;
-  text-decoration-line: underline;
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-
-  margin-left: 4px;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
 
 function AuthForm({
   isSignUp = false,
