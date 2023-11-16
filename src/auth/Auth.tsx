@@ -1,6 +1,5 @@
 import {
   createContext,
-  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -10,32 +9,12 @@ import { loginUser, registerUser } from 'services/authService';
 import { getCurrentUser } from 'services/userService';
 import { UserType } from 'types/User';
 
-type AuthProps = {
-  children: ReactNode;
-};
-
-type RegisterParams = {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-};
-
-type LoginParams = {
-  email: string;
-  password: string;
-};
-
-export type AuthContextType = {
-  isAuth: boolean;
-  register: (data: RegisterParams) => Promise<void>;
-  login: (data: LoginParams) => Promise<void>;
-  logout: () => void;
-  user: UserType | null;
-  getUserName: () => string;
-  loadUser: () => Promise<void>;
-  checkAuthenticated: () => Promise<void>;
-};
+import {
+  AuthContextType,
+  AuthProps,
+  LoginParams,
+  RegisterParams,
+} from './types';
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 

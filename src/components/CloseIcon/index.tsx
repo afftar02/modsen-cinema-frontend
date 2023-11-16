@@ -1,11 +1,7 @@
 import { Icon } from 'modsen-library';
 import { styled, useTheme } from 'styled-components';
 
-type CloseIconProps = {
-  onClick?: () => void;
-  lineColor?: string;
-  bgColor?: string;
-};
+import { CloseIconProps } from './types';
 
 const StyledIcon = styled(Icon)`
   position: absolute;

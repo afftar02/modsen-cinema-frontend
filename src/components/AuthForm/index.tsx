@@ -1,7 +1,8 @@
 import { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContextType, useAuth } from 'auth/Auth';
+import { useAuth } from 'auth/Auth';
+import { AuthContextType } from 'auth/types';
 import { AxiosError } from 'axios';
 import {
   FACEBOOK_AUTH_URL,
@@ -29,14 +30,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 
-type AuthFormProps = {
-  isSignUp?: boolean;
-  title?: string;
-  brightTitle?: string;
-  hint?: string;
-  underlinedHint?: string;
-  hintLink?: string;
-};
+import { AuthFormProps } from './types';
 
 const Modal = styled(motion.div)`
   position: relative;

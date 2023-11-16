@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { AuthContextType, useAuth } from 'auth/Auth';
+import { useAuth } from 'auth/Auth';
+import { AuthContextType } from 'auth/types';
 import { Icon } from 'modsen-library';
 import { styled } from 'styled-components';
 

@@ -15,9 +15,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
 
-type SettingsModalProps = {
-  onClose: () => void;
-};
+import { SettingsModalProps } from './types';
 
 const Modal = styled(motion.div)`
   position: relative;

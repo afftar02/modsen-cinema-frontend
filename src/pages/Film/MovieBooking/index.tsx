@@ -20,9 +20,7 @@ import { styled } from 'styled-components';
 import { SeatType } from 'types/Seat';
 import { SessionType } from 'types/Session';
 
-type BookingProps = {
-  movieId: number;
-};
+import { BookingProps } from './types';
 
 const Wrapper = styled.div`
   position: relative;

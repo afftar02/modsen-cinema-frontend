@@ -1,6 +1,7 @@
 import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AuthContextType, useAuth } from 'auth/Auth';
+import { useAuth } from 'auth/Auth';
+import { AuthContextType } from 'auth/types';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import { validateEditProfile } from 'helpers/ValidateEditProfile';
@@ -17,9 +18,7 @@ import ErrorFallback from 'components/ErrorFallback';
 import GenderSelect from 'components/GenderSelect';
 import ModalPortal from 'components/ModalPortal';
 
-type EditProfileFormProps = {
-  onClose: () => void;
-};
+import { EditProfileFormProps } from './types';
 
 const Modal = styled(motion.div)`
   position: relative;

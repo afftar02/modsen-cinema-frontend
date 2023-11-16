@@ -6,11 +6,7 @@ import { styled } from 'styled-components';
 import CloseIcon from 'components/CloseIcon';
 import ModalPortal from 'components/ModalPortal';
 
-type VideoPreviewProps = {
-  previewUrl: string;
-  videoUrl: string;
-  isHiding?: boolean;
-};
+import { VideoPreviewProps } from './types';
 
 const Preview = styled(motion.div)<{
   $previewUrl: string;

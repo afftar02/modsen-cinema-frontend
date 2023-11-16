@@ -3,9 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { PATHS } from 'constants/Paths';
 import { styled } from 'styled-components';
 
-type NavigationProps = {
-  className?: string;
-};
+import { NavigationProps } from './types';
 
 const StyledLink = styled(NavLink)`
   color: ${(props) => props.theme.color};

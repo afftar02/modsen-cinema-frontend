@@ -6,7 +6,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import { AuthContextType } from 'auth/Auth';
+import { AuthContextType } from 'auth/types';
 import { THEMES } from 'constants/Themes';
 import { ThemeProvider } from 'styled-components';
 

@@ -1,10 +1,7 @@
-import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
 
-type SectionTitleProps = {
-  children: ReactNode;
-};
+import { SectionTitleProps } from './types';
 
 const StyledSpan = styled(motion.span)`
   color: ${(props) => props.theme.color};

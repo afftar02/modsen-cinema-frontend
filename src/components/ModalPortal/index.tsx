@@ -1,11 +1,8 @@
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { styled } from 'styled-components';
 
-type ModalPortalProps = {
-  children: ReactNode;
-  isFixed?: boolean;
-};
+import { ModalPortalProps } from './types';
 
 const ModalWrapper = styled.div<{ $isFixed: boolean }>`
   display: flex;

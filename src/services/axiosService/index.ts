@@ -1,18 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { BASE_URL } from 'constants/BaseApiUrl';
 
-type Headers = {
-  Authorization?: string;
-  'Content-Type'?: string;
-};
-
-type RequestParams = {
-  headers?: Headers;
-  method?: string;
-  url: string;
-  data?: unknown;
-  params?: unknown;
-};
+import { RequestParams } from './types';
 
 const axiosInstance = axios.create();
 

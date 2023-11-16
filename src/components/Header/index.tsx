@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { AuthContextType, useAuth } from 'auth/Auth';
+import { useAuth } from 'auth/Auth';
+import { AuthContextType } from 'auth/types';
 import { PATHS } from 'constants/Paths';
 import { AnimatePresence } from 'framer-motion';
 import { Button, Icon } from 'modsen-library';

@@ -4,12 +4,8 @@ import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { motion } from 'framer-motion';
 import { Button, Icon } from 'modsen-library';
 import { styled } from 'styled-components';
-import { MovieType } from 'types/Movie';
 
-type MovieInfoProps = {
-  movie: MovieType;
-  onOpenBooking?: () => void;
-};
+import { MovieInfoProps } from './types';
 
 const MovieInfoContainer = styled.div`
   position: relative;

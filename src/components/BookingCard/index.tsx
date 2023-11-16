@@ -5,13 +5,8 @@ import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { motion } from 'framer-motion';
 import { Icon } from 'modsen-library';
 import { styled } from 'styled-components';
-import { TicketType } from 'types/Ticket';
 
-type BookingCardProps = {
-  ticket: TicketType;
-  onCancelClick: () => void;
-  isOver?: boolean;
-};
+import { BookingCardProps } from './types';
 
 const CardContainer = styled(motion.div)`
   display: flex;

@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AuthContextType, useAuth } from 'auth/Auth';
+import { useAuth } from 'auth/Auth';
+import { AuthContextType } from 'auth/types';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { AnimatePresence, motion } from 'framer-motion';
 import useWindowDimensions from 'hooks/useWindowDimensions';
@@ -12,9 +13,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import SettingsModal from 'components/SettingsModal';
 
-type ProfileMenuProps = {
-  onClose: () => void;
-};
+import { ProfileMenuProps } from './types';
 
 const Wrapper = styled(motion.div)`
   position: absolute;
