@@ -29,7 +29,7 @@ jest.mock('react-i18next', () => ({
         case 'edit_surname_placeholder':
           return 'Enter new surname';
         case 'edit_gender_placeholder':
-          return 'Enter your gender';
+          return 'Choose your gender';
         case 'edit_password_placeholder':
           return 'Enter new password';
         case 'save_text':
@@ -62,36 +62,6 @@ jest.mock('auth/Auth', () => {
 });
 
 describe('EditProfileModal', () => {
-  it('editing with invalid gender', async () => {
-    render(
-      <BrowserRouter>
-        <ThemeProvider theme={THEMES.Dark}>
-          <EditProfileModal onClose={jest.fn} />
-        </ThemeProvider>
-      </BrowserRouter>
-    );
-
-    const genderInput = screen.getByPlaceholderText('Enter your gender');
-    const passwordInput = screen.getByPlaceholderText('Enter new password');
-
-    act(() => {
-      fireEvent.change(genderInput, {
-        target: { value: 'gender' },
-      });
-      fireEvent.change(passwordInput, {
-        target: { value: 'password123' },
-      });
-      fireEvent.click(screen.getByText('Save'));
-    });
-
-    await waitFor(() => {
-      expect(genderInput).toHaveAttribute(
-        'placeholder',
-        'Invalid gender type, please type MALE or FEMALE'
-      );
-    });
-  });
-
   it('editing with password less than 4 chars', async () => {
     render(
       <BrowserRouter>
@@ -101,11 +71,11 @@ describe('EditProfileModal', () => {
       </BrowserRouter>
     );
 
-    const genderInput = screen.getByPlaceholderText('Enter your gender');
+    const genderSelect = screen.getByDisplayValue('Choose your gender');
     const passwordInput = screen.getByPlaceholderText('Enter new password');
 
     act(() => {
-      fireEvent.change(genderInput, {
+      fireEvent.change(genderSelect, {
         target: { value: 'MALE' },
       });
       fireEvent.change(passwordInput, {
@@ -131,11 +101,11 @@ describe('EditProfileModal', () => {
       </BrowserRouter>
     );
 
-    const genderInput = screen.getByPlaceholderText('Enter your gender');
+    const genderSelect = screen.getByDisplayValue('Choose your gender');
     const passwordInput = screen.getByPlaceholderText('Enter new password');
 
     act(() => {
-      fireEvent.change(genderInput, {
+      fireEvent.change(genderSelect, {
         target: { value: 'FEMALE' },
       });
       fireEvent.change(passwordInput, {
