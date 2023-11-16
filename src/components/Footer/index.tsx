@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FOOTER_COLUMNS } from 'constants/FooterColumns';
 import { Icon } from 'modsen-library';
 import { useTheme } from 'styled-components';
 
@@ -31,31 +32,16 @@ function Footer() {
         fill={theme.logoColor}
       />
       <ColumnsContainer>
-        <Column>
-          <ColumnTitle>First column</ColumnTitle>
-          <ColumnList>
-            <ListItemText>First page</ListItemText>
-            <ListItemText>Second page</ListItemText>
-            <ListItemText>Third</ListItemText>
-            <ListItemText>Fourth</ListItemText>
-          </ColumnList>
-        </Column>
-        <Column>
-          <ColumnTitle>Second</ColumnTitle>
-          <ColumnList>
-            <ListItemText>Fifth page</ListItemText>
-            <ListItemText>Sixth page</ListItemText>
-            <ListItemText>Eighth</ListItemText>
-          </ColumnList>
-        </Column>
-        <Column>
-          <ColumnTitle>Third</ColumnTitle>
-          <ColumnList>
-            <ListItemText>Fifth page</ListItemText>
-            <ListItemText>Sixth page</ListItemText>
-            <ListItemText>Eighth</ListItemText>
-          </ColumnList>
-        </Column>
+        {FOOTER_COLUMNS.map(({ title, rows }, index) => (
+          <Column key={index}>
+            <ColumnTitle>{title}</ColumnTitle>
+            <ColumnList>
+              {rows.map((value, index) => (
+                <ListItemText key={index}>{value}</ListItemText>
+              ))}
+            </ColumnList>
+          </Column>
+        ))}
         <SubscribeBlock>
           <ColumnTitle>{t('subscribe_text')}</ColumnTitle>
           <FooterInputBlock>
