@@ -53,7 +53,7 @@ function MovieInfo({ onOpenBooking, movie }: MovieInfoProps) {
         >
           <Poster
             src={BASE_UPLOADS_URL + movie.poster?.filename}
-            alt={'poster'}
+            alt="poster"
           />
         </PosterContainer>
         <MovieDataBlock

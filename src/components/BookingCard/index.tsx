@@ -49,7 +49,7 @@ function BookingCard({
       <StyledLink to={`/film/${ticket.movie?.id}`}>
         <StyledImage
           src={BASE_UPLOADS_URL + ticket.movie?.poster?.filename}
-          alt={'poster'}
+          alt="poster"
         />
       </StyledLink>
       <InfoBlock>

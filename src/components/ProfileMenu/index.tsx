@@ -83,7 +83,7 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
               <AvatarContainer>
                 <AvatarImage
                   src={BASE_UPLOADS_URL + user.avatar.filename}
-                  alt={'avatar'}
+                  alt="avatar"
                 />
               </AvatarContainer>
             ) : (
