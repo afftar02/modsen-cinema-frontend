@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { memo, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from 'auth/Auth';
@@ -196,4 +196,4 @@ function AuthForm({
   );
 }
 
-export default AuthForm;
+export default memo(AuthForm);

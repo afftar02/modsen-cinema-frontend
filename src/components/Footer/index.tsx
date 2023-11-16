@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'modsen-library';
 import { useTheme } from 'styled-components';
@@ -69,4 +70,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);

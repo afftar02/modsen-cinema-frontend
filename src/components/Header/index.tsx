@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useAuth } from 'auth/Auth';
@@ -91,4 +91,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);

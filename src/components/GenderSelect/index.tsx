@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'styled-components';
 
@@ -34,4 +35,4 @@ function GenderSelect({ onChange, value }: GenderSelectProps) {
   );
 }
 
-export default GenderSelect;
+export default memo(GenderSelect);

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGES } from 'constants/Languages';
 import { THEMES } from 'constants/Themes';
@@ -111,4 +111,4 @@ function SettingsModal({ onClose }: SettingsModalProps) {
   );
 }
 
-export default SettingsModal;
+export default memo(SettingsModal);

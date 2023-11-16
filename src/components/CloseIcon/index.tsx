@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTheme } from 'styled-components';
 
 import { StyledIcon } from './styled';
@@ -20,4 +21,4 @@ function CloseIcon({ onClick, lineColor, bgColor }: CloseIconProps) {
   );
 }
 
-export default CloseIcon;
+export default memo(CloseIcon);

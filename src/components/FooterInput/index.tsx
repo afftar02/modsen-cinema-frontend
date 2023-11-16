@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useState } from 'react';
+import { KeyboardEvent, memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { init, send } from '@emailjs/browser';
 import * as process from 'process';
@@ -64,4 +64,4 @@ function FooterInput() {
   );
 }
 
-export default FooterInput;
+export default memo(FooterInput);

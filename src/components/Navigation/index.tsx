@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PATHS } from 'constants/Paths';
 
@@ -15,4 +16,4 @@ function Navigation({ className }: NavigationProps) {
   );
 }
 
-export default Navigation;
+export default memo(Navigation);

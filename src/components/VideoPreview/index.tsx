@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { VideoPlayer } from 'modsen-library';
 
@@ -63,4 +63,4 @@ function VideoPreview({
   );
 }
 
-export default VideoPreview;
+export default memo(VideoPreview);

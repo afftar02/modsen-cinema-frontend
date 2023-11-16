@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'auth/Auth';
 import { AuthContextType } from 'auth/types';
@@ -124,4 +124,4 @@ function ProfileMenu({ onClose }: ProfileMenuProps) {
   );
 }
 
-export default ProfileMenu;
+export default memo(ProfileMenu);

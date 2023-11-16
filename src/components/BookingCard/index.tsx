@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
 import { Icon } from 'modsen-library';
@@ -109,4 +109,4 @@ function BookingCard({
   );
 }
 
-export default BookingCard;
+export default memo(BookingCard);

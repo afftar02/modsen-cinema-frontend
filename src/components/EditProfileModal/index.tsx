@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useRef, useState } from 'react';
+import { ChangeEvent, memo, useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'auth/Auth';
 import { AuthContextType } from 'auth/types';
@@ -153,4 +153,4 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
   );
 }
 
-export default EditProfileModal;
+export default memo(EditProfileModal);
