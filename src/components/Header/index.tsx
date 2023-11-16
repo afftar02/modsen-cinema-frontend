@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { AuthContextType, useAuth } from 'auth/Auth';
+import { PATHS } from 'constants/Paths';
 import { AnimatePresence } from 'framer-motion';
 import { Button, Icon } from 'modsen-library';
 import { styled, useTheme } from 'styled-components';
@@ -108,7 +109,7 @@ function Header() {
       <StyledHeader>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <Flex>
-            <LogoLink to="/">
+            <LogoLink to={PATHS.home}>
               <Icon id="logo" width={245} height={55} fill={theme.logoColor} />
             </LogoLink>
             <StyledNavigation />
@@ -127,10 +128,10 @@ function Header() {
           ) : (
             <Flex>
               <StyledContainer>
-                <Link to={'/signup'}>
+                <Link to={PATHS.signup}>
                   <Button>{t('signup_button_text')}</Button>
                 </Link>
-                <Link to={'/signin'}>
+                <Link to={PATHS.signin}>
                   <SignInButton>{t('signin_button_text')}</SignInButton>
                 </Link>
               </StyledContainer>

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import { PATHS } from 'constants/Paths';
 import { styled } from 'styled-components';
 
 type NavigationProps = {
@@ -36,8 +37,8 @@ function Navigation({ className }: NavigationProps) {
 
   return (
     <nav className={className}>
-      <StyledLink to={'/'}>{t('main_page_nav_text')}</StyledLink>
-      <StyledLink to={'/bookings'}>{t('bookings_page_nav_text')}</StyledLink>
+      <StyledLink to={PATHS.home}>{t('main_page_nav_text')}</StyledLink>
+      <StyledLink to={PATHS.bookings}>{t('bookings_page_nav_text')}</StyledLink>
     </nav>
   );
 }

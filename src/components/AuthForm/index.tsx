@@ -8,6 +8,7 @@ import {
   GITHUB_AUTH_URL,
   GOOGLE_AUTH_URL,
 } from 'constants/BaseApiUrl';
+import { PATHS } from 'constants/Paths';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import { validateLogin } from 'helpers/ValidateLogin';
@@ -205,7 +206,7 @@ function AuthForm({
           duration: 0.3,
         }}
       >
-        <Link to="/">
+        <Link to={PATHS.home}>
           <CloseIcon />
         </Link>
         <ErrorBoundary fallback={<ErrorFallback />}>
