@@ -7,6 +7,7 @@ import Vibrant from 'node-vibrant/lib/bundle';
 import { useAppSelector } from 'redux/hooks';
 import { selectMovies } from 'redux/selectors/movie';
 import { getMovie } from 'services/movieService';
+import { useTheme } from 'styled-components';
 import { MovieType } from 'types/Movie';
 
 import ErrorBoundary from 'components/ErrorBoundary';
@@ -43,6 +44,8 @@ function Film() {
   const navigate = useNavigate();
   const movies = useAppSelector(selectMovies);
 
+  const theme = useTheme();
+
   const scrollToBooking = useCallback(() => {
     bookingRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
@@ -72,16 +75,16 @@ function Film() {
           ).getPalette();
           setMovie(currentMovie);
           setBackgroundColors({
-            first: palette.DarkVibrant?.hex ?? '#000',
-            second: palette.LightVibrant?.hex ?? '#fff',
-            review: palette.DarkMuted?.hex ?? '#000',
+            first: palette.DarkVibrant?.hex ?? theme.filmBgFirstDefaultColor,
+            second: palette.LightVibrant?.hex ?? theme.filmBgSecondDefaultColor,
+            review: palette.DarkMuted?.hex ?? theme.filmBgReviewDefaultColor,
           });
         } catch (err) {
           navigate('/');
         }
       })();
     }
-  }, [i18n.language, id, navigate]);
+  }, [i18n.language, id, navigate, theme]);
 
   useEffect(() => {
     if (bookingOpened) {
@@ -119,7 +122,7 @@ function Film() {
                   width={69}
                   height={38}
                   viewBox="0 0 69 38"
-                  fill={'#fff'}
+                  fill={theme.nextFilmArrowColor}
                 />
               </MoveNextContainer>
             </Link>

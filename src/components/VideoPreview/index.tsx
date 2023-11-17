@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { VideoPlayer } from 'modsen-library';
+import { useTheme } from 'styled-components';
 
 import CloseIcon from 'components/CloseIcon';
 import ModalPortal from 'components/ModalPortal';
@@ -16,6 +17,8 @@ function VideoPreview({
 }: VideoPreviewProps) {
   const [playerOpened, setPlayerOpened] = useState(false);
 
+  const theme = useTheme();
+
   return (
     <>
       <AnimatePresence>
@@ -23,8 +26,8 @@ function VideoPreview({
           <ModalPortal isFixed>
             <CloseIcon
               onClick={() => setPlayerOpened(false)}
-              lineColor={'#DBDBDB'}
-              bgColor={'#D9D9D9'}
+              lineColor={theme.closeIconVideoModalColor}
+              bgColor={theme.closeIconVideoModalBgColor}
             />
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}

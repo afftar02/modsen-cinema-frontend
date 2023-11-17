@@ -14,4 +14,11 @@ export type Theme = {
   googleButtonBorderColor: string;
   profileMenuBgColor: string;
   selectHoverColor: string;
+  radioCheckedColor: string;
+  closeIconVideoModalColor: string;
+  closeIconVideoModalBgColor: string;
+  filmBgFirstDefaultColor: string;
+  filmBgSecondDefaultColor: string;
+  filmBgReviewDefaultColor: string;
+  nextFilmArrowColor: string;
 };
