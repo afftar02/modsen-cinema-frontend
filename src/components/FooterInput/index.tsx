@@ -2,7 +2,11 @@ import { KeyboardEvent, memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { init, send } from '@emailjs/browser';
 import { EMAIL_REG_EXP } from 'constants/EmailRegExp';
-import * as process from 'process';
+import {
+  EMAIL_PUBLIC_KEY,
+  EMAIL_SERVICE_ID,
+  EMAIL_TEMPLATE_ID,
+} from 'constants/EmailService';
 import { useTheme } from 'styled-components';
 
 import { InputWrapper, StyledIcon, StyledInput } from './styled';
@@ -20,13 +24,9 @@ function FooterInput() {
     }
 
     try {
-      await send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID ?? '',
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID ?? '',
-        {
-          email: value,
-        }
-      );
+      await send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, {
+        email: value,
+      });
       setValue('');
       alert(t('subscribed_text'));
     } catch (err) {
@@ -41,7 +41,7 @@ function FooterInput() {
   };
 
   useEffect(() => {
-    init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY ?? '');
+    init(EMAIL_PUBLIC_KEY);
   }, []);
 
   return (
