@@ -1,5 +1,5 @@
 import * as reduxToolkit from '@reduxjs/toolkit';
-import { TicketType } from 'types/Ticket';
+import { TicketType } from 'types/ticket';
 
 interface TicketState {
   tickets: TicketType[];

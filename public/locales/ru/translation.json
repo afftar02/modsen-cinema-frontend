@@ -40,7 +40,7 @@
   "edit_profile_title": "Пожалуйста, введите новые данные профиля:",
   "edit_name_placeholder": "Введите новое имя",
   "edit_surname_placeholder": "Введите новую фамилию",
-  "edit_gender_placeholder": "Введите ваш пол",
+  "edit_gender_placeholder": "Выберите ваш пол",
   "edit_password_placeholder": "Введите новый пароль",
   "save_text": "Сохранить",
   "fallback_text": "Упс... Что-то пошло не так!\uD83D\uDE22",
@@ -100,5 +100,7 @@
   "signin_bright_title": "Наслаждайтесь просмотром фильмов!",
   "signin_hint": "Нет учетной записи?",
   "signin_underlined_hint": "Зарегистрируйтесь, пожалуйста.",
-  "oauth_success_message": "Авторизация успешно выполнена!"
+  "oauth_success_message": "Авторизация успешно выполнена!",
+  "male": "Мужской",
+  "female": "Женский"
 }

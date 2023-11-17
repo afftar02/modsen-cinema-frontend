@@ -1,5 +1,5 @@
 import { request } from 'services/axiosService';
-import { TicketDto, TicketType } from 'types/Ticket';
+import { TicketDto, TicketType } from 'types/ticket';
 
 export const getUserTickets = async (language: string) => {
   const { data } = await request<Array<TicketType>>({

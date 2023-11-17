@@ -40,7 +40,7 @@
   "edit_profile_title": "Please, enter new profile information:",
   "edit_name_placeholder": "Enter new name",
   "edit_surname_placeholder": "Enter new surname",
-  "edit_gender_placeholder": "Enter your gender",
+  "edit_gender_placeholder": "Choose your gender",
   "edit_password_placeholder": "Enter new password",
   "save_text": "Save",
   "fallback_text": "Oops... Something went wrong!\uD83D\uDE22",
@@ -100,5 +100,7 @@
   "signin_bright_title": "Enjoy watching movies with us!",
   "signin_hint": "No account?",
   "signin_underlined_hint": "Sign up please.",
-  "oauth_success_message": "Authorization successfully completed!"
+  "oauth_success_message": "Authorization successfully completed!",
+  "male": "Male",
+  "female": "Female"
 }

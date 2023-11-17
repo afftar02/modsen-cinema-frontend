@@ -1,5 +1,5 @@
 import { request } from 'services/axiosService';
-import { MovieType } from 'types/Movie';
+import { MovieType } from 'types/movie';
 
 export const getAllMovies = async (language: string) => {
   const { data } = await request<Array<MovieType>>({

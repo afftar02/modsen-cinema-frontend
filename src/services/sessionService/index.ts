@@ -1,5 +1,5 @@
 import { request } from 'services/axiosService';
-import { SessionType } from 'types/Session';
+import { SessionType } from 'types/session';
 
 export const getSessions = async (movieId: number, date?: Date) => {
   const { data } = await request<Array<SessionType>>({

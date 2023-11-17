@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Footer from './index';
-import { THEMES } from 'constants/Themes';
+import { THEMES } from 'constants/themes';
 import { ThemeProvider } from 'styled-components';
+
+import '@testing-library/jest-dom';
+
+import Footer from './index';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

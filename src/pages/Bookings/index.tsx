@@ -1,64 +1,24 @@
-import Header from 'components/Header';
-import Footer from 'components/Footer';
-import { styled } from 'styled-components';
+import { useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { AnimatePresence } from 'framer-motion';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { selectTickets } from 'redux/selectors/ticket';
+import { getTickets } from 'redux/thunks/ticket';
+import { updateTicket } from 'services/ticketService';
+
 import BookingCard from 'components/BookingCard';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
+
 import SectionTitle from './SectionTitle';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { selectTickets } from 'redux/selectors/ticket';
-import { useCallback, useEffect } from 'react';
-import { getTickets } from 'redux/thunks/ticket';
-import { updateTicket } from 'services/ticketService';
-import { AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
-
-const Wrapper = styled.div`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-`;
-
-const BookingsWrapper = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 70px;
-  padding: 98px 0 170px 178px;
-
-  @media (max-width: 1000px) {
-    padding: 60px 0 100px 0;
-  }
-  @media (max-width: 650px) {
-    padding: 60px 10px;
-  }
-`;
-
-const BookingsContainer = styled.div`
-  margin-top: 50px;
-  display: flex;
-  gap: 100px;
-  flex-wrap: wrap;
-
-  @media (max-width: 1000px) {
-    width: 100%;
-    justify-content: center;
-  }
-  @media (max-width: 650px) {
-    gap: 60px;
-  }
-`;
-
-const SectionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-
-  @media (max-width: 1000px) {
-    align-items: center;
-  }
-`;
+import {
+  BookingsContainer,
+  BookingsWrapper,
+  SectionContainer,
+  Wrapper,
+} from './styled';
 
 function Bookings() {
   const { t, i18n } = useTranslation();

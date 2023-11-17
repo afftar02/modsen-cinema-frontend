@@ -1,16 +1,18 @@
+import { BrowserRouter } from 'react-router-dom';
 import {
-  render,
-  fireEvent,
-  screen,
   act,
+  fireEvent,
+  render,
+  screen,
   waitFor,
 } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import AuthForm from './index';
-import { THEMES } from 'constants/Themes';
+import { AuthContextType } from 'auth/types';
+import { THEMES } from 'constants/themes';
 import { ThemeProvider } from 'styled-components';
-import { AuthContextType } from 'auth/Auth';
-import { BrowserRouter } from 'react-router-dom';
+
+import '@testing-library/jest-dom';
+
+import AuthForm from './index';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -44,7 +46,7 @@ jest.mock('react-i18next', () => ({
     },
   }),
 }));
-jest.mock('constants/BaseApiUrl', () => ({
+jest.mock('constants/baseApiUrl', () => ({
   FACEBOOK_AUTH_URL: 'fakeFacebookUrl',
   GITHUB_AUTH_URL: 'fakeGithubUrl',
   GOOGLE_AUTH_URL: 'fakeGoogleUrl',

@@ -1,6 +1,6 @@
-import { styled, useTheme } from 'styled-components';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { styled, useTheme } from 'styled-components';
 
 type WrapperProps = {
   children?: ReactNode;

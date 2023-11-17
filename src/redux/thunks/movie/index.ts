@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllMovies } from 'services/movieService';
 import { setMovies } from 'redux/slices/MovieSlice';
+import { getAllMovies } from 'services/movieService';
 
 export const getMovies = createAsyncThunk<void, string>(
   'movie/getMovies',

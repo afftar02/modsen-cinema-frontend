@@ -1,25 +1,8 @@
-import { styled, useTheme } from 'styled-components';
-import { Icon } from 'modsen-library';
+import { memo } from 'react';
+import { useTheme } from 'styled-components';
 
-type CloseIconProps = {
-  onClick?: () => void;
-  lineColor?: string;
-  bgColor?: string;
-};
-
-const StyledIcon = styled(Icon)`
-  position: absolute;
-  top: 40px;
-  right: 50px;
-  cursor: pointer;
-  opacity: 1;
-  z-index: 5;
-  transition: opacity 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
+import { StyledIcon } from './styled';
+import { CloseIconProps } from './types';
 
 function CloseIcon({ onClick, lineColor, bgColor }: CloseIconProps) {
   const theme = useTheme();
@@ -38,4 +21,4 @@ function CloseIcon({ onClick, lineColor, bgColor }: CloseIconProps) {
   );
 }
 
-export default CloseIcon;
+export default memo(CloseIcon);

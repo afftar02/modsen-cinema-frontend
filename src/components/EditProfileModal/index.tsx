@@ -1,84 +1,32 @@
-import { styled, useTheme } from 'styled-components';
+import { ChangeEvent, memo, useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from 'auth/Auth';
+import { AuthContextType } from 'auth/types';
 import { useFormik } from 'formik';
-import { validateEditProfile } from 'helpers/ValidateEditProfile';
+import { editProfile } from 'helpers/editProfile';
+import { validateEditProfile } from 'helpers/validateEditProfile';
+import { useClickOutside } from 'hooks/useClickOutside';
+import { FileInput, Input, PasswordInput } from 'modsen-library';
+import { useTheme } from 'styled-components';
+
+import CloseIcon from 'components/CloseIcon';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import GenderSelect from 'components/GenderSelect';
 import ModalPortal from 'components/ModalPortal';
-import { motion } from 'framer-motion';
-import CloseIcon from 'components/CloseIcon';
-import { ChangeEvent, useCallback, useState } from 'react';
-import { uploadAvatar } from 'services/avatarService';
-import { AuthContextType, useAuth } from 'auth/Auth';
-import { updateUser } from 'services/userService';
-import { UserType } from 'types/User';
-import { useTranslation } from 'react-i18next';
-import { Button, FileInput, Input, PasswordInput } from 'modsen-library';
 
-type EditProfileFormProps = {
-  onClose: () => void;
-};
-
-const Modal = styled(motion.div)`
-  position: relative;
-  width: 840px;
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  background-color: ${(props) => props.theme.bgColor};
-  padding: 40px 107px;
-
-  @media (max-width: 840px) {
-    width: 100%;
-  }
-  @media (max-width: 600px) {
-    padding: 20px 25px;
-  }
-`;
-
-const TextBlock = styled.div`
-  display: flex;
-  align-items: center;
-  min-height: 100px;
-  max-width: 430px;
-
-  color: ${(props) => props.theme.color};
-  text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 32px;
-  font-style: italic;
-  font-weight: 300;
-  line-height: normal;
-
-  @media (max-width: 500px) {
-    max-width: 230px;
-  }
-`;
-
-const StyledForm = styled.form`
-  margin-top: 20px;
-  margin-bottom: 58px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-
-  @media (max-width: 500px) {
-    gap: 35px;
-    margin-bottom: 20px;
-    margin-top: 10px;
-  }
-`;
-
-const SubmitButton = styled(Button)`
-  width: 100%;
-`;
+import { Modal, StyledForm, SubmitButton, TextBlock } from './styled';
+import { EditProfileFormProps } from './types';
 
 function EditProfileModal({ onClose }: EditProfileFormProps) {
   const { t } = useTranslation();
   const theme = useTheme();
   const [avatar, setAvatar] = useState<File>();
+  const modalRef = useRef(null);
 
   const { loadUser } = useAuth() as AuthContextType;
+
+  useClickOutside(modalRef, onClose);
 
   const formik = useFormik({
     initialValues: {
@@ -90,7 +38,7 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
     validate: (values) => validateEditProfile(values, t),
     validateOnChange: false,
     onSubmit: async () => {
-      await handleProfileEdit();
+      await editProfile(formik.values, loadUser, t, avatar);
       onClose();
     },
   });
@@ -105,37 +53,10 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
     []
   );
 
-  const handleProfileEdit = useCallback(async () => {
-    try {
-      if (avatar) {
-        await uploadAvatar(avatar);
-      }
-      const editedData: Partial<UserType> = {};
-      if (formik.values.name) {
-        editedData.name = formik.values.name;
-      }
-      if (formik.values.surname) {
-        editedData.surname = formik.values.surname;
-      }
-      if (formik.values.gender) {
-        editedData.gender = formik.values.gender;
-      }
-      if (formik.values.password) {
-        editedData.password = formik.values.password;
-      }
-      if (JSON.stringify(editedData) !== JSON.stringify({})) {
-        await updateUser(editedData);
-      }
-      await loadUser();
-    } catch (err) {
-      alert(t('loading_error'));
-      await loadUser();
-    }
-  }, [t, avatar, formik, loadUser]);
-
   return (
     <ModalPortal isFixed>
       <Modal
+        ref={modalRef}
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.5, opacity: 0 }}
@@ -179,14 +100,9 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
               isError={!!formik.errors.surname}
               color={theme.color}
             />
-            <Input
-              placeholder={formik.errors.gender ?? t('edit_gender_placeholder')}
+            <GenderSelect
               onChange={formik.handleChange}
               value={formik.values.gender}
-              onClick={() => formik.setFieldError('gender', undefined)}
-              name={'gender'}
-              isError={!!formik.errors.gender}
-              color={theme.color}
             />
             <PasswordInput
               withIcon={false}
@@ -207,4 +123,4 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
   );
 }
 
-export default EditProfileModal;
+export default memo(EditProfileModal);
