@@ -1,51 +1,15 @@
-import { styled, useTheme } from 'styled-components';
-import { KeyboardEvent, useEffect, useState } from 'react';
-import { init, send } from '@emailjs/browser';
-import * as process from 'process';
+import { KeyboardEvent, memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'modsen-library';
+import { init, send } from '@emailjs/browser';
+import { EMAIL_REG_EXP } from 'constants/emailRegExp';
+import {
+  EMAIL_PUBLIC_KEY,
+  EMAIL_SERVICE_ID,
+  EMAIL_TEMPLATE_ID,
+} from 'constants/emailService';
+import { useTheme } from 'styled-components';
 
-const InputWrapper = styled.div`
-  position: relative;
-`;
-
-const StyledInput = styled.input`
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px 50px 12px 24px;
-  border-radius: 40px;
-  background: ${(props) => props.theme.footerInputBgColor};
-  border: none;
-  outline: none;
-  color: ${(props) => props.theme.color};
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0.1px;
-
-  &::placeholder {
-    color: ${(props) => props.theme.color};
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.1px;
-    opacity: 0.5;
-  }
-`;
-
-const StyledIcon = styled(Icon)`
-  position: absolute;
-  top: 12px;
-  right: 24px;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: scale(1.4);
-  }
-`;
+import { InputWrapper, StyledIcon, StyledInput } from './styled';
 
 function FooterInput() {
   const { t } = useTranslation();
@@ -54,19 +18,15 @@ function FooterInput() {
   const theme = useTheme();
 
   const handleSubmit = async () => {
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+    if (!EMAIL_REG_EXP.test(value)) {
       alert(t('invalid_email'));
       return;
     }
 
     try {
-      await send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID ?? '',
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID ?? '',
-        {
-          email: value,
-        }
-      );
+      await send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, {
+        email: value,
+      });
       setValue('');
       alert(t('subscribed_text'));
     } catch (err) {
@@ -81,7 +41,7 @@ function FooterInput() {
   };
 
   useEffect(() => {
-    init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY ?? '');
+    init(EMAIL_PUBLIC_KEY);
   }, []);
 
   return (
@@ -105,4 +65,4 @@ function FooterInput() {
   );
 }
 
-export default FooterInput;
+export default memo(FooterInput);

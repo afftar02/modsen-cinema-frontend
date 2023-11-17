@@ -1,17 +1,7 @@
 import { request } from 'services/axiosService';
-import { TokensType } from 'types/Tokens';
+import { TokensType } from 'types/tokens';
 
-type RegisterUserParams = {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-};
-
-type LoginUserParams = {
-  email: string;
-  password: string;
-};
+import { LoginUserParams, RegisterUserParams } from './types';
 
 export const registerUser = async (values: RegisterUserParams) => {
   const { data } = await request<TokensType>({

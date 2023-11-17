@@ -1,141 +1,46 @@
-import { styled, useTheme } from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { validateRegistration } from 'helpers/ValidateRegistration';
-import { validateLogin } from 'helpers/ValidateLogin';
-import { AuthContextType, useAuth } from 'auth/Auth';
-import ErrorBoundary from 'components/ErrorBoundary';
-import ErrorFallback from 'components/ErrorFallback';
-import ModalPortal from 'components/ModalPortal';
-import { motion } from 'framer-motion';
-import CloseIcon from 'components/CloseIcon';
-import { useCallback } from 'react';
-import { AxiosError } from 'axios';
+import { memo, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from 'auth/Auth';
+import { AuthContextType } from 'auth/types';
+import { AxiosError } from 'axios';
 import {
   FACEBOOK_AUTH_URL,
   GITHUB_AUTH_URL,
   GOOGLE_AUTH_URL,
-} from 'constants/BaseApiUrl';
+} from 'constants/baseApiUrl';
+import { PATHS } from 'constants/paths';
+import { useFormik } from 'formik';
+import { validateLogin } from 'helpers/validateLogin';
+import { validateRegistration } from 'helpers/validateRegistration';
+import { useClickOutside } from 'hooks/useClickOutside';
 import {
-  Button,
   FacebookAuthButton,
   GitHubAuthButton,
   GoogleAuthButton,
   Input,
   PasswordInput,
 } from 'modsen-library';
+import { useTheme } from 'styled-components';
 
-type AuthFormProps = {
-  isSignUp?: boolean;
-  title?: string;
-  brightTitle?: string;
-  hint?: string;
-  underlinedHint?: string;
-  hintLink?: string;
-};
+import CloseIcon from 'components/CloseIcon';
+import ErrorBoundary from 'components/ErrorBoundary';
+import ErrorFallback from 'components/ErrorFallback';
+import ModalPortal from 'components/ModalPortal';
 
-const Modal = styled(motion.div)`
-  position: relative;
-  width: 840px;
-  min-height: 500px;
-  box-sizing: border-box;
-  background-color: ${(props) => props.theme.bgColor};
-  padding: 40px 107px;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 840px) {
-    width: 100%;
-  }
-  @media (max-width: 650px) {
-    padding: 40px 50px;
-  }
-  @media (max-width: 500px) {
-    padding: 20px 25px;
-  }
-`;
-
-const TextBlock = styled.div`
-  width: 430px;
-
-  color: ${(props) => props.theme.color};
-  text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 32px;
-  font-style: italic;
-  font-weight: 300;
-  line-height: normal;
-
-  @media (max-width: 650px) {
-    width: 230px;
-  }
-`;
-
-const BrightText = styled.span`
-  color: #d98639;
-`;
-
-const StyledForm = styled.form`
-  margin-top: 33px;
-  margin-bottom: 58px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-`;
-
-const SubmitButton = styled(Button)`
-  width: 100%;
-`;
-
-const AuthButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-`;
-
-const StyledAuthContainer = styled.div`
-  display: flex;
-  gap: 20px;
-
-  @media (max-width: 650px) {
-    flex-direction: column;
-  }
-`;
-
-const TextContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-top: 14px;
-`;
-
-const StyledText = styled.span`
-  color: ${(props) => props.theme.color};
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 18px;
-  font-style: italic;
-  font-weight: 300;
-`;
-
-const UnderlinedText = styled.span`
-  color: ${(props) => props.theme.color};
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 18px;
-  font-style: italic;
-  font-weight: 300;
-  text-decoration-line: underline;
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-
-  margin-left: 4px;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
+import {
+  AuthButtonsContainer,
+  BrightText,
+  Modal,
+  StyledAuthContainer,
+  StyledForm,
+  StyledText,
+  SubmitButton,
+  TextBlock,
+  TextContainer,
+  UnderlinedText,
+} from './styled';
+import { AuthFormProps } from './types';
 
 function AuthForm({
   isSignUp = false,
@@ -149,6 +54,9 @@ function AuthForm({
   const theme = useTheme();
   const navigate = useNavigate();
   const { register, login } = useAuth() as AuthContextType;
+  const modalRef = useRef(null);
+
+  useClickOutside(modalRef, () => navigate('/'));
 
   const formik = useFormik({
     initialValues: {
@@ -192,6 +100,7 @@ function AuthForm({
   return (
     <ModalPortal>
       <Modal
+        ref={modalRef}
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.5, opacity: 0 }}
@@ -199,7 +108,7 @@ function AuthForm({
           duration: 0.3,
         }}
       >
-        <Link to="/">
+        <Link to={PATHS.home}>
           <CloseIcon />
         </Link>
         <ErrorBoundary fallback={<ErrorFallback />}>
@@ -287,4 +196,4 @@ function AuthForm({
   );
 }
 
-export default AuthForm;
+export default memo(AuthForm);

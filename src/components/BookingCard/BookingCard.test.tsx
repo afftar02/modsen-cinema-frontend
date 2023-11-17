@@ -1,8 +1,10 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import BookingCard from './index';
 import { BrowserRouter } from 'react-router-dom';
+import { fireEvent,render, screen } from '@testing-library/react';
+
 import '@testing-library/jest-dom';
 import 'intersectionObserverMock';
+
+import BookingCard from './index';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

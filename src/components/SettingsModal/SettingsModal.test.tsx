@@ -1,3 +1,4 @@
+import { Provider } from 'react-redux';
 import {
   act,
   fireEvent,
@@ -5,12 +6,13 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import SettingsModal from './index';
-import { THEMES } from 'constants/Themes';
-import { ThemeProvider } from 'styled-components';
-import { Provider } from 'react-redux';
+import { THEMES } from 'constants/themes';
 import configureStore from 'redux-mock-store';
+import { ThemeProvider } from 'styled-components';
+
+import '@testing-library/jest-dom';
+
+import SettingsModal from './index';
 
 const mockStore = configureStore([]);
 const store = mockStore({

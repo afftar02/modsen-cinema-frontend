@@ -1,47 +1,13 @@
-import { styled } from 'styled-components';
-import { useState } from 'react';
-import ModalPortal from 'components/ModalPortal';
-import CloseIcon from 'components/CloseIcon';
+import { memo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Icon, VideoPlayer } from 'modsen-library';
+import { VideoPlayer } from 'modsen-library';
+import { useTheme } from 'styled-components';
 
-type VideoPreviewProps = {
-  previewUrl: string;
-  videoUrl: string;
-  isHiding?: boolean;
-};
+import CloseIcon from 'components/CloseIcon';
+import ModalPortal from 'components/ModalPortal';
 
-const Preview = styled(motion.div)<{
-  $previewUrl: string;
-  $isHiding?: boolean;
-}>`
-  background:
-    url(${(props) => props.$previewUrl}),
-    lightgray 50% / cover no-repeat;
-  background-size: cover;
-  box-shadow: ${(props) =>
-    props.$isHiding
-      ? `250px 10px 250px 0px ${props.theme.shadowColor} inset`
-      : '15px 15px 50px 0px #000'};
-
-  position: relative;
-  ${(props) => props.$isHiding && 'left: -105px;'}
-  width: 850px;
-  height: 480px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: box-shadow 1.3s ease-in-out;
-`;
-
-const PlayIcon = styled(Icon)`
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: scale(1.15);
-  }
-`;
+import { PlayIcon, Preview } from './styled';
+import { VideoPreviewProps } from './types';
 
 function VideoPreview({
   previewUrl,
@@ -51,6 +17,8 @@ function VideoPreview({
 }: VideoPreviewProps) {
   const [playerOpened, setPlayerOpened] = useState(false);
 
+  const theme = useTheme();
+
   return (
     <>
       <AnimatePresence>
@@ -58,8 +26,8 @@ function VideoPreview({
           <ModalPortal isFixed>
             <CloseIcon
               onClick={() => setPlayerOpened(false)}
-              lineColor={'#DBDBDB'}
-              bgColor={'#D9D9D9'}
+              lineColor={theme.closeIconVideoModalColor}
+              bgColor={theme.closeIconVideoModalBgColor}
             />
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
@@ -98,4 +66,4 @@ function VideoPreview({
   );
 }
 
-export default VideoPreview;
+export default memo(VideoPreview);

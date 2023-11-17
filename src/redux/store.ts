@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import theme from 'redux/slices/ThemeSlice';
 import movie from 'redux/slices/MovieSlice';
+import theme from 'redux/slices/ThemeSlice';
 import ticket from 'redux/slices/TicketSlice';
 
 export const store = configureStore({
