@@ -149,15 +149,15 @@ function Film() {
               />
             </TrailerBlock>
             <ReviewsBlock>
-              {movie?.reviews?.map((review) => (
+              {movie?.reviews?.map(({ id, author, description }) => (
                 <Review
                   title={t('review_title')}
                   fromLabel={t('from_text')}
                   showMoreLabel={t('read_more_text')}
                   bgColor={backgroundColors.review}
-                  key={review.id}
-                  author={review.author}
-                  text={review.description}
+                  key={id}
+                  author={author}
+                  text={description}
                 />
               ))}
             </ReviewsBlock>
