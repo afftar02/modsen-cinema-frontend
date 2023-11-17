@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { PATHS } from 'constants/Paths';
+import { PATHS } from 'constants/paths';
 import Bookings from 'pages/Bookings';
 import Film from 'pages/Film';
 import Main from 'pages/Main';

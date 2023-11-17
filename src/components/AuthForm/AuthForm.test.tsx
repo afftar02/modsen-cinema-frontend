@@ -7,7 +7,7 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { AuthContextType } from 'auth/types';
-import { THEMES } from 'constants/Themes';
+import { THEMES } from 'constants/themes';
 import { ThemeProvider } from 'styled-components';
 
 import '@testing-library/jest-dom';
@@ -46,7 +46,7 @@ jest.mock('react-i18next', () => ({
     },
   }),
 }));
-jest.mock('constants/BaseApiUrl', () => ({
+jest.mock('constants/baseApiUrl', () => ({
   FACEBOOK_AUTH_URL: 'fakeFacebookUrl',
   GITHUB_AUTH_URL: 'fakeGithubUrl',
   GOOGLE_AUTH_URL: 'fakeGoogleUrl',

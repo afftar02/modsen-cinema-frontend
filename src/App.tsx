@@ -1,5 +1,5 @@
 import Auth from 'auth/Auth';
-import { THEMES } from 'constants/Themes';
+import { THEMES } from 'constants/themes';
 import { AnimatePresence } from 'framer-motion';
 import Wrapper from 'pages/Wrapper';
 import { useAppSelector } from 'redux/hooks';

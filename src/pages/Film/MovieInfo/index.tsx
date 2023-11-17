@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
 import { Button, Icon } from 'modsen-library';
 
 import {

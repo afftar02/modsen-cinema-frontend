@@ -5,7 +5,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import { THEMES } from 'constants/Themes';
+import { THEMES } from 'constants/themes';
 import { ThemeProvider } from 'styled-components';
 
 import '@testing-library/jest-dom';

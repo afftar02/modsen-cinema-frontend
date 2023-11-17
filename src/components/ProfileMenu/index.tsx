@@ -2,7 +2,7 @@ import { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'auth/Auth';
 import { AuthContextType } from 'auth/types';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
 import { AnimatePresence } from 'framer-motion';
 import useWindowDimensions from 'hooks/useWindowDimensions';
 import { Icon } from 'modsen-library';

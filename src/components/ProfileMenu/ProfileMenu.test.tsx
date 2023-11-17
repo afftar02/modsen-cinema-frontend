@@ -6,7 +6,7 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { AuthContext } from 'auth/Auth';
-import { THEMES } from 'constants/Themes';
+import { THEMES } from 'constants/themes';
 import { ThemeProvider } from 'styled-components';
 
 import '@testing-library/jest-dom';

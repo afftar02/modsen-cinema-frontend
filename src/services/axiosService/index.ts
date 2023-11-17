@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { BASE_URL } from 'constants/BaseApiUrl';
+import { BASE_URL } from 'constants/baseApiUrl';
 
 import { RequestParams } from './types';
 

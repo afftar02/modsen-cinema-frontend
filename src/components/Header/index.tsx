@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useAuth } from 'auth/Auth';
 import { AuthContextType } from 'auth/types';
-import { PATHS } from 'constants/Paths';
+import { PATHS } from 'constants/paths';
 import { AnimatePresence } from 'framer-motion';
 import { Button, Icon } from 'modsen-library';
 import { useTheme } from 'styled-components';

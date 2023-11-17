@@ -8,8 +8,8 @@ import {
   FACEBOOK_AUTH_URL,
   GITHUB_AUTH_URL,
   GOOGLE_AUTH_URL,
-} from 'constants/BaseApiUrl';
-import { PATHS } from 'constants/Paths';
+} from 'constants/baseApiUrl';
+import { PATHS } from 'constants/paths';
 import { useFormik } from 'formik';
 import { validateLogin } from 'helpers/ValidateLogin';
 import { validateRegistration } from 'helpers/ValidateRegistration';

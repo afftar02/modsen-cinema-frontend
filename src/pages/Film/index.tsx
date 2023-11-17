@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
 import { Icon, Review } from 'modsen-library';
 import Vibrant from 'node-vibrant/lib/bundle';
 import { useAppSelector } from 'redux/hooks';

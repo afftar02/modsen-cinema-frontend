@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PATHS } from 'constants/Paths';
+import { PATHS } from 'constants/paths';
 
 import { StyledLink } from './styled';
 import { NavigationProps } from './types';

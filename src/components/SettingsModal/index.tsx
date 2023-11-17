@@ -1,7 +1,7 @@
 import { memo, useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LANGUAGES } from 'constants/Languages';
-import { THEMES } from 'constants/Themes';
+import { LANGUAGES } from 'constants/languages';
+import { THEMES } from 'constants/themes';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { RadioButton } from 'modsen-library';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';

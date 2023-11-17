@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FOOTER_COLUMNS } from 'constants/FooterColumns';
+import { FOOTER_COLUMNS } from 'constants/footerColumns';
 import { Icon } from 'modsen-library';
 import { useTheme } from 'styled-components';
 

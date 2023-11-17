@@ -6,7 +6,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import { THEMES } from 'constants/Themes';
+import { THEMES } from 'constants/themes';
 import configureStore from 'redux-mock-store';
 import { ThemeProvider } from 'styled-components';
 

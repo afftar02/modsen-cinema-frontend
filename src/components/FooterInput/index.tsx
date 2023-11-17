@@ -1,12 +1,12 @@
 import { KeyboardEvent, memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { init, send } from '@emailjs/browser';
-import { EMAIL_REG_EXP } from 'constants/EmailRegExp';
+import { EMAIL_REG_EXP } from 'constants/emailRegExp';
 import {
   EMAIL_PUBLIC_KEY,
   EMAIL_SERVICE_ID,
   EMAIL_TEMPLATE_ID,
-} from 'constants/EmailService';
+} from 'constants/emailService';
 import { useTheme } from 'styled-components';
 
 import { InputWrapper, StyledIcon, StyledInput } from './styled';

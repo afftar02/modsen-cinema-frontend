@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
 import useWindowDimensions from 'hooks/useWindowDimensions';
 import { VerticalCarousel } from 'modsen-library';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';

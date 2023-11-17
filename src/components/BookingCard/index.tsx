@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BASE_UPLOADS_URL } from 'constants/BaseApiUrl';
+import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
 import { useTicketDate } from 'hooks/useTicketDate';
 import { useTicketPrice } from 'hooks/useTicketPrice';
 import { Icon } from 'modsen-library';
