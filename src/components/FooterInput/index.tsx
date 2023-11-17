@@ -1,6 +1,7 @@
 import { KeyboardEvent, memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { init, send } from '@emailjs/browser';
+import { EMAIL_REG_EXP } from 'constants/EmailRegExp';
 import * as process from 'process';
 import { useTheme } from 'styled-components';
 
@@ -13,7 +14,7 @@ function FooterInput() {
   const theme = useTheme();
 
   const handleSubmit = async () => {
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+    if (!EMAIL_REG_EXP.test(value)) {
       alert(t('invalid_email'));
       return;
     }
