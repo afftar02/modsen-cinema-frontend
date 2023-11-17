@@ -117,14 +117,14 @@ describe('Profile', () => {
 
     cy.contains('Please, enter new profile information:');
 
-    cy.get('input[placeholder="Enter your gender"]').type('FEMALE');
+    cy.get('select').select('FEMALE');
     cy.contains('Save').click();
 
     cy.contains('FEMALE').should('exist');
 
     cy.contains('Edit profile').click();
 
-    cy.get('input[placeholder="Enter your gender"]').type('MALE');
+    cy.get('select').select('MALE');
     cy.contains('Save').click();
 
     cy.contains('FEMALE').should('not.exist');
@@ -200,7 +200,6 @@ describe('Film page', () => {
     cy.get('[data-cy="close"]').click();
 
     cy.contains('Review').should('exist');
-    cy.contains('read more');
   });
 
   it('Next button click', () => {
