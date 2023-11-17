@@ -3,13 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from 'auth/Auth';
 import { AuthContextType } from 'auth/types';
 import { useFormik } from 'formik';
+import { editProfile } from 'helpers/EditProfile';
 import { validateEditProfile } from 'helpers/ValidateEditProfile';
 import { useClickOutside } from 'hooks/useClickOutside';
 import { FileInput, Input, PasswordInput } from 'modsen-library';
-import { uploadAvatar } from 'services/avatarService';
-import { updateUser } from 'services/userService';
 import { useTheme } from 'styled-components';
-import { UserType } from 'types/User';
 
 import CloseIcon from 'components/CloseIcon';
 import ErrorBoundary from 'components/ErrorBoundary';
@@ -40,7 +38,7 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
     validate: (values) => validateEditProfile(values, t),
     validateOnChange: false,
     onSubmit: async () => {
-      await handleProfileEdit();
+      await editProfile(formik.values, loadUser, t, avatar);
       onClose();
     },
   });
@@ -54,34 +52,6 @@ function EditProfileModal({ onClose }: EditProfileFormProps) {
     },
     []
   );
-
-  const handleProfileEdit = useCallback(async () => {
-    try {
-      if (avatar) {
-        await uploadAvatar(avatar);
-      }
-      const editedData: Partial<UserType> = {};
-      if (formik.values.name) {
-        editedData.name = formik.values.name;
-      }
-      if (formik.values.surname) {
-        editedData.surname = formik.values.surname;
-      }
-      if (formik.values.gender) {
-        editedData.gender = formik.values.gender;
-      }
-      if (formik.values.password) {
-        editedData.password = formik.values.password;
-      }
-      if (JSON.stringify(editedData) !== JSON.stringify({})) {
-        await updateUser(editedData);
-      }
-      await loadUser();
-    } catch (err) {
-      alert(t('loading_error'));
-      await loadUser();
-    }
-  }, [t, avatar, formik, loadUser]);
 
   return (
     <ModalPortal isFixed>
