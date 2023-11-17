@@ -11,8 +11,8 @@ import {
 } from 'constants/baseApiUrl';
 import { PATHS } from 'constants/paths';
 import { useFormik } from 'formik';
-import { validateLogin } from 'helpers/ValidateLogin';
-import { validateRegistration } from 'helpers/ValidateRegistration';
+import { validateLogin } from 'helpers/validateLogin';
+import { validateRegistration } from 'helpers/validateRegistration';
 import { useClickOutside } from 'hooks/useClickOutside';
 import {
   FacebookAuthButton,

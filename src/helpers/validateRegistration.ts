@@ -1,5 +1,5 @@
 import * as Formik from 'formik';
-import { validateLogin } from 'helpers/ValidateLogin';
+import { validateLogin } from 'helpers/validateLogin';
 import { TFunction } from 'i18next';
 
 interface Values {
