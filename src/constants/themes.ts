@@ -1,4 +1,4 @@
-import { ThemeVariantsType } from 'types/ThemeVariants';
+import { ThemeVariantsType } from 'types/themeVariants';
 
 export const THEMES: ThemeVariantsType = {
   Dark: {

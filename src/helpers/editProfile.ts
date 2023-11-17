@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 import { uploadAvatar } from 'services/avatarService';
 import { updateUser } from 'services/userService';
-import { UserType } from 'types/User';
+import { UserType } from 'types/user';
 
 interface Values {
   name: string;

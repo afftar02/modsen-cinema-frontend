@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { TicketType } from 'types/Ticket';
+import { TicketType } from 'types/ticket';
 
 export function useTicketDate(ticket: TicketType) {
   const { t } = useTranslation();

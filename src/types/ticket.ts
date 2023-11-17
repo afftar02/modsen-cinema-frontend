@@ -1,6 +1,6 @@
-import { MovieType } from 'types/Movie';
-import { SeatType } from 'types/Seat';
-import { SessionType } from 'types/Session';
+import { MovieType } from 'types/movie';
+import { SeatType } from 'types/seat';
+import { SessionType } from 'types/session';
 
 export type TicketType = {
   id: number;

@@ -1,9 +1,9 @@
-import { ActorType } from 'types/Actor';
-import { CountryType } from 'types/Country';
-import { GenreType } from 'types/Genre';
-import { ImageType } from 'types/Image';
-import { ReviewType } from 'types/Review';
-import { TrailerType } from 'types/Trailer';
+import { ActorType } from 'types/actor';
+import { CountryType } from 'types/country';
+import { GenreType } from 'types/genre';
+import { ImageType } from 'types/image';
+import { ReviewType } from 'types/review';
+import { TrailerType } from 'types/trailer';
 
 export type MovieType = {
   id: number;

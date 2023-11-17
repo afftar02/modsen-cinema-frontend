@@ -11,8 +11,8 @@ import { CinemaHall, HorizontalCarousel, Session } from 'modsen-library';
 import { getSeats } from 'services/seatService';
 import { getSessions } from 'services/sessionService';
 import { createTicket } from 'services/ticketService';
-import { SeatType } from 'types/Seat';
-import { SessionType } from 'types/Session';
+import { SeatType } from 'types/seat';
+import { SessionType } from 'types/session';
 
 import {
   ActionContainer,

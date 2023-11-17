@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { loginUser, registerUser } from 'services/authService';
 import { getCurrentUser } from 'services/userService';
-import { UserType } from 'types/User';
+import { UserType } from 'types/user';
 
 import {
   AuthContextType,

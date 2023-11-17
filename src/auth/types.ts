@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { UserType } from 'types/User';
+import { UserType } from 'types/user';
 
 export type AuthProps = {
   children: ReactNode;

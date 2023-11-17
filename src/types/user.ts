@@ -1,4 +1,4 @@
-import { ImageType } from 'types/Image';
+import { ImageType } from 'types/image';
 
 export type UserType = {
   id: string;

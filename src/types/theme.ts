@@ -1,4 +1,4 @@
-import { ThemeValueType } from 'types/ThemeValue';
+import { ThemeValueType } from 'types/themeValue';
 
 export type Theme = {
   value: ThemeValueType;

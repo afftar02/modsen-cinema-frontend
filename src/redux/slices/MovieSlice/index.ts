@@ -1,5 +1,5 @@
 import * as reduxToolkit from '@reduxjs/toolkit';
-import { MovieType } from 'types/Movie';
+import { MovieType } from 'types/movie';
 
 interface MovieState {
   movies: MovieType[];

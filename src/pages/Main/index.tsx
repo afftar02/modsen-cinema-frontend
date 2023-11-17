@@ -9,7 +9,7 @@ import { selectMovies } from 'redux/selectors/movie';
 import { getMovies } from 'redux/thunks/movie';
 import { getMovie } from 'services/movieService';
 import { useTheme } from 'styled-components';
-import { MovieType } from 'types/Movie';
+import { MovieType } from 'types/movie';
 
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';

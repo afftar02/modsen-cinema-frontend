@@ -1,4 +1,4 @@
-import { TicketType } from 'types/Ticket';
+import { TicketType } from 'types/ticket';
 
 export type BookingCardProps = {
   ticket: TicketType;

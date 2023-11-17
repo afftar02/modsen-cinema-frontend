@@ -1,5 +1,5 @@
 import { request } from 'services/axiosService';
-import { TokensType } from 'types/Tokens';
+import { TokensType } from 'types/tokens';
 
 import { LoginUserParams, RegisterUserParams } from './types';
 

@@ -1,4 +1,4 @@
-import { TicketType } from 'types/Ticket';
+import { TicketType } from 'types/ticket';
 
 export function useTicketPrice(ticket: TicketType) {
   if (ticket.seats) {

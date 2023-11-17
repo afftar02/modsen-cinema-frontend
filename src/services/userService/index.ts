@@ -1,5 +1,5 @@
 import { request } from 'services/axiosService';
-import { UserType } from 'types/User';
+import { UserType } from 'types/user';
 
 export const getCurrentUser = async () => {
   const { data } = await request<UserType>({ url: '/person' });
