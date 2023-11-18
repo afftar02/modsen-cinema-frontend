@@ -153,6 +153,7 @@ function Film() {
                 <Review
                   title={t('review_title')}
                   fromLabel={t('from_text')}
+                  hideLabel={t('hide_text')}
                   showMoreLabel={t('read_more_text')}
                   bgColor={backgroundColors.review}
                   key={id}
