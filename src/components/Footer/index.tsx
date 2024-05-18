@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FOOTER_COLUMNS } from 'constants/footerColumns';
-import { Icon } from 'modsen-library';
 import { useTheme } from 'styled-components';
 
 import FooterInput from 'components/FooterInput';
+import Icon from 'components/Icon';
 
 import {
   Column,

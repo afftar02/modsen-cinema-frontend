@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
-import { Button, Icon } from 'modsen-library';
+
+import Button from 'components/Button';
+import Icon from 'components/Icon';
 
 import {
   BookingBlock,

@@ -1,5 +1,6 @@
-import { Button } from 'modsen-library';
 import { styled } from 'styled-components';
+
+import Button from 'components/Button';
 
 export const Wrapper = styled.div`
   position: relative;

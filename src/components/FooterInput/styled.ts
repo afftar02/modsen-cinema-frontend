@@ -1,5 +1,6 @@
-import { Icon } from 'modsen-library';
 import { styled } from 'styled-components';
+
+import Icon from 'components/Icon';
 
 export const InputWrapper = styled.div`
   position: relative;

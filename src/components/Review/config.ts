@@ -1,0 +1,2 @@
+export const DEFAULT_HEIGHT = 217;
+export const TEXT_OVERFLOW_COEFFICIENT = 2;

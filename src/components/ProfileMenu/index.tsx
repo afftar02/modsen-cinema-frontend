@@ -5,12 +5,12 @@ import { AuthContextType } from 'auth/types';
 import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
 import { AnimatePresence } from 'framer-motion';
 import useWindowDimensions from 'hooks/useWindowDimensions';
-import { Icon } from 'modsen-library';
 import { useTheme } from 'styled-components';
 
 import EditProfileModal from 'components/EditProfileModal';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import Icon from 'components/Icon';
 import SettingsModal from 'components/SettingsModal';
 
 import {

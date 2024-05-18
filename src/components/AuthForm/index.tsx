@@ -14,19 +14,17 @@ import { useFormik } from 'formik';
 import { validateLogin } from 'helpers/validateLogin';
 import { validateRegistration } from 'helpers/validateRegistration';
 import { useClickOutside } from 'hooks/useClickOutside';
-import {
-  FacebookAuthButton,
-  GitHubAuthButton,
-  GoogleAuthButton,
-  Input,
-  PasswordInput,
-} from 'modsen-library';
 import { useTheme } from 'styled-components';
 
 import CloseIcon from 'components/CloseIcon';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import FacebookAuthButton from 'components/FacebookAuthButtton';
+import GitHubAuthButton from 'components/GitHubAuthButton';
+import GoogleAuthButton from 'components/GoogleAuthButton';
+import Input from 'components/Input';
 import ModalPortal from 'components/ModalPortal';
+import PasswordInput from 'components/PasswordInput';
 
 import {
   AuthButtonsContainer,

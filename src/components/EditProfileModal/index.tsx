@@ -6,14 +6,16 @@ import { useFormik } from 'formik';
 import { editProfile } from 'helpers/editProfile';
 import { validateEditProfile } from 'helpers/validateEditProfile';
 import { useClickOutside } from 'hooks/useClickOutside';
-import { FileInput, Input, PasswordInput } from 'modsen-library';
 import { useTheme } from 'styled-components';
 
 import CloseIcon from 'components/CloseIcon';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import FileInput from 'components/FileInput';
 import GenderSelect from 'components/GenderSelect';
+import Input from 'components/Input';
 import ModalPortal from 'components/ModalPortal';
+import PasswordInput from 'components/PasswordInput';
 
 import { Modal, StyledForm, SubmitButton, TextBlock } from './styled';
 import { EditProfileFormProps } from './types';

@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
 import { useTicketDate } from 'hooks/useTicketDate';
 import { useTicketPrice } from 'hooks/useTicketPrice';
-import { Icon } from 'modsen-library';
+
+import Icon from 'components/Icon';
 
 import {
   AdditionalInfoBlock,

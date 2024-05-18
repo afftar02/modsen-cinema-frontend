@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
-import { Icon, Review } from 'modsen-library';
 import Vibrant from 'node-vibrant/lib/bundle';
 import { useAppSelector } from 'redux/hooks';
 import { selectMovies } from 'redux/selectors/movie';
@@ -14,6 +13,8 @@ import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import Icon from 'components/Icon';
+import Review from 'components/Review';
 
 import MovieBooking from './MovieBooking';
 import MovieInfo from './MovieInfo';

@@ -1,10 +1,10 @@
 import { memo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { VideoPlayer } from 'modsen-library';
 import { useTheme } from 'styled-components';
 
 import CloseIcon from 'components/CloseIcon';
 import ModalPortal from 'components/ModalPortal';
+import VideoPlayer from 'components/VideoPlayer';
 
 import { PlayIcon, Preview } from './styled';
 import { VideoPreviewProps } from './types';

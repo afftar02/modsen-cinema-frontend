@@ -1,5 +1,6 @@
-import { Icon } from 'modsen-library';
 import { styled } from 'styled-components';
+
+import Icon from 'components/Icon';
 
 export const StyledIcon = styled(Icon)`
   position: absolute;
