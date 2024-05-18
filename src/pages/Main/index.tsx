@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 import { BASE_UPLOADS_URL } from 'constants/baseApiUrl';
 import useWindowDimensions from 'hooks/useWindowDimensions';
-import { VerticalCarousel } from 'modsen-library';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { selectMovies } from 'redux/selectors/movie';
 import { getMovies } from 'redux/thunks/movie';
@@ -14,6 +13,7 @@ import { MovieType } from 'types/movie';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import Header from 'components/Header';
+import VerticalCarousel from 'components/VerticalCarousel';
 
 import {
   CurrentMoviesContainer,

@@ -7,12 +7,15 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CinemaHall, HorizontalCarousel, Session } from 'modsen-library';
 import { getSeats } from 'services/seatService';
 import { getSessions } from 'services/sessionService';
 import { createTicket } from 'services/ticketService';
 import { SeatType } from 'types/seat';
 import { SessionType } from 'types/session';
+
+import CinemaHall from 'components/CinemaHall';
+import HorizontalCarousel from 'components/HorizontalCarousel';
+import Session from 'components/Session';
 
 import {
   ActionContainer,

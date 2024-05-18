@@ -5,11 +5,12 @@ import { useAuth } from 'auth/Auth';
 import { AuthContextType } from 'auth/types';
 import { PATHS } from 'constants/paths';
 import { AnimatePresence } from 'framer-motion';
-import { Button, Icon } from 'modsen-library';
 import { useTheme } from 'styled-components';
 
+import Button from 'components/Button';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import Icon from 'components/Icon';
 import ProfileMenu from 'components/ProfileMenu';
 import SettingsModal from 'components/SettingsModal';
 

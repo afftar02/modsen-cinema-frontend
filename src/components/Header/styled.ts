@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Button, Icon } from 'modsen-library';
 import { styled } from 'styled-components';
 
+import Button from 'components/Button';
+import Icon from 'components/Icon';
 import Navigation from 'components/Navigation';
 
 export const StyledHeader = styled.header`

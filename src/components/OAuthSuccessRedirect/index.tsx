@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from 'auth/Auth';
 import { AuthContextType } from 'auth/types';
-import { Icon } from 'modsen-library';
+
+import Icon from 'components/Icon';
 
 import { Container, StyledText } from './styled';
 

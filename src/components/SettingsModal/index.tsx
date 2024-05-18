@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { LANGUAGES } from 'constants/languages';
 import { THEMES } from 'constants/themes';
 import { useClickOutside } from 'hooks/useClickOutside';
-import { RadioButton } from 'modsen-library';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { selectThemeValue } from 'redux/selectors/theme';
 import { changeTheme } from 'redux/slices/ThemeSlice';
@@ -13,6 +12,7 @@ import CloseIcon from 'components/CloseIcon';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ErrorFallback from 'components/ErrorFallback';
 import ModalPortal from 'components/ModalPortal';
+import RadioButton from 'components/RadioButton';
 
 import {
   ApplyButton,

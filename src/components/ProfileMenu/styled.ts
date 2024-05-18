@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { Icon } from 'modsen-library';
 import { styled } from 'styled-components';
+
+import Icon from 'components/Icon';
 
 export const Wrapper = styled(motion.div)`
   position: absolute;

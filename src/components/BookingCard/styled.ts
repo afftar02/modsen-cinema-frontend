@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Icon } from 'modsen-library';
 import { styled } from 'styled-components';
+
+import Icon from 'components/Icon';
 
 export const CardContainer = styled(motion.div)`
   display: flex;
