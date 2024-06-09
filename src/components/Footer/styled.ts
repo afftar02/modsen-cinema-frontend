@@ -2,31 +2,15 @@ import { styled } from 'styled-components';
 
 export const FooterWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 60px;
+  justify-content: space-between;
+  padding: 40px 85px 60px 85px;
 
-  @media (max-width: 1400px) {
+  @media (max-width: 800px) {
     flex-direction: column;
-    align-items: center;
+    align-items: center;  
+    gap: 20px;
+    padding: 40px 30px 60px 30px;
   }
-`;
-
-export const ColumnsContainer = styled.div`
-  margin-left: 170px;
-  display: flex;
-  gap: 38px;
-
-  @media (max-width: 1400px) {
-    margin: 40px 0 0;
-  }
-  @media (max-width: 1050px) {
-    flex-direction: column;
-  }
-`;
-
-export const Column = styled.div`
-  width: 175px;
 `;
 
 export const ColumnTitle = styled.span`
@@ -36,27 +20,6 @@ export const ColumnTitle = styled.span`
   font-weight: 700;
   line-height: 24px;
   letter-spacing: 0.1px;
-`;
-
-export const ColumnList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-`;
-
-export const ListItemText = styled.span`
-  color: ${(props) => props.theme.color};
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  cursor: pointer;
-  transition: opacity 0.1s ease-in-out;
-
-  &:hover {
-    opacity: 0.7;
-  }
 `;
 
 export const FooterInputBlock = styled.div`

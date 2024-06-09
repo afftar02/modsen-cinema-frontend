@@ -35,6 +35,5 @@ describe('Footer', () => {
         'Join our newsletter to stay up to date on features and releases'
       )
     ).toBeInTheDocument();
-    expect(screen.getByText('First column')).toBeInTheDocument();
   });
 });
